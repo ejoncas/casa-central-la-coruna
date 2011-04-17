@@ -17,6 +17,10 @@ public class XMLParser {
 	private XStream xs = null;
 	
 	private XMLParser(){
+		
+		/**
+		 * Initialization of XStream
+		 */
 		xs = new XStream();
 		
 		//PALC Aliases
