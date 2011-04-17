@@ -5,6 +5,8 @@ import uade.is2.beans.ArticuloHogar;
 import uade.is2.beans.ArticuloRopa;
 import uade.is2.beans.Envio;
 import uade.is2.beans.Pedido;
+import uade.is2.beans.xml.NuevoartHogar;
+import uade.is2.beans.xml.NuevoartRopa;
 import uade.is2.beans.xml.Ofad;
 import uade.is2.beans.xml.Palc;
 import uade.is2.beans.xml.Soldist;
@@ -27,11 +29,8 @@ public class XStreamTests extends TestCase{
 		palc.addPedido(132, 20);
 		palc.addPedido(200, 4);
 		
-		String xml = xs.toXML(palc);
-		
+		//String xml = xs.toXML(palc);
 		//System.out.println(xml);
-		
-		
 	}
 	
 	public void testOfad(){
@@ -101,8 +100,7 @@ public class XStreamTests extends TestCase{
 		o.addArticuloRopa(r1);
 		o.addArticuloRopa(r2);
 
-		String xml = xs.toXML(o);
-		
+		//String xml = xs.toXML(o);
 		//System.out.println(xml);
 	}
 	
@@ -119,8 +117,52 @@ public class XStreamTests extends TestCase{
 		sol.addEnvio(new Envio(5, 10, "123rfd"));
 		sol.addEnvio(new Envio(12, 40, "123t5yhgfre4"));
 		
-		String xml = xs.toXML(sol);
-		System.out.println(xml);
+		//String xml = xs.toXML(sol);
+		//System.out.println(xml);
 	}
+	
+	public void testNuevoArt(){
+		XStream xs = new XStream();
+		
+		xs.alias("nuevoart", NuevoartHogar.class);
+		xs.alias("nuevoart", NuevoartRopa.class);
+		
+		
+		ArticuloRopa r = new ArticuloRopa();
+		{
+			r.setReferencia(9697001);
+			r.setLinea("Basic");
+			r.setDescripcion("Alfombra de piel de vaca con patcrwork");
+			r.setTalle("L");
+			r.setColor("Blanco");
+			r.setSeccion("Mujer");
+			r.setPrecio(new Float(59));
+			r.setOrigen("Argentina");
+		}
+		ArticuloHogar h = new ArticuloHogar();
+		{
+			h.setReferencia(47071029);
+			h.setSeccion("Alfombra");
+			h.setNombre("Alfombra Havana");
+			h.setDescripcion("Alfombra de piel de vaca con patchwork");
+			h.setComposicion("100% Piel Bovina");
+			h.setMedidas("150x200cm");
+			h.setPrecio(new Float(399));
+			h.setColor("Unico");
+			h.setCategoria("Cama");
+			h.setLinea("Unica");
+		}
+		
+		NuevoartHogar artHogar = new NuevoartHogar(h);
+		
+		NuevoartRopa artRopa = new NuevoartRopa(r);
+		
+//		System.out.println("**HOGAR**");
+//		System.out.println(xs.toXML(artHogar));
+//		System.out.println("**ROPA**");
+//		System.out.println(xs.toXML(artRopa));
+	}
+	
+	
 
 }
