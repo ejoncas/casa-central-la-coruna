@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13030685056870" configfile="/CasaCentralUADE/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="faces/test" x="144" y="132" id="pf13030706087033" path="/faces/test.jsp"/>
+</pageflow:Pageflow>
