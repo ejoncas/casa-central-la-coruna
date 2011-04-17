@@ -10,6 +10,21 @@ public abstract class Articulo {
 	private String descripcion;
 	
 	
+	public Articulo(String color, String descripcion, String linea,
+			Float precio, Integer referencia, String seccion) {
+		super();
+		this.color = color;
+		this.descripcion = descripcion;
+		this.linea = linea;
+		this.precio = precio;
+		this.referencia = referencia;
+		this.seccion = seccion;
+	}
+	
+	public Articulo() {
+		super();
+	}
+
 	public Integer getReferencia() {
 		return referencia;
 	}
