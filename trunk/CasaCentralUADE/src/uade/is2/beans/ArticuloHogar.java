@@ -7,6 +7,22 @@ public class ArticuloHogar extends Articulo{
 	private String medidas;
 	private String categoria;
 	
+	
+	
+	public ArticuloHogar(String color, String descripcion, String linea,
+			Float precio, Integer referencia, String seccion, String categoria,
+			String composicion, String medidas, String nombre) {
+		super(color, descripcion, linea, precio, referencia, seccion);
+		this.categoria = categoria;
+		this.composicion = composicion;
+		this.medidas = medidas;
+		this.nombre = nombre;
+	}
+	
+	public ArticuloHogar() {
+		super();
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
