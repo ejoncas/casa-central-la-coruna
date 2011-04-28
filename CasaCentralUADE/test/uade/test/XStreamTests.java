@@ -29,8 +29,10 @@ public class XStreamTests extends TestCase{
 		palc.addPedido(132, 20);
 		palc.addPedido(200, 4);
 		
-		//String xml = xs.toXML(palc);
-		//System.out.println(xml);
+		String xml = xs.toXML(palc);
+		System.out.println("**PALC**");
+		System.out.println(xml);
+		System.out.println();
 	}
 	
 	public void testOfad(){
@@ -73,8 +75,8 @@ public class XStreamTests extends TestCase{
 		{
 			h2.setReferencia(47071029);
 			h2.setSeccion("Mueble");
-			h2.setNombre("Mueble Local");
-			h2.setDescripcion("Mueble re copado");
+			h2.setNombre("Mueble Tele");
+			h2.setDescripcion("Mueble para Tele");
 			h2.setComposicion("100% Madera");
 			h2.setMedidas("1502300cm");
 			h2.setPrecio(new Float(599));
@@ -87,7 +89,7 @@ public class XStreamTests extends TestCase{
 		{
 			r2.setReferencia(9697001);
 			r2.setLinea("Basic");
-			r2.setDescripcion("Remera re loca");
+			r2.setDescripcion("Remera Green");
 			r2.setTalle("M");
 			r2.setColor("Negro");
 			r2.setSeccion("Hombre");
@@ -100,8 +102,10 @@ public class XStreamTests extends TestCase{
 		o.addArticuloRopa(r1);
 		o.addArticuloRopa(r2);
 
-		//String xml = xs.toXML(o);
-		//System.out.println(xml);
+		String xml = xs.toXML(o);
+		System.out.println("**OFAD**");
+		System.out.println(xml);
+		System.out.println();
 	}
 	
 	public void testSoldist(){
@@ -113,12 +117,14 @@ public class XStreamTests extends TestCase{
 		xs.aliasField("id-tienda", Envio.class, "idTienda");
 		
 		Soldist sol = new Soldist();
-		sol.addEnvio(new Envio(2, 1, "2134rfdsa"));
-		sol.addEnvio(new Envio(5, 10, "123rfd"));
-		sol.addEnvio(new Envio(12, 40, "123t5yhgfre4"));
+		sol.addEnvio(new Envio(2, 1, "123456754"));
+		sol.addEnvio(new Envio(5, 10, "45676543"));
+		sol.addEnvio(new Envio(12, 40, "34567654"));
 		
-		//String xml = xs.toXML(sol);
-		//System.out.println(xml);
+		String xml = xs.toXML(sol);
+		System.out.println("**SOLDIST**");
+		System.out.println(xml);
+		System.out.println();
 	}
 	
 	public void testNuevoArt(){
@@ -157,12 +163,11 @@ public class XStreamTests extends TestCase{
 		
 		NuevoartRopa artRopa = new NuevoartRopa(r);
 		
-//		System.out.println("**HOGAR**");
-//		System.out.println(xs.toXML(artHogar));
-//		System.out.println("**ROPA**");
-//		System.out.println(xs.toXML(artRopa));
+		System.out.println("**NUEVO ART HOGAR**");
+		System.out.println(xs.toXML(artHogar));
+		System.out.println("**NUEVO ART ROPA**");
+		System.out.println(xs.toXML(artRopa));
+		System.out.println();
 	}
-	
-	
 
 }
