@@ -3,7 +3,7 @@ package uade.server.beans;
 
 import javax.persistence.Entity;
 
-import uade.server.bean.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloHogarDTO;
 
 @Entity
 public class ArticuloHogar extends Articulo{

@@ -2,7 +2,7 @@ package uade.server.beans;
 
 import javax.persistence.Entity;
 
-import uade.server.bean.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
 
 @Entity
 public class ArticuloRopa extends Articulo{

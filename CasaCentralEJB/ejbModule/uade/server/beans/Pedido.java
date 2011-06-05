@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import uade.server.bean.dto.PedidoDTO;
+import uade.server.beans.dto.PedidoDTO;
 
 @Entity
 public class Pedido{
@@ -14,11 +16,12 @@ public class Pedido{
 	@Id @GeneratedValue
 	private Long id;
 	
+	@OneToMany
 	private List<ItemPedido> items;
-	//Tienda que lo genero
-	private Tienda tienda;
-	//Centro de distribucion que lo va a repartir finalmente
-	private CentroDistribucion centroDeDistribucion;
+	@OneToOne
+	private Tienda tienda;//Tienda que lo genero
+	@OneToOne
+	private CentroDistribucion centroDeDistribucion;//Centro de distribucion que lo va a repartir finalmente
 	
 	public Pedido() {
 		super();

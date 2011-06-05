@@ -1,4 +1,4 @@
-package uade.server.bean.dto;
+package uade.server.beans.dto;
 
 import java.io.Serializable;
 

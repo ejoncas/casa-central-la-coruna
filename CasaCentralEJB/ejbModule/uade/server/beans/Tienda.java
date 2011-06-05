@@ -1,12 +1,20 @@
 package uade.server.beans;
 
-import uade.server.bean.dto.TiendaDTO;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+import uade.server.beans.dto.TiendaDTO;
+
+@Entity
 public class Tienda {
 
+	@Id @GeneratedValue
     private int id;
-    private float latitud;
-    private float longitud;
+    private double latitud;
+    private double longitud;
+    
+    public Tienda(){}
     
     public Tienda(TiendaDTO tienda) {
     	this.latitud = tienda.getLatitud();
@@ -18,16 +26,16 @@ public class Tienda {
     public void setId(int id) {
             this.id = id;
     }
-    public float getLatitud() {
+    public double getLatitud() {
             return latitud;
     }
-    public void setLatitud(float latitud) {
+    public void setLatitud(double latitud) {
             this.latitud = latitud;
     }
-    public float getLongitud() {
+    public double getLongitud() {
             return longitud;
     }
-    public void setLongitud(float longitud) {
+    public void setLongitud(double longitud) {
             this.longitud = longitud;
     }
     

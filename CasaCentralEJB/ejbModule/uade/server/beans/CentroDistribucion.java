@@ -10,26 +10,50 @@ public class CentroDistribucion {
 
 	@Id @GeneratedValue
     private int id;
-    private float latitud;
-    private float longitud;
+    private double latitud;
+    private double longitud;
+    private String nombre;
     
-    public int getId() {
+    
+    
+    public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public CentroDistribucion(double latitud, double longitud, String nombre) {
+		super();
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.nombre = nombre;
+	}
+    
+    public CentroDistribucion(){}
+	public int getId() {
             return id;
     }
     public void setId(int id) {
             this.id = id;
     }
-    public float getLatitud() {
+    public double getLatitud() {
             return latitud;
     }
-    public void setLatitud(float latitud) {
+    public void setLatitud(double latitud) {
             this.latitud = latitud;
     }
-    public float getLongitud() {
+    public double getLongitud() {
             return longitud;
     }
-    public void setLongitud(float longitud) {
+    public void setLongitud(double longitud) {
             this.longitud = longitud;
+    }
+    
+    @Override
+    public String toString(){
+    	return this.nombre;
     }
     
 }

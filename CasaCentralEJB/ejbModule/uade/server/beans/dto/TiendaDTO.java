@@ -1,13 +1,13 @@
-package uade.server.bean.dto;
+package uade.server.beans.dto;
 
 import java.io.Serializable;
 
-public class CentroDistribucionDTO  implements Serializable{
+public class TiendaDTO  implements Serializable{
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -7402204871108941972L;
+	private static final long serialVersionUID = 4826670371298380655L;
 	private int id;
     private float latitud;
     private float longitud;
@@ -30,5 +30,6 @@ public class CentroDistribucionDTO  implements Serializable{
     public void setLongitud(float longitud) {
             this.longitud = longitud;
     }
+    
     
 }

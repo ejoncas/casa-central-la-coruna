@@ -5,14 +5,14 @@ import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
 
-import uade.server.bean.dto.ArticuloHogarDTO;
-import uade.server.bean.dto.ArticuloRopaDTO;
-import uade.server.bean.dto.PedidoDTO;
-import uade.server.bean.dto.TiendaDTO;
 import uade.server.beans.ArticuloHogar;
 import uade.server.beans.ArticuloRopa;
 import uade.server.beans.Pedido;
 import uade.server.beans.Tienda;
+import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.TiendaDTO;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
 import uade.server.modules.OfadAdministrator;
@@ -63,6 +63,10 @@ public class CasaCentralBean implements CasaCentral{
 		
 		Pedido p = new Pedido(pedido);
 		p.setTienda(new Tienda(tienda));
+		
+		//Definir el Centro de distribucion
+		
+		p.setCentroDeDistribucion(null);
 		palcAdministrator.ingresarPedido(p);
 		
 	}
