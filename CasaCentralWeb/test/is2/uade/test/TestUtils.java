@@ -1,7 +1,7 @@
 package is2.uade.test;
 
-import uade.server.bean.dto.ArticuloHogarDTO;
-import uade.server.bean.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
 
 public class TestUtils {
 

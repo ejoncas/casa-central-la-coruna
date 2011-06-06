@@ -3,7 +3,7 @@ package uade.web.xml;
 import java.util.ArrayList;
 import java.util.List;
 
-import uade.server.bean.dto.PedidoDTO;
+import uade.server.beans.dto.PedidoDTO;
 
 public class Palc {
 	

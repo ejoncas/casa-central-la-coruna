@@ -3,7 +3,7 @@ package uade.web.xml;
 import java.util.ArrayList;
 import java.util.List;
 
-import uade.server.bean.dto.EnvioDTO;
+import uade.server.beans.dto.EnvioDTO;
 
 public class Soldist {
 	

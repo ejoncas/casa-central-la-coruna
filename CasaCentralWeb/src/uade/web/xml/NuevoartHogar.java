@@ -1,6 +1,6 @@
 package uade.web.xml;
 
-import uade.server.bean.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloHogarDTO;
 
 public class NuevoartHogar {
 	

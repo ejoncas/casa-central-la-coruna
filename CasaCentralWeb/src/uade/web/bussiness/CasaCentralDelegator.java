@@ -9,10 +9,10 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import uade.server.CasaCentral;
-import uade.server.bean.dto.ArticuloHogarDTO;
-import uade.server.bean.dto.ArticuloRopaDTO;
-import uade.server.bean.dto.PedidoDTO;
-import uade.server.bean.dto.TiendaDTO;
+import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.TiendaDTO;
 import uade.server.exception.CasaCentralException;
 import uade.web.exception.WebApplicationException;
 

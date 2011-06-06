@@ -1,9 +1,9 @@
 package uade.web.xml.util;
 
-import uade.server.bean.dto.ArticuloHogarDTO;
-import uade.server.bean.dto.ArticuloRopaDTO;
-import uade.server.bean.dto.EnvioDTO;
-import uade.server.bean.dto.PedidoDTO;
+import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.EnvioDTO;
+import uade.server.beans.dto.PedidoDTO;
 import uade.web.xml.NuevoartHogar;
 import uade.web.xml.NuevoartRopa;
 import uade.web.xml.Ofad;

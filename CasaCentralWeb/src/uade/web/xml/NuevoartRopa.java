@@ -1,6 +1,6 @@
 package uade.web.xml;
 
-import uade.server.bean.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
 
 
 public class NuevoartRopa {
