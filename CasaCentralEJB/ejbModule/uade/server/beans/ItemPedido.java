@@ -3,12 +3,14 @@ package uade.server.beans;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ItemPedido {
 
 	@Id @GeneratedValue
 	private Long id;
+	@OneToOne
 	private Articulo articulo;
 	private Integer cantidad;
 	

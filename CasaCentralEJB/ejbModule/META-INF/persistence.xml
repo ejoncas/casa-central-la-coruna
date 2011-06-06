@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence>
-	<persistence-unit name="AdministradorProductos">
+	<persistence-unit name="CasaCentral">
 		<jta-data-source>java:/MYSQLLOCAL</jta-data-source>
 		<properties>
 		<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> --> 
