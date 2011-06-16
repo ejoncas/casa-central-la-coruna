@@ -1,8 +1,10 @@
 package uade.server;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
-import uade.server.beans.Pedido;
+import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.PedidoDTO;
@@ -20,9 +22,9 @@ public interface CasaCentral {
 	/**
 	 * Nuevo Art Functionality Methods
 	 */
-	public void nuevoArtRopa(ArticuloRopaDTO art) throws CasaCentralException;
-	public void nuevoArtCasa(ArticuloHogarDTO art) throws CasaCentralException;
-	
+	public ArticuloRopaDTO nuevoArtRopa(ArticuloRopaDTO art) throws CasaCentralException;
+	public ArticuloHogarDTO nuevoArtCasa(ArticuloHogarDTO art) throws CasaCentralException;
+	public List<ArticuloDTO> obtenerArticulos() throws CasaCentralException;
 	
 	/**
 	 * Ofad Functionality Methods

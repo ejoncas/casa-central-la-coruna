@@ -1,9 +1,13 @@
 package uade.server.modules;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import uade.server.beans.Articulo;
 import uade.server.beans.ArticuloHogar;
 import uade.server.beans.ArticuloRopa;
 
@@ -19,6 +23,12 @@ public class NuevoArtAdministratorBean implements NuevoArtAdministrator{
 
 	public void nuevoArtRopa(ArticuloRopa ar) {
 		em.persist(ar);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Articulo> obtenerArticulos() {
+		 Query query = em.createQuery("SELECT a FROM Articulo a");
+		 return (List<Articulo>) query.getResultList();
 	}
 
 }

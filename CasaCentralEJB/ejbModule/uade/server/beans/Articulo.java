@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import uade.server.beans.dto.ArticuloDTO;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Articulo {
@@ -70,6 +72,8 @@ public abstract class Articulo {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}	
+	
+	public abstract ArticuloDTO getDTO();
 
 	
 }

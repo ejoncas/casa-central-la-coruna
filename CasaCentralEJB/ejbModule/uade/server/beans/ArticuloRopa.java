@@ -2,6 +2,8 @@ package uade.server.beans;
 
 import javax.persistence.Entity;
 
+import uade.server.beans.dto.ArticuloDTO;
+import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 
 @Entity
@@ -41,9 +43,20 @@ public class ArticuloRopa extends Articulo{
 	public void setOrigen(String origen) {
 		this.origen = origen;
 	}
-	
-	
-	
+	@Override
+	public ArticuloDTO getDTO() {
+		ArticuloRopaDTO dto = new ArticuloRopaDTO();
+		dto.setColor(getColor());
+		dto.setDescripcion(getDescripcion());
+		dto.setLinea(getLinea());
+		dto.setOrigen(getOrigen());
+		dto.setPrecio(getPrecio());
+		dto.setReferencia(getReferencia());
+		dto.setSeccion(getSeccion());
+		dto.setTalle(getTalle());
+		dto.setType(ArticuloHogarDTO.TYPE_ROPA);
+		return dto;
+	}
 	
 
 }

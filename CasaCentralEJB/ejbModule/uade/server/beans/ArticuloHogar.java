@@ -3,6 +3,7 @@ package uade.server.beans;
 
 import javax.persistence.Entity;
 
+import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 
 @Entity
@@ -67,6 +68,21 @@ public class ArticuloHogar extends Articulo{
 	}
 	
 	
+	public ArticuloDTO getDTO(){
+		ArticuloHogarDTO dto = new ArticuloHogarDTO();
+		dto.setCategoria(getCategoria());
+		dto.setColor(getColor());
+		dto.setComposicion(getComposicion());
+		dto.setDescripcion(getDescripcion());
+		dto.setLinea(getLinea());
+		dto.setMedidas(getMedidas());
+		dto.setNombre(getNombre());
+		dto.setPrecio(getPrecio());
+		dto.setReferencia(getReferencia());
+		dto.setSeccion(getSeccion());
+		dto.setType(ArticuloHogarDTO.TYPE_HOGAR);
+		return dto;
+	}
 	
 
 }

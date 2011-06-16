@@ -10,6 +10,11 @@ public abstract class ArticuloDTO implements Serializable{
 	private String color;
 	private String linea;
 	private String descripcion;
+	private String type;
+	
+	/* TYPES */
+	public static String TYPE_ROPA = "Ropa";
+	public static String TYPE_HOGAR = "Hogar";
 	
 	
 	public ArticuloDTO(String color, String descripcion, String linea,
@@ -62,7 +67,16 @@ public abstract class ArticuloDTO implements Serializable{
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}	
 
+	
 	
 }
