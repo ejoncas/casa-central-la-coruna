@@ -1,6 +1,7 @@
 package uade.web.bussiness;
 
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -9,6 +10,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import uade.server.CasaCentral;
+import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.PedidoDTO;
@@ -20,6 +22,8 @@ public class CasaCentralDelegator implements CasaCentral{
 
 	private CasaCentral casaCentral;
 	
+	private static CasaCentralDelegator instance; 
+	
 	
 	/**
 	 * Constructor work as service locator. It tries to obtain the instance
@@ -28,7 +32,7 @@ public class CasaCentralDelegator implements CasaCentral{
 	 * @property namin.url - Located at config.properties webapp file
 	 * @throws WebApplicationException
 	 */
-	public CasaCentralDelegator() throws WebApplicationException{
+	private CasaCentralDelegator() throws WebApplicationException{
 		try {
 			PropertiesConfiguration config = new PropertiesConfiguration("config.properties");
 			Hashtable<String, String> props = new Hashtable<String,String>();
@@ -44,22 +48,34 @@ public class CasaCentralDelegator implements CasaCentral{
 		}
 	}
 	
+	//Eager singleton
+	public static synchronized CasaCentralDelegator getInstance() throws WebApplicationException{
+		if(instance==null){
+			 instance = new CasaCentralDelegator();
+		}
+		return instance;
+	}
+	
 	
 	/**
 	 * Proxy for bussiness implementations
 	 */
-	public void nuevoArtCasa(ArticuloHogarDTO a) throws CasaCentralException {
-		casaCentral.nuevoArtCasa(a);
+	public ArticuloHogarDTO nuevoArtCasa(ArticuloHogarDTO a) throws CasaCentralException {
+		return casaCentral.nuevoArtCasa(a);
 	}
 
-	public void nuevoArtRopa(ArticuloRopaDTO a) throws CasaCentralException {
-		casaCentral.nuevoArtRopa(a);
+	public ArticuloRopaDTO nuevoArtRopa(ArticuloRopaDTO a) throws CasaCentralException {
+		return casaCentral.nuevoArtRopa(a);
 	}
 
 
 	public void ingresarPredido(PedidoDTO pedido, TiendaDTO tienda)
 			throws CasaCentralException {
 		casaCentral.ingresarPredido(pedido, tienda);
+	}
+
+	public List<ArticuloDTO> obtenerArticulos() throws CasaCentralException {
+		return casaCentral.obtenerArticulos();
 	}
 
 }
