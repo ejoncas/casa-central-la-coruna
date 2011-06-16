@@ -1,7 +1,7 @@
 body{
 	margin-top:20px;
 }
-a, input{
+a, input[type=button]{
 	cursor: pointer;
 }
 
