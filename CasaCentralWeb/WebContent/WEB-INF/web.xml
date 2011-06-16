@@ -18,4 +18,24 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxArticulo</display-name>
+    <servlet-name>AjaxArticulo</servlet-name>
+    <servlet-class>uade.web.servlets.AjaxArticulo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxArticulo</servlet-name>
+    <url-pattern>/AjaxArticulo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Articulos</display-name>
+    <servlet-name>Articulos</servlet-name>
+    <servlet-class>uade.web.servlets.Articulos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Articulos</servlet-name>
+    <url-pattern>/Articulos</url-pattern>
+  </servlet-mapping>
 </web-app>
