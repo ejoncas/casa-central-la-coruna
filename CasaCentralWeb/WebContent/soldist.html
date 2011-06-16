@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Zara</title>
+<LINK REL=StyleSheet HREF="styles/style.css" TYPE="text/css" MEDIA=screen/>
+<LINK REL=StyleSheet HREF="css/base/ui.css" TYPE="text/css"/>
+<script language="javascript" src="js/jq.js"></script>
+<script language="javascript" src="js/ui.js"></script>
+<script language="javascript" src="js/util.js"></script>
+<!-- JS INITIALIZATION CODE -->
+<script language="javascript">
+
+	$(document).ready(function (){
+		$("input:button").button();
+		$("input:submit").button();
+	});
+</script>
+</head>
+<body>
+<!-- DIV MAIN CONTENT -->
+<div class="main">
+	<div class="header center">
+		<img alt="zara logo" src="img/logo.png">
+		<div class="header-menu center">
+							<ul id="menu"> 
+				<li><a href="ofad.html" title="OFAD">Preparar Oferta</a></li> 
+				<li><a href="palc.html" title="PALC">Ingresar Pedido</a></li> 
+				<li><a href="soldist.html" title="SOLDIST">Solicitud de Distribuci&oacute;n</a></li> 
+				<li><a href="articulos.html" title="NUEVOART">Administrar Articulos</a></li> 
+			</ul>  
+		</div>
+	</div>
+	<div class="content center">
+		<!-- Content goes here -->
+		<h2>Generar Solicitud de Distribucion</h2>
+		<h3>Seleccione uno o mas Centros de Distribucion</h3>
+		<table  class="cd-table center">
+		<thead>
+		<tr>
+				<th>Identificador</th>
+				<th>Centro de Distribucion</th>
+				<th>Generar SolDist</th>
+		</tr>
+		</thead>
+		<tbody>
+					 <tr>
+					 		 <td>1</td>
+		 			 		 <td>Tortuguitas</td>
+		 			 		 <td><input type="checkbox"/></td>
+					 </tr>
+					 <tr>
+					 		 <td>2</td>
+		 			 		 <td>Unicenter</td>
+		 			 		 <td><input type="checkbox"/></td>
+					 </tr>
+					 <tr>
+					 		 <td>3</td>
+		 			 		 <td>Punta Carretas</td>
+		 			 		 <td><input type="checkbox"/></td>
+					 </tr>
+					 <tr>
+					 		 <td>4</td>
+		 			 		 <td>Motevideo Shopping</td>
+		 			 		 <td><input type="checkbox"/></td>
+					 </tr>
+					 <tr>
+					 		 <td>5</td>
+		 			 		 <td>Parque Arauco</td>
+		 			 		 <td><input type="checkbox"/></td>
+					 </tr>
+					 <tr>
+					 		 <td>6</td>
+		 			 		 <td>Marina Center</td>
+		 			 		 <td><input type="checkbox"/></td>
+					 </tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2"></td>
+				<td><input type="button" value="Generar!"/></td>
+			</tr>
+		</tfoot>
+		</table>
+		<br/>
+		<br/>
+	</div>
+</div>
+</body>
+</html>

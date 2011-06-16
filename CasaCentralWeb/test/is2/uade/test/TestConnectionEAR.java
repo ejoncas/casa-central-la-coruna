@@ -13,7 +13,7 @@ public class TestConnectionEAR{
 	@Test
 	public void testConnection(){
 		try {
-			CasaCentralDelegator bussinessDelegator = new CasaCentralDelegator();
+			CasaCentralDelegator bussinessDelegator = CasaCentralDelegator.getInstance();
 			
 			bussinessDelegator.nuevoArtCasa(TestUtils.getMockHogar());
 			bussinessDelegator.nuevoArtRopa(TestUtils.getMockRopa());
