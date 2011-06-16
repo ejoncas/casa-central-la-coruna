@@ -47,6 +47,8 @@ import uade.web.exception.WebApplicationException;
 				a.setTalle(request.getParameter("talle"));
 				
 				a = bussinesDelegator.nuevoArtRopa(a);
+				
+				//TODO - Generate Xml
 				msg = "Se ha cread el articulo de ropa. #REF "+a.getReferencia();
 			}else if("H".equalsIgnoreCase(type)){
 				//Type Hogar
@@ -64,6 +66,8 @@ import uade.web.exception.WebApplicationException;
 				a.setNombre(request.getParameter("nombre"));
 				
 				a = bussinesDelegator.nuevoArtCasa(a);
+				
+				//TODO - Generate Xml
 				msg = "Se ha cread el articulo de hogar. #REF "+a.getReferencia();
 			}else{
 				//unknown type
