@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="java.util.List"%>
 <%@page import="uade.server.beans.dto.ArticuloDTO"%>
+<%@page import="uade.web.servlets.AjaxArticulo"%>
 <html>
 <head>
 <title>Zara</title>
@@ -21,6 +22,36 @@
 		$("input:button").button();
 		$("input:submit").button();
 		$(".numeric").jStepper({minValue:0, maxValue:9999999, maxDecimals: 2});
+		
+		$(".delete-art").click(function(){
+			//TODO - eliminar articulo
+			var ref = $(this).attr("art-id")
+			 $.ajax({
+			      url: "AjaxArticulo",
+			   	  type: "POST",
+			      data: {
+			      	action: "<%= AjaxArticulo.ACTION_DEL%>",
+			      	referencia: ref 
+			      },
+			      success: function(msg){
+						jqAlert(msg,"Respuesta",function(){
+									      		window.location.reload()
+						});
+				  }
+			});
+		});
+		
+		$(".edit-art").click(function(){
+			//TODO -  Open popup and edit user
+			alert($(this).attr("art-id"));
+			alert($(this).attr("type"));
+			 $.ajax({
+			      url: "AjaxArticulo",
+			      //UPDATE
+			});
+		});
+		
+		
 		$("#button-alta").click(function(){
 			$("#dialog-alta-articulo").dialog({
 						modal: true,
@@ -33,6 +64,7 @@
 								      type: "POST",
 								      data: ({
 								      		//Ropa Fields
+								      		action: "<%= AjaxArticulo.ACTION_NEW%>",
 								      		type: "R",
 								      		linea: $("#ropa-linea").val(),
 								      		desc: $("#ropa-desc").val(),
@@ -147,8 +179,8 @@
 				<td><%=art.getPrecio() %></td>
 				<td><%=art.getType() %></td>
 				<td>
-					<img class="clickable" src="img/del.png">
-					<img class="clickable" src="img/edit.gif">
+					<img class="clickable delete-art" src="img/del.png" art-id="<%=art.getReferencia() %>">
+					<img class="clickable edit-art" src="img/edit.gif" art-id="<%=art.getReferencia() %>" type="<%=art.getType() %>">
 				</td>
 			</tr>
 			<%

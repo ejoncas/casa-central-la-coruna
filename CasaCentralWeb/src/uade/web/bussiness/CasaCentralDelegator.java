@@ -78,4 +78,8 @@ public class CasaCentralDelegator implements CasaCentral{
 		return casaCentral.obtenerArticulos();
 	}
 
+	public void eliminarArticulo(Long ref) throws CasaCentralException {
+		casaCentral.eliminarArticulo(ref);
+	}
+
 }
