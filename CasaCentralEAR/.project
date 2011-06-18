@@ -5,6 +5,7 @@
 	<projects>
 		<project>CasaCentralEJB</project>
 		<project>CasaCentralWeb</project>
+		<project>CasaCentralEAR</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
