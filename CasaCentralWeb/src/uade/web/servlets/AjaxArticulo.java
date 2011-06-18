@@ -1,6 +1,8 @@
 package uade.web.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,10 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
@@ -55,6 +56,13 @@ import uade.web.exception.WebApplicationException;
 					a.setSeccion(request.getParameter("seccion"));
 					a.setTalle(request.getParameter("talle"));
 					
+					String centros = request.getParameter("centros");
+					
+					List<CentroDistribucionDTO> centrosList = new ArrayList<CentroDistribucionDTO>();
+					for(String id : centros.split(",")){
+						centrosList.add(new CentroDistribucionDTO(Long.valueOf(id)));
+					}
+					a.setCentros(centrosList);
 					a = bussinesDelegator.nuevoArtRopa(a);
 					
 					//TODO - Generate Xml
@@ -73,6 +81,14 @@ import uade.web.exception.WebApplicationException;
 					a.setComposicion(request.getParameter("composicion"));
 					a.setMedidas(request.getParameter("medidas"));
 					a.setNombre(request.getParameter("nombre"));
+					
+					String centros = request.getParameter("centros");
+					
+					List<CentroDistribucionDTO> centrosList = new ArrayList<CentroDistribucionDTO>();
+					for(String id : centros.split(",")){
+						centrosList.add(new CentroDistribucionDTO(Long.valueOf(id)));
+					}
+					a.setCentros(centrosList);
 					
 					a = bussinesDelegator.nuevoArtCasa(a);
 					

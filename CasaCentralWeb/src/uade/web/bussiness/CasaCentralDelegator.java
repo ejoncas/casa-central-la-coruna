@@ -13,6 +13,7 @@ import uade.server.CasaCentral;
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.exception.CasaCentralException;
@@ -80,6 +81,15 @@ public class CasaCentralDelegator implements CasaCentral{
 
 	public void eliminarArticulo(Long ref) throws CasaCentralException {
 		casaCentral.eliminarArticulo(ref);
+	}
+
+	public List<CentroDistribucionDTO> obtenerCentrosDeDistribucion() throws CasaCentralException {
+		return casaCentral.obtenerCentrosDeDistribucion();
+	}
+
+	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro)
+			throws CasaCentralException {
+		casaCentral.nuevoCentroDeDistribucion(centro);
 	}
 
 }

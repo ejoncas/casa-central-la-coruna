@@ -4,6 +4,8 @@
 <%@page import="java.util.List"%>
 <%@page import="uade.server.beans.dto.ArticuloDTO"%>
 <%@page import="uade.web.servlets.AjaxArticulo"%>
+<%@page import="uade.server.beans.dto.CentroDistribucionDTO"%>
+<%@page import="java.util.ListIterator"%>
 <html>
 <head>
 <title>Zara</title>
@@ -24,7 +26,6 @@
 		$(".numeric").jStepper({minValue:0, maxValue:9999999, maxDecimals: 2});
 		
 		$(".delete-art").click(function(){
-			//TODO - eliminar articulo
 			var ref = $(this).attr("art-id")
 			 $.ajax({
 			      url: "AjaxArticulo",
@@ -41,24 +42,20 @@
 			});
 		});
 		
-		$(".edit-art").click(function(){
-			//TODO -  Open popup and edit user
-			alert($(this).attr("art-id"));
-			alert($(this).attr("type"));
-			 $.ajax({
-			      url: "AjaxArticulo",
-			      //UPDATE
-			});
-		});
-		
-		
 		$("#button-alta").click(function(){
 			$("#dialog-alta-articulo").dialog({
 						modal: true,
 						show: "blind",
-						width: 300,
+						width: 500,
 						buttons: {
 							Agregar: function() {
+								 var i = 0;
+								 var cds = new Array();
+								 $("#dialog-alta-articulo :checkbox[checked]").each(
+								 	function(){
+								 		cds[i++] = $(this).val();
+								 	}
+								 );
 								 $.ajax({
 								      url: "AjaxArticulo",
 								      type: "POST",
@@ -72,7 +69,8 @@
 								      		color: $("#ropa-color").val(),
 								      		seccion: $("#ropa-seccion").val(),
 								      		precio: $("#ropa-precio").val(),
-								      		origen: $("#ropa-origen").val()
+								      		origen: $("#ropa-origen").val(),
+								      		centros: cds.toString()
 								      }),
 								      dataType: "html",
 								      success: function(msg){
@@ -95,14 +93,22 @@
 			$("#dialog-alta-arthogar").dialog({
 							modal: true,
 							show: "blind",
-							width: 300,
+							width: 500,
 							buttons: {
 								Agregar: function() {
+								 var i = 0;
+								 var cds = new Array();
+								 $("#dialog-alta-arthogar :checkbox[checked]").each(
+								 	function(){
+								 		cds[i++] = $(this).val();
+								 	}
+								 );
 									$.ajax({
 								      	  url: "AjaxArticulo",
 									      type: "POST",
 									      data: ({
 									      		//Hogar Fields
+									      		action: "<%= AjaxArticulo.ACTION_NEW%>",
 									      		type: "H",
 									      		nombre: $("#hog-nombre").val(),
 									      		desc: $("#hog-desc").val(),
@@ -112,7 +118,8 @@
 									      		medidas: $("#hog-medidas").val(),
 									      		precio: $("#hog-precio").val(),
 									      		seccion: $("#hog-seccion").val(),
-									      		categoria: $("#hog-categoria").val()									      		
+									      		categoria: $("#hog-categoria").val(),
+									      		centros: cds.toString()									      		
 									      }),
 									      dataType: "html",
 									      success: function(msg){
@@ -180,7 +187,6 @@
 				<td><%=art.getType() %></td>
 				<td>
 					<img class="clickable delete-art" src="img/del.png" art-id="<%=art.getReferencia() %>">
-					<img class="clickable edit-art" src="img/edit.gif" art-id="<%=art.getReferencia() %>" type="<%=art.getType() %>">
 				</td>
 			</tr>
 			<%
@@ -202,56 +208,90 @@
 <div style="display:none" id="dialog-alta-articulo" title="Crear Nuevo Articulo de Ropa">
 		<form>
 		<fieldset>
-			<!--
-			<label for="referencia">Referencia</label>
-			<input type="text" name="referencia" id="referencia" class="text ui-widget-content ui-corner-all" />
-			-->
-			<label for="linea">Linea</label>
-			<input type="text" name="linea" id="ropa-linea" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="desc">Descripcion</label>
-			<input type="text" name="desc" id="ropa-desc" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="talle">Talle</label>
-			<input type="text" name="talle" id="ropa-talle" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="color">Color</label>
-			<input type="text" name="color" id="ropa-color" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="seccion">Seccion</label>
-			<input type="text" name="seccion" id="ropa-seccion" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="precio">Precio</label>
-			<input type="text" name="precio" id="ropa-precio" value="" class="numeric text ui-widget-content ui-corner-all" />
-			<label for="origen">Origen</label>
-			<input type="text" name="origen" id="ropa-origen" value="" class="text ui-widget-content ui-corner-all" />
+			<table>
+			<tr>
+				<td><label for="linea">Linea</label></td><td><input type="text" name="linea" id="ropa-linea" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="desc">Descripcion</label></td><td><input type="text" name="desc" id="ropa-desc" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
+				<td><label for="talle">Talle</label></td><td><input type="text" name="talle" id="ropa-talle" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="color">Color</label></td><td><input type="text" name="color" id="ropa-color" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>			
+			<tr>
+				<td><label for="seccion">Seccion</label></td><td><input type="text" name="seccion" id="ropa-seccion" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="precio">Precio</label></td><td><input type="text" name="precio" id="ropa-precio" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
+			</tr>			
+			<tr>
+				<td><label for="origen">Origen</label></td><td><input type="text" name="origen" id="ropa-origen" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td> </td><td> </td>
+			</tr>
+			<tr>
+				<td colspan="4">Centros de Distribucion Asociados</td>
+			</tr>	
+				<%
+					List<CentroDistribucionDTO> centros = (List<CentroDistribucionDTO>)request.getAttribute("centros");
+					ListIterator<CentroDistribucionDTO> it =  centros.listIterator();
+					while(it.hasNext()){
+						CentroDistribucionDTO cd = it.next();
+				%>
+					<tr>
+						<td><input type="checkbox" value="<%=cd.getId()%>" ></td><td><%=cd.getNombre() %></td>
+						<%if(it.hasNext()){ 
+							cd = it.next();%>
+						<td><input type="checkbox" value="<%=cd.getId()%>" ></td><td><%=cd.getNombre() %></td>
+						<%} %>
+					</tr>	
+					
+				<%} %>
+			</table>	
 		</fieldset>
 	</form>
 </div>
 
 <div style="display:none" id="dialog-alta-arthogar" title="Crear Nuevo Articulo de Hogar">
 		<form>
-		<fieldset>
-		<!-- 
-			<label for="referencia">Referencia</label>
-			<input type="text" name="referencia" id="referencia" class="text ui-widget-content ui-corner-all" />
-			 -->
-			<label for="nombre">Nombre</label>
-			<input type="text" name="nombre" id="hog-nombre" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="desc">Descripcion</label>
-			<input type="text" name="desc" id="hog-desc" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="linea">Linea</label>
-			<input type="text" name="linea" id="hog-linea" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="composicion">Composicion</label>
-			<input type="text" name="composion" id="hog-composion" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="color">Color</label>
-			<input type="text" name="color" id="hog-color" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="seccion">Seccion</label>
-			<input type="text" name="seccion" id="hog-seccion" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="medidas">Medidas</label>
-			<input type="text" name="medidas" id="hog-medidas" value="" class="text ui-widget-content ui-corner-all" />
-			<label for="precio">Precio</label>
-			<input type="text" name="precio" id="hog-precio" value="" class="numeric text ui-widget-content ui-corner-all" />
-			<label for="categoria">Categoria</label>
-			<input type="text" name="categoria" id="hog-categoria" value="" class="text ui-widget-content ui-corner-all" />
-		</fieldset>
-	</form>
+		<table>
+			<tr>
+				<td><label for="nombre">Nombre</label></td><td><input type="text" name="nombre" id="hog-nombre" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="desc">Descripcion</label></td><td><input type="text" name="desc" id="hog-desc" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
+				<td><label for="linea">Linea</label></td><td><input type="text" name="linea" id="hog-linea" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="composicion">Composicion</label></td><td><input type="text" name="composion" id="hog-composion" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
+				<td>			<label for="color">Color</label></td><td><input type="text" name="color" id="hog-color" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td>			<label for="seccion">Seccion</label></td><td><input type="text" name="seccion" id="hog-seccion" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
+				<td>			<label for="medidas">Medidas</label></td><td><input type="text" name="medidas" id="hog-medidas" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="precio">Precio</label></td><td><input type="text" name="precio" id="hog-precio" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
+				<td><label for="categoria">Categoria</label></td><td><input type="text" name="categoria" id="hog-categoria" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td> </td><td> </td>
+			</tr>
+			<tr>
+				<td colspan="4">Centros de Distribucion Asociados</td>
+			</tr>	
+				<%
+					it =  centros.listIterator();
+					while(it.hasNext()){
+						CentroDistribucionDTO cd = it.next();
+				%>
+					<tr>
+						<td><input type="checkbox" value="<%=cd.getId()%>" ></td><td><%=cd.getNombre() %></td>
+						<%if(it.hasNext()){ 
+							cd = it.next();%>
+						<td><input type="checkbox" value="<%=cd.getId()%>" ></td><td><%=cd.getNombre() %></td>
+						<%} %>
+					</tr>	
+					
+				<%} %>
 		
+		</table>
+	</form>
 </div>
+
 </body>
 </html>

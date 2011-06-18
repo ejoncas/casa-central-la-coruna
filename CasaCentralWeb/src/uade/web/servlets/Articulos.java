@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import uade.server.beans.dto.ArticuloDTO;
+import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
@@ -32,7 +33,11 @@ import uade.web.exception.WebApplicationException;
 			
 			List<ArticuloDTO> articulos =  bussinessDelegator.obtenerArticulos();
 			
+			List<CentroDistribucionDTO> centros = bussinessDelegator.obtenerCentrosDeDistribucion();
+			
 			request.setAttribute("articulos", articulos);
+			request.setAttribute("centros", centros);
+			
 			//FORWARD
 			getServletContext().getRequestDispatcher(ARTICULOS_PAGE).forward(request, response);
 		} catch (WebApplicationException e) {
