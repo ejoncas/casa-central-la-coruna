@@ -35,7 +35,7 @@ public class CasaCentralBean implements CasaCentral{
 	 */
 	
 	@EJB
-	private NuevoArtAdministrator nuevoArtAdministrator;
+	private NuevoArtAdministrator articuloAdministrator;
 	@EJB
 	private OfadAdministrator ofadAdministrator;
 	@EJB
@@ -48,7 +48,7 @@ public class CasaCentralBean implements CasaCentral{
 		logger.info("Creando nuevo articulo de Hogar");
 		
 		ArticuloHogar ah = new ArticuloHogar(a);
-		nuevoArtAdministrator.nuevoArtCasa(ah);
+		articuloAdministrator.nuevoArtCasa(ah);
 		
 		a.setReferencia(ah.getReferencia());
 		logger.info("Articulo Hogar Creado. REF: #"+ah.getReferencia());
@@ -59,7 +59,7 @@ public class CasaCentralBean implements CasaCentral{
 		logger.info("Creando nuevo articulo de Ropa");
 		
 		ArticuloRopa ar = new ArticuloRopa(a);
-		nuevoArtAdministrator.nuevoArtRopa(ar);
+		articuloAdministrator.nuevoArtRopa(ar);
 		
 		a.setReferencia(ar.getReferencia());
 		logger.info("Articulo Ropa Creado. REF: #"+ar.getReferencia());
@@ -82,13 +82,18 @@ public class CasaCentralBean implements CasaCentral{
 
 	public List<ArticuloDTO> obtenerArticulos() throws CasaCentralException {
 		logger.info("Obteniendo todos los articulos");
-		List<Articulo> articulos = nuevoArtAdministrator.obtenerArticulos();
+		List<Articulo> articulos = articuloAdministrator.obtenerArticulos();
 		
 		List<ArticuloDTO> resultado = new ArrayList<ArticuloDTO>();
 		for(Articulo a : articulos){
 			resultado.add(a.getDTO());
 		}
 		return resultado;
+	}
+
+	public void eliminarArticulo(Long ref) throws CasaCentralException {
+		logger.info("Eliminando articulo con referencia: "+ref);
+		articuloAdministrator.eliminarArticulo(ref);
 	}
 
 }

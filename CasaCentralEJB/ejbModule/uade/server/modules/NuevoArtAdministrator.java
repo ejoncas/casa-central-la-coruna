@@ -17,4 +17,6 @@ public interface NuevoArtAdministrator {
 
 	List<Articulo> obtenerArticulos();
 
+	void eliminarArticulo(Long ref);
+
 }

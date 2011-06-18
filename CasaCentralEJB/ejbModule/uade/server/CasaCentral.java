@@ -25,6 +25,7 @@ public interface CasaCentral {
 	public ArticuloRopaDTO nuevoArtRopa(ArticuloRopaDTO art) throws CasaCentralException;
 	public ArticuloHogarDTO nuevoArtCasa(ArticuloHogarDTO art) throws CasaCentralException;
 	public List<ArticuloDTO> obtenerArticulos() throws CasaCentralException;
+	public void eliminarArticulo(Long ref) throws CasaCentralException;
 	
 	/**
 	 * Ofad Functionality Methods
@@ -36,6 +37,7 @@ public interface CasaCentral {
 	 * Palc Functionality Methods
 	 */
 	public void ingresarPredido(PedidoDTO pedido, TiendaDTO tienda) throws CasaCentralException;
+	
 	
 	
 	

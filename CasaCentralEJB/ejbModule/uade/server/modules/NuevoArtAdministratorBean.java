@@ -31,4 +31,9 @@ public class NuevoArtAdministratorBean implements NuevoArtAdministrator{
 		 return (List<Articulo>) query.getResultList();
 	}
 
+	public void eliminarArticulo(Long ref) {
+		Articulo articulo = em.find(Articulo.class, ref);
+		em.remove(articulo);
+	}
+
 }
