@@ -1,10 +1,14 @@
 package uade.server.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 
 import uade.server.beans.dto.ArticuloDTO;
 
@@ -19,6 +23,8 @@ public abstract class Articulo {
 	private String color;
 	private String linea;
 	private String descripcion;
+	@ManyToMany
+	private List<CentroDistribucion> centros;
 	
 	
 	public Articulo(String color, String descripcion, String linea,
@@ -30,10 +36,12 @@ public abstract class Articulo {
 		this.precio = precio;
 		this.referencia = referencia;
 		this.seccion = seccion;
+		centros = new ArrayList<CentroDistribucion>();
 	}
 	
 	public Articulo() {
 		super();
+		centros = new ArrayList<CentroDistribucion>();
 	}
 
 	public Long getReferencia() {
@@ -74,6 +82,14 @@ public abstract class Articulo {
 	}	
 	
 	public abstract ArticuloDTO getDTO();
+
+	public List<CentroDistribucion> getCentros() {
+		return centros;
+	}
+
+	public void setCentros(List<CentroDistribucion> centros) {
+		this.centros = centros;
+	}
 
 	
 }

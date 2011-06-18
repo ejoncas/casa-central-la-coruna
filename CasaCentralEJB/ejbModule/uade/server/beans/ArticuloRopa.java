@@ -23,6 +23,7 @@ public class ArticuloRopa extends Articulo{
 		super();
 	}
 	public ArticuloRopa(ArticuloRopaDTO a) {
+		super();
 		setColor(a.getColor());
 		setSeccion(a.getSeccion());
 		setPrecio(a.getPrecio());

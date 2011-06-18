@@ -31,6 +31,7 @@ public class ArticuloHogar extends Articulo{
 	}
 
 	public ArticuloHogar(ArticuloHogarDTO a) {
+		super();
 		this.categoria = a.getCategoria();
 		this.composicion = a.getComposicion();
 		this.medidas = a.getMedidas();

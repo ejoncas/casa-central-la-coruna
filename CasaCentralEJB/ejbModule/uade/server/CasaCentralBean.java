@@ -11,13 +11,16 @@ import org.apache.log4j.Logger;
 import uade.server.beans.Articulo;
 import uade.server.beans.ArticuloHogar;
 import uade.server.beans.ArticuloRopa;
+import uade.server.beans.CentroDistribucion;
 import uade.server.beans.Pedido;
 import uade.server.beans.Tienda;
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
+import uade.server.beans.dto.mapper.DTOMapper;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
 import uade.server.modules.OfadAdministrator;
@@ -48,6 +51,13 @@ public class CasaCentralBean implements CasaCentral{
 		logger.info("Creando nuevo articulo de Hogar");
 		
 		ArticuloHogar ah = new ArticuloHogar(a);
+		
+		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
+		for(CentroDistribucionDTO cdDto : a.getCentros()){
+			CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(cdDto, CentroDistribucion.class);
+			centros.add(cd);
+		}
+		ah.setCentros(centros);
 		articuloAdministrator.nuevoArtCasa(ah);
 		
 		a.setReferencia(ah.getReferencia());
@@ -59,6 +69,12 @@ public class CasaCentralBean implements CasaCentral{
 		logger.info("Creando nuevo articulo de Ropa");
 		
 		ArticuloRopa ar = new ArticuloRopa(a);
+		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
+		for(CentroDistribucionDTO cdDto : a.getCentros()){
+			CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(cdDto, CentroDistribucion.class);
+			centros.add(cd);
+		}
+		ar.setCentros(centros);
 		articuloAdministrator.nuevoArtRopa(ar);
 		
 		a.setReferencia(ar.getReferencia());
@@ -94,6 +110,27 @@ public class CasaCentralBean implements CasaCentral{
 	public void eliminarArticulo(Long ref) throws CasaCentralException {
 		logger.info("Eliminando articulo con referencia: "+ref);
 		articuloAdministrator.eliminarArticulo(ref);
+	}
+
+	public List<CentroDistribucionDTO> obtenerCentrosDeDistribucion()
+			throws CasaCentralException {
+		logger.info("Obteniendo todos los centros de distribucion");
+		List<CentroDistribucion> centros = solDistAdministrator.obtenerCentrosDeDistribucion();
+		
+		List<CentroDistribucionDTO> centrosDto = new ArrayList<CentroDistribucionDTO>();
+		for(CentroDistribucion cd : centros){
+			centrosDto.add((CentroDistribucionDTO) DTOMapper.map(cd, CentroDistribucionDTO.class));
+		}
+		return centrosDto;
+	}
+
+	public void nuevoCentroDeDistribucion(
+			CentroDistribucionDTO centro) throws CasaCentralException {
+		logger.info("Insertando Centro de Distribucion");
+		CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(centro, CentroDistribucion.class);
+		solDistAdministrator.nuevoCentroDeDistribucion(cd);
+		centro.setId(cd.getId());
+		logger.info("Centro de Distribucion Creado. ID: #"+cd.getId());
 	}
 
 }

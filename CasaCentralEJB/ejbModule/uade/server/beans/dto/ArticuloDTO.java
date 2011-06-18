@@ -1,6 +1,8 @@
 package uade.server.beans.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ArticuloDTO implements Serializable{
 	
@@ -11,6 +13,7 @@ public abstract class ArticuloDTO implements Serializable{
 	private String linea;
 	private String descripcion;
 	private String type;
+	private List<CentroDistribucionDTO> centros;
 	
 	/* TYPES */
 	public static String TYPE_ROPA = "Ropa";
@@ -26,10 +29,12 @@ public abstract class ArticuloDTO implements Serializable{
 		this.precio = precio;
 		this.referencia = referencia;
 		this.seccion = seccion;
+		centros = new ArrayList<CentroDistribucionDTO>();
 	}
 	
 	public ArticuloDTO() {
 		super();
+		centros = new ArrayList<CentroDistribucionDTO>();
 	}
 
 	public Long getReferencia() {
@@ -75,8 +80,15 @@ public abstract class ArticuloDTO implements Serializable{
 
 	public void setType(String type) {
 		this.type = type;
-	}	
+	}
 
+	public List<CentroDistribucionDTO> getCentros() {
+		return centros;
+	}
+
+	public void setCentros(List<CentroDistribucionDTO> centros) {
+		this.centros = centros;
+	}
 	
 	
 }

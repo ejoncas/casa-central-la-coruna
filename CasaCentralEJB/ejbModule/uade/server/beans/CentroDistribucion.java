@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class CentroDistribucion {
 
 	@Id @GeneratedValue
-    private int id;
+    private Long id;
     private double latitud;
     private double longitud;
     private String nombre;
@@ -32,10 +32,10 @@ public class CentroDistribucion {
 	}
     
     public CentroDistribucion(){}
-	public int getId() {
+	public Long getId() {
             return id;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
             this.id = id;
     }
     public double getLatitud() {
