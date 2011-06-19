@@ -210,7 +210,17 @@
 		<fieldset>
 			<table>
 			<tr>
-				<td><label for="linea">Linea</label></td><td><input type="text" name="linea" id="ropa-linea" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="linea">Linea</label></td>
+				<td>
+					<select name="linea" id="ropa-linea" >
+						<option value="Basic">Basic</option>
+						<option value="Woman">Woman</option>
+						<option value="Sport">Sport</option>
+						<option value="Vestir">Vestir</option>
+						<option value="Ni&ntilde;a">Niña</option>
+						<option value="Baby">Baby</option>
+					</select>					
+				</td>
 				<td><label for="desc">Descripcion</label></td><td><input type="text" name="desc" id="ropa-desc" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
@@ -268,7 +278,17 @@
 				<td><label for="precio">Precio</label></td><td><input type="text" name="precio" id="hog-precio" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
-				<td><label for="categoria">Categoria</label></td><td><input type="text" name="categoria" id="hog-categoria" value="" class="text ui-widget-content ui-corner-all" /></td>
+				<td><label for="categoria">Categoria</label></td>
+				<td>
+					<select name="categoria" id="hog-categoria" >
+						<option value="Cama">Cama</option>
+						<option value="Bano">Ba&ntilde;o</option>
+						<option value="Mesa">Mesa</option>
+						<option value="Salon">Sal&oacute;n</option>
+						<option value="Decoracion">Decoraci&oacute;n</option>
+						<option value="Otros">Otros</option>
+					</select>
+				</td>
 				<td> </td><td> </td>
 			</tr>
 			<tr>

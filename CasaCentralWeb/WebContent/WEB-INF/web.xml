@@ -36,6 +36,26 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Articulos</servlet-name>
-    <url-pattern>/Articulos</url-pattern>
+    <url-pattern>/articulos</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PedidoUploader</display-name>
+    <servlet-name>PedidoUploader</servlet-name>
+    <servlet-class>uade.web.servlets.PedidoUploader</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PedidoUploader</servlet-name>
+    <url-pattern>/pedido-upload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Pedido</display-name>
+    <servlet-name>Pedido</servlet-name>
+    <servlet-class>uade.web.servlets.Pedido</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Pedido</servlet-name>
+    <url-pattern>/pedido</url-pattern>
   </servlet-mapping>
 </web-app>

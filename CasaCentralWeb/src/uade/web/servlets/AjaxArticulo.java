@@ -16,6 +16,9 @@ import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
+import uade.web.xml.NuevoartHogar;
+import uade.web.xml.NuevoartRopa;
+import uade.web.xml.util.XMLParser;
 
 /**
  * Servlet implementation class for Servlet: AjaxArticulo
@@ -60,12 +63,18 @@ import uade.web.exception.WebApplicationException;
 					
 					List<CentroDistribucionDTO> centrosList = new ArrayList<CentroDistribucionDTO>();
 					for(String id : centros.split(",")){
-						centrosList.add(new CentroDistribucionDTO(Long.valueOf(id)));
+						try{
+							centrosList.add(new CentroDistribucionDTO(Long.valueOf(id)));
+						}catch (NumberFormatException e) {}
 					}
 					a.setCentros(centrosList);
 					a = bussinesDelegator.nuevoArtRopa(a);
 					
-					//TODO - Generate Xml
+
+					/** XML Generation **/
+					NuevoartRopa xmlObject = new NuevoartRopa(a);
+					XMLParser.generateXmlAndSave(xmlObject);
+					
 					msg = "Se ha cread el articulo de ropa. #REF "+a.getReferencia();
 				}else if("H".equalsIgnoreCase(type)){
 					//Type Hogar
@@ -86,13 +95,18 @@ import uade.web.exception.WebApplicationException;
 					
 					List<CentroDistribucionDTO> centrosList = new ArrayList<CentroDistribucionDTO>();
 					for(String id : centros.split(",")){
-						centrosList.add(new CentroDistribucionDTO(Long.valueOf(id)));
+						try{
+							centrosList.add(new CentroDistribucionDTO(Long.valueOf(id)));
+						}catch (NumberFormatException e) {}
 					}
 					a.setCentros(centrosList);
 					
 					a = bussinesDelegator.nuevoArtCasa(a);
 					
-					//TODO - Generate Xml
+					/** XML Generation **/
+					NuevoartHogar xmlObject = new NuevoartHogar(a);
+					XMLParser.generateXmlAndSave(xmlObject);
+					
 					msg = "Se ha cread el articulo de hogar. #REF "+a.getReferencia();
 				}else{
 					//unknown type
@@ -103,7 +117,8 @@ import uade.web.exception.WebApplicationException;
 				bussinesDelegator.eliminarArticulo(ref);
 				msg = "Usuario "+ ref+ " eliminado correctamente"; 
 			}else if(ACTION_EDIT.equalsIgnoreCase(action)){
-				//TODO - Create and Edit User in the server				
+				//TODO - Create and Edit User in the server			
+				//NOT REQUIRED IN THIS VERSION
 			}else{
 				msg =  "Accion desconocida";
 			}

@@ -10,6 +10,9 @@ public class NuevoartHogar {
 	public NuevoartHogar(){
 		
 	}
+	public NuevoartHogar(ArticuloHogarDTO a) {
+		accesorio = a;
+	}
 	public ArticuloHogarDTO getAccesorio() {
 		return accesorio;
 	}
