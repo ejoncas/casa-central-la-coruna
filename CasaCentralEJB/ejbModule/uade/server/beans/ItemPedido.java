@@ -13,6 +13,7 @@ public class ItemPedido {
 	@OneToOne
 	private Articulo articulo;
 	private Integer cantidad;
+	private Float precioVenta;
 	
 	
 	public ItemPedido() {
@@ -42,8 +43,12 @@ public class ItemPedido {
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
+	public Float getPrecioVenta() {
+		return precioVenta;
+	}
+	public void setPrecioVenta(Float precioVenta) {
+		this.precioVenta = precioVenta;
+	}
 
-	
-	
 	
 }

@@ -1,5 +1,6 @@
 package uade.server.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,11 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Oferta {
+public class Ofad {
 
 	
 	@Id @GeneratedValue
 	private Long id;
+	private Date fechaOferta;
 	@ManyToMany
 	private List<Articulo> articulos;
 	
@@ -27,6 +29,12 @@ public class Oferta {
 	}
 	public void setArticulos(List<Articulo> articulos) {
 		this.articulos = articulos;
+	}
+	public Date getFechaOferta() {
+		return fechaOferta;
+	}
+	public void setFechaOferta(Date fechaOferta) {
+		this.fechaOferta = fechaOferta;
 	}
 	
 	

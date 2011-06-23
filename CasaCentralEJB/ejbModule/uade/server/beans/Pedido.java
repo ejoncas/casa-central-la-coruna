@@ -1,5 +1,6 @@
 package uade.server.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,7 +16,8 @@ public class Pedido{
 	
 	@Id @GeneratedValue
 	private Long id;
-	
+	private Date fechaPedido;
+	private Boolean procesado;
 	@OneToMany
 	private List<ItemPedido> items;
 	@OneToOne
@@ -61,6 +63,22 @@ public class Pedido{
 
 	public void setCentroDeDistribucion(CentroDistribucion centroDeDistribucion) {
 		this.centroDeDistribucion = centroDeDistribucion;
+	}
+
+	public Date getFechaPedido() {
+		return fechaPedido;
+	}
+
+	public void setFechaPedido(Date fechaPedido) {
+		this.fechaPedido = fechaPedido;
+	}
+
+	public Boolean getProcesado() {
+		return procesado;
+	}
+
+	public void setProcesado(Boolean procesado) {
+		this.procesado = procesado;
 	}
 	
 	

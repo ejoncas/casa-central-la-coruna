@@ -1,6 +1,7 @@
 package uade.server.beans;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,8 +19,10 @@ public abstract class Articulo {
 	
 	@Id @GeneratedValue
 	private Long referencia;
+	private Date fechaAlta;
 	private String seccion;
 	private Float precio;
+	private Date mesRebaja;
 	private String color;
 	private String linea;
 	private String descripcion;
@@ -89,6 +92,22 @@ public abstract class Articulo {
 
 	public void setCentros(List<CentroDistribucion> centros) {
 		this.centros = centros;
+	}
+
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public Date getMesRebaja() {
+		return mesRebaja;
+	}
+
+	public void setMesRebaja(Date mesRebaja) {
+		this.mesRebaja = mesRebaja;
 	}
 
 	
