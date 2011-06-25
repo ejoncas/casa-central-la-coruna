@@ -33,6 +33,7 @@ public class ArticuloRopa extends Articulo{
 		setDescripcion(a.getDescripcion());
 		this.origen = a.getOrigen();
 		this.talle = a.getTalle();
+		setMesRebaja(a.getMesRebaja());
 		setFechaAlta(new Date());
 	}
 	public String getTalle() {
@@ -59,6 +60,7 @@ public class ArticuloRopa extends Articulo{
 		dto.setSeccion(getSeccion());
 		dto.setTalle(getTalle());
 		dto.setType(ArticuloHogarDTO.TYPE_ROPA);
+		dto.setMesRebaja(getMesRebaja());
 		return dto;
 	}
 	

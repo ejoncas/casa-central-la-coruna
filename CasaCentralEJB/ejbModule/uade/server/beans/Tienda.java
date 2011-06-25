@@ -21,7 +21,7 @@ public class Tienda {
     }
     public Tienda(TiendaDTO tienda) {
     	this.latitud = tienda.getLatitud();
-    	this.longitud = tienda.getLatitud();
+    	this.longitud = tienda.getLongitud();
     	this.nombre = tienda.getNombre();
 	}
     public Tienda(String nombre, double lat, double longi){

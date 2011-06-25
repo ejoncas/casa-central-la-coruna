@@ -43,6 +43,7 @@ public class ArticuloHogar extends Articulo{
 		setPrecio(a.getPrecio());
 		setLinea(a.getLinea());
 		setDescripcion(a.getDescripcion());
+		setMesRebaja(a.getMesRebaja());
 		setFechaAlta(new Date());
 	}
 
@@ -85,6 +86,7 @@ public class ArticuloHogar extends Articulo{
 		dto.setReferencia(getReferencia());
 		dto.setSeccion(getSeccion());
 		dto.setType(ArticuloHogarDTO.TYPE_HOGAR);
+		dto.setMesRebaja(getMesRebaja());
 		return dto;
 	}
 	

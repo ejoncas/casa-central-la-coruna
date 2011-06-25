@@ -2,6 +2,7 @@ package uade.server.beans.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class ArticuloDTO implements Serializable{
@@ -11,6 +12,7 @@ public abstract class ArticuloDTO implements Serializable{
 	private Float precio;
 	private String color;
 	private String linea;
+	private Date mesRebaja;
 	private String descripcion;
 	private String type;
 	private List<CentroDistribucionDTO> centros;
@@ -89,6 +91,14 @@ public abstract class ArticuloDTO implements Serializable{
 	public void setCentros(List<CentroDistribucionDTO> centros) {
 		this.centros = centros;
 	}
-	
+
+	public Date getMesRebaja() {
+		return mesRebaja;
+	}
+
+	public void setMesRebaja(Date mesRebaja) {
+		this.mesRebaja = mesRebaja;
+	}
+
 	
 }
