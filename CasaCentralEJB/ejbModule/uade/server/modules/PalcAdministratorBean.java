@@ -1,21 +1,52 @@
 package uade.server.modules;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import uade.server.beans.CentroDistribucion;
 import uade.server.beans.Pedido;
+import uade.server.beans.Tienda;
+import uade.server.beans.logic.CentroDeDistribucionLocator;
 
 @Stateless
 public class PalcAdministratorBean implements PalcAdministrator{
 
 	@PersistenceContext 
     private EntityManager em;
+	
+	private CentroDeDistribucionLocator locator;
+
+	public PalcAdministratorBean(){
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<CentroDistribucion> getCentrosDistribucion() {
+		Query query = em.createQuery("SELECT a FROM CentroDistribucion a");
+		return (List<CentroDistribucion>) query.getResultList();
+	}
 
 	public void ingresarPedido(Pedido p) {
-		// TODO Definir a que centro de distribucion debo llevar el pedido
+		Tienda tienda  = getTiendaById(p.getTienda().getId()); 
+		CentroDistribucion cdMasCercano = locator.obtenerCentroMasCercano(tienda, getCentrosDistribucion());
 		
-		
-		
+		p.setCentroDeDistribucion(cdMasCercano);
+		//Persist pedido
+		em.persist(p);
+	}
+	
+	private Tienda getTiendaById(Long id){
+		 Query query = em.createQuery("SELECT t FROM Tienda t WHERE t.id=?").setParameter(1, id);
+		 return (Tienda) query.getSingleResult();
+	}
+
+	/**
+	 * Persist tienda entity and generates id
+	 */
+	public void nuevaTienda(Tienda tienda) {
+		em.persist(tienda);
 	}
 }

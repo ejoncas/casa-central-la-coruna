@@ -1,5 +1,6 @@
 package uade.server.beans.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,11 +12,11 @@ public class CentroDeDistribucionLocator {
 
 	private List<CentroDistribucion> centrosDeDistribucion;
 
-	public CentroDeDistribucionLocator(List<CentroDistribucion> c) {
-		this.centrosDeDistribucion = c;
+	public CentroDeDistribucionLocator() {
+		this.centrosDeDistribucion = new ArrayList<CentroDistribucion>();
 	}
-
-	public CentroDistribucion obtenerCentroMasCercano(Tienda t) {
+	
+	public CentroDistribucion obtenerCentroMasCercano(Tienda t, List<CentroDistribucion> centros) {
 		Map<Double, CentroDistribucion> mapa = new TreeMap<Double, CentroDistribucion>();
 		for (CentroDistribucion cd : this.centrosDeDistribucion) {
 			mapa.put(

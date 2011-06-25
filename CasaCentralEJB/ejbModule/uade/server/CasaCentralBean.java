@@ -1,6 +1,7 @@
 package uade.server;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,6 +13,7 @@ import uade.server.beans.Articulo;
 import uade.server.beans.ArticuloHogar;
 import uade.server.beans.ArticuloRopa;
 import uade.server.beans.CentroDistribucion;
+import uade.server.beans.ItemPedido;
 import uade.server.beans.Pedido;
 import uade.server.beans.Tienda;
 import uade.server.beans.dto.ArticuloDTO;
@@ -21,6 +23,7 @@ import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.mapper.DTOMapper;
+import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
 import uade.server.modules.OfadAdministrator;
@@ -82,18 +85,27 @@ public class CasaCentralBean implements CasaCentral{
 		return a;
 	}
 
-	public void ingresarPredido(PedidoDTO pedido, TiendaDTO tienda)
+	public void ingresarPredido(Palc pedido, TiendaDTO tienda)
 			throws CasaCentralException {
 		logger.info("Ingresando Pedido");
-		
-		Pedido p = new Pedido(pedido);
-		p.setTienda(new Tienda(tienda));
-		
-		//Definir el Centro de distribucion
-		
-		p.setCentroDeDistribucion(null);
+
+		Pedido p = new Pedido();
+		{
+			p.setFechaPedido(new Date());
+			//seteamos todos los items
+			for(PedidoDTO item : pedido.getPedidos()){
+				ItemPedido ip = new ItemPedido();
+				ip.setCantidad(item.getCantidad());
+				//busco el articulo por referencia --> Debe ser unico
+				Articulo art = articuloAdministrator.getArticuloById(Long.valueOf(item.getRef()));
+				ip.setArticulo(art);
+				ip.setPrecioVenta(art.getPrecio());
+				p.addItemPedido(ip);
+			}
+			p.setProcesado(false);
+			p.setTienda(new Tienda(tienda.getId()));
+		}
 		palcAdministrator.ingresarPedido(p);
-		
 	}
 
 	public List<ArticuloDTO> obtenerArticulos() throws CasaCentralException {
@@ -131,6 +143,13 @@ public class CasaCentralBean implements CasaCentral{
 		solDistAdministrator.nuevoCentroDeDistribucion(cd);
 		centro.setId(cd.getId());
 		logger.info("Centro de Distribucion Creado. ID: #"+cd.getId());
+	}
+
+	public void nuevaTienda(TiendaDTO t) {
+		logger.info("Insertando Tienda");
+		Tienda tienda = new Tienda(t);
+		palcAdministrator.nuevaTienda(tienda);
+		logger.info("Tienda Creada. ID: #"+tienda.getId());
 	}
 
 }

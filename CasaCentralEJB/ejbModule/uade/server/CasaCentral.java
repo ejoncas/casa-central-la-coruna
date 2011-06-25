@@ -8,8 +8,8 @@ import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
-import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
+import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
 
 @Remote
@@ -37,8 +37,8 @@ public interface CasaCentral {
 	/**
 	 * Palc Functionality Methods
 	 */
-	public void ingresarPredido(PedidoDTO pedido, TiendaDTO tienda) throws CasaCentralException;
-	
+	public void ingresarPredido(Palc pedido, TiendaDTO tienda) throws CasaCentralException;
+	public void nuevaTienda(TiendaDTO t) throws CasaCentralException;;	
 	
 	
 	/**
@@ -46,7 +46,5 @@ public interface CasaCentral {
 	 */
 	public List<CentroDistribucionDTO> obtenerCentrosDeDistribucion() throws CasaCentralException;
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
-	
-	
 
 }

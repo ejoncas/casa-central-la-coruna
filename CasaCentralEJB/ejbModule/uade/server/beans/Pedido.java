@@ -1,5 +1,6 @@
 package uade.server.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import uade.server.beans.dto.PedidoDTO;
 
 @Entity
 public class Pedido{
@@ -27,15 +26,10 @@ public class Pedido{
 	
 	public Pedido() {
 		super();
+		this.centroDeDistribucion = new CentroDistribucion();
+		this.items = new ArrayList<ItemPedido>();
 	}
 	
-	/**
-	 * DTO Constructor
-	 * @param pedido
-	 */
-	public Pedido(PedidoDTO pedido) {
-		this.items = pedido.getItems();
-	}
 	public Long getId() {
 		return id;
 	}
@@ -81,7 +75,14 @@ public class Pedido{
 		this.procesado = procesado;
 	}
 	
-	
-	
+	/**
+	 * Agrega uin Item pedido al pedido
+	 * @param ip
+	 */
+	public void addItemPedido(ItemPedido ip){
+		if(this.items == null)
+			this.items = new ArrayList<ItemPedido>();
+		this.items.add(ip);
+	}
 	
 }

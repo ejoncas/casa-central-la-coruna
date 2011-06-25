@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import uade.server.beans.dto.ArticuloDTO;
 
@@ -19,6 +21,7 @@ public abstract class Articulo {
 	
 	@Id @GeneratedValue
 	private Long referencia;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAlta;
 	private String seccion;
 	private Float precio;

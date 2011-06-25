@@ -36,4 +36,9 @@ public class NuevoArtAdministratorBean implements NuevoArtAdministrator{
 		em.remove(articulo);
 	}
 
+	public Articulo getArticuloById(Long ref) {
+		 Query query = em.createQuery("SELECT a FROM Articulo a WHERE a.referencia=?").setParameter(1, ref);
+		 return (Articulo) query.getSingleResult();
+	}
+
 }

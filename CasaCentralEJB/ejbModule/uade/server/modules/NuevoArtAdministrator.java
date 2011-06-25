@@ -19,4 +19,6 @@ public interface NuevoArtAdministrator {
 
 	void eliminarArticulo(Long ref);
 
+	Articulo getArticuloById(Long ref);
+
 }

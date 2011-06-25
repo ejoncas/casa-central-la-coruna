@@ -10,21 +10,28 @@ import uade.server.beans.dto.TiendaDTO;
 public class Tienda {
 
 	@Id @GeneratedValue
-    private int id;
+    private Long id;
     private double latitud;
     private double longitud;
+    private String nombre;
     
     public Tienda(){}
-    
+    public Tienda(Long id){
+    	this.id = id;
+    }
     public Tienda(TiendaDTO tienda) {
     	this.latitud = tienda.getLatitud();
     	this.longitud = tienda.getLatitud();
+    	this.nombre = tienda.getNombre();
 	}
-	public int getId() {
-            return id;
+    public Tienda(String nombre, double lat, double longi){
+    	this.nombre = nombre;
+    	this.latitud = lat;
+    	this.longitud = longi;
     }
-    public void setId(int id) {
-            this.id = id;
+    
+	public Long getId() {
+            return id;
     }
     public double getLatitud() {
             return latitud;
@@ -38,6 +45,12 @@ public class Tienda {
     public void setLongitud(double longitud) {
             this.longitud = longitud;
     }
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
     
     
 }
