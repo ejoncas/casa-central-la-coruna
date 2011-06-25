@@ -35,6 +35,8 @@ public class PedidoUploader extends javax.servlet.http.HttpServlet implements
 		javax.servlet.Servlet {
 	static final long serialVersionUID = 1L;
 
+	private static final String PEDIDO_RESULT_PAGE = "/WEB-INF/jsp/pedido-importado.jsp";
+
 	private File tmpDir;
 	private File destinationDir;
 	
@@ -90,13 +92,14 @@ public class PedidoUploader extends javax.servlet.http.HttpServlet implements
 			
 			casaCentralDelegator.ingresarPredido(pedido, t);
 			
-			System.out.println(f.toString());
+			request.setAttribute("pedido", pedido);
+			//FORWARD
+			getServletContext().getRequestDispatcher(PEDIDO_RESULT_PAGE).forward(request, response);
 		} catch (WebApplicationException e) {
 			throw new ServletException("Error al intentar obtener la instancia del servidor", e);
 		} catch (CasaCentralException e) {
 			throw new ServletException("Error del servidor al ingresar el pedido", e);
 		}
-
 	}
 
 	private File parseAndSaveUploadedFile(HttpServletRequest request) throws FileNotFoundException {

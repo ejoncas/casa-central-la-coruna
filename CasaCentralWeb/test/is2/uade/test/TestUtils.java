@@ -45,7 +45,7 @@ public class TestUtils {
 		//TORTUGUITAS
 		centros.add(new CentroDistribucionDTO( 34.549549,58.573952,"TORTUGUITAS"));
 		//UNICENTER
-		CentroDistribucionDTO unicenter = new CentroDistribucionDTO( -34.50203,-58.52108,"UNICENTER");
+		CentroDistribucionDTO unicenter = new CentroDistribucionDTO( 34.50203,58.52108,"UNICENTER");
 		centros.add(unicenter);
 		//PUNTA CARRETAS
 		centros.add(new CentroDistribucionDTO( 34.927601,56.160393,"PUNTA CARRETAS"));

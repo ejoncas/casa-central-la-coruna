@@ -1,6 +1,8 @@
 package uade.web.servlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,11 @@ import uade.web.xml.util.XMLParser;
 						a.setPrecio(new Float(request.getParameter("precio")));
 					a.setSeccion(request.getParameter("seccion"));
 					a.setTalle(request.getParameter("talle"));
+					try {
+						if(StringUtils.isNotEmpty(request.getParameter("mesDescuento")))
+							a.setMesRebaja(new SimpleDateFormat("dd-MM-yyyy").parse("01-"+request.getParameter("mesDescuento")));
+					} 
+					catch (ParseException e1) {e1.printStackTrace();}
 					
 					String centros = request.getParameter("centros");
 					
@@ -90,6 +97,11 @@ import uade.web.xml.util.XMLParser;
 					a.setComposicion(request.getParameter("composicion"));
 					a.setMedidas(request.getParameter("medidas"));
 					a.setNombre(request.getParameter("nombre"));
+					try {
+						if(StringUtils.isNotEmpty(request.getParameter("mesDescuento")))
+							a.setMesRebaja(new SimpleDateFormat("dd-MM-yyyy").parse("01-"+request.getParameter("mesDescuento")));
+					} 
+					catch (ParseException e1) {e1.printStackTrace();}
 					
 					String centros = request.getParameter("centros");
 					

@@ -47,7 +47,7 @@
 			$("#ropa-mes").datepicker(
 			{ 
 				changeMonth: true,
-				dateFormat: 'mm-dd'
+				dateFormat: 'mm-yy'
 			});
 			$("#dialog-alta-articulo").dialog({
 						modal: true,
@@ -100,7 +100,7 @@
 			$("#hog-mes").datepicker(
 			{ 
 				changeMonth: true,
-				dateFormat: 'mm-dd'
+				dateFormat: 'mm-yy'
 			});
 			$("#dialog-alta-arthogar").dialog({
 							modal: true,
