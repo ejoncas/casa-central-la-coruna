@@ -58,4 +58,10 @@
     <servlet-name>Pedido</servlet-name>
     <url-pattern>/pedido</url-pattern>
   </servlet-mapping>
+  
+  <listener>
+  	<display-name>DataBaseInitializacionListener</display-name>
+  	<listener-class>uade.web.listener.DataBaseInitialization</listener-class>
+  </listener>
+  
 </web-app>

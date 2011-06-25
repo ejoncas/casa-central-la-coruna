@@ -63,6 +63,7 @@ public class XMLParser {
 		//NUEVOART Aliases
 		xs.alias("nuevoart", NuevoartHogar.class);
 		xs.alias("nuevoart", NuevoartRopa.class);
+		xs.aliasField("ref", ArticuloDTO.class, "referencia");
 		
 		
 		//Ignores

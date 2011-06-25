@@ -23,6 +23,7 @@
 	
 		$("input:button").button();
 		$("input:submit").button();
+		
 		$(".numeric").jStepper({minValue:0, maxValue:9999999, maxDecimals: 2});
 		
 		$(".delete-art").click(function(){
@@ -43,6 +44,11 @@
 		});
 		
 		$("#button-alta").click(function(){
+			$("#ropa-mes").datepicker(
+			{ 
+				changeMonth: true,
+				dateFormat: 'mm-dd'
+			});
 			$("#dialog-alta-articulo").dialog({
 						modal: true,
 						show: "blind",
@@ -70,6 +76,7 @@
 								      		seccion: $("#ropa-seccion").val(),
 								      		precio: $("#ropa-precio").val(),
 								      		origen: $("#ropa-origen").val(),
+								      		mesDescuento: $("#ropa-mes").val(),
 								      		centros: cds.toString()
 								      }),
 								      dataType: "html",
@@ -90,6 +97,11 @@
 		});
 		
 		$("#button-alta-hogar").click(function(){
+			$("#hog-mes").datepicker(
+			{ 
+				changeMonth: true,
+				dateFormat: 'mm-dd'
+			});
 			$("#dialog-alta-arthogar").dialog({
 							modal: true,
 							show: "blind",
@@ -119,6 +131,7 @@
 									      		precio: $("#hog-precio").val(),
 									      		seccion: $("#hog-seccion").val(),
 									      		categoria: $("#hog-categoria").val(),
+									      		mesDescuento: $("#hog-mes").val(),
 									      		centros: cds.toString()									      		
 									      }),
 									      dataType: "html",
@@ -148,9 +161,9 @@
 		<div class="header-menu center">
 			<ul id="menu"> 
 				<li><a href="ofad.html" title="OFAD">Preparar Oferta</a></li> 
-				<li><a href="palc.html" title="PALC">Ingresar Pedido</a></li> 
+				<li><a href="pedido" title="PALC">Ingresar Pedido</a></li> 
 				<li><a href="soldist.html" title="SOLDIST">Solicitud de Distribuci&oacute;n</a></li> 
-				<li><a href="articulos.html" title="NUEVOART">Administrar Articulos</a></li> 
+				<li><a href="articulos" title="NUEVOART">Administrar Articulos</a></li> 
 			</ul> 
 		</div>
 	</div>
@@ -233,7 +246,7 @@
 			</tr>			
 			<tr>
 				<td><label for="origen">Origen</label></td><td><input type="text" name="origen" id="ropa-origen" value="" class="text ui-widget-content ui-corner-all" /></td>
-				<td> </td><td> </td>
+				<td><label for="origen">Mes de Descuento</label></td><td><input type="text" name="ropa-mes" id="ropa-mes" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
 				<td colspan="4">Centros de Distribucion Asociados</td>
@@ -289,7 +302,7 @@
 						<option value="Otros">Otros</option>
 					</select>
 				</td>
-				<td> </td><td> </td>
+								<td><label for="origen">Mes de Descuento</label></td><td><input type="text" name="hog-mes" id="hog-mes" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
 				<td colspan="4">Centros de Distribucion Asociados</td>
