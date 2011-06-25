@@ -13,11 +13,11 @@ import org.apache.commons.lang.StringUtils;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
+import uade.server.beans.dto.xml.NuevoartHogar;
+import uade.server.beans.dto.xml.NuevoartRopa;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
-import uade.web.xml.NuevoartHogar;
-import uade.web.xml.NuevoartRopa;
 import uade.web.xml.util.XMLParser;
 
 /**

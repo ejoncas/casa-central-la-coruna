@@ -3,10 +3,10 @@ package is2.uade.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import uade.server.beans.CentroDistribucion;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
+import uade.server.beans.dto.TiendaDTO;
 
 public class TestUtils {
 
@@ -57,6 +57,24 @@ public class TestUtils {
 		centros.add(new CentroDistribucionDTO(-33.473836,-70.601921,"MARINA CENTER"));
 		
 		return centros;
+	}
+
+	public static List<TiendaDTO> obtenerTiendas() {
+		List<TiendaDTO> tiendas = new ArrayList<TiendaDTO>();
+		tiendas.add(new TiendaDTO("Tortuguitas",34.50981 ,58.525372));
+		tiendas.add(new TiendaDTO("Unicenter",34.433036,58.750935));
+		tiendas.add(new TiendaDTO("Santa Fé",34.551811,58.417225));
+		tiendas.add(new TiendaDTO("Abasto",34.611807,58.417311));
+		tiendas.add(new TiendaDTO("Florida",34.61163,58.38418));
+		tiendas.add(new TiendaDTO("Paseo Alcorta",34.575154,58.404243));
+		tiendas.add(new TiendaDTO("Punta Carretas",34.919086,56.163054));
+		tiendas.add(new TiendaDTO("Montevideo Shopping",34.88931,56.058576));
+		tiendas.add(new TiendaDTO("Parque Arauco", 33.465924, 70.655909));
+		tiendas.add(new TiendaDTO("Marina Center",33.389026,70.714874));
+		tiendas.add(new TiendaDTO("Alto Las Condes",33.46912,70.641997));
+		tiendas.add(new TiendaDTO("Florida Center",33.467535,70.689468));
+		tiendas.add(new TiendaDTO("La Dehesa",33.401638, 70.583382));
+		return tiendas;
 	}
 	
 }

@@ -14,8 +14,8 @@ import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
-import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
+import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
 import uade.web.exception.WebApplicationException;
 
@@ -70,7 +70,7 @@ public class CasaCentralDelegator implements CasaCentral{
 	}
 
 
-	public void ingresarPredido(PedidoDTO pedido, TiendaDTO tienda)
+	public void ingresarPredido(Palc pedido, TiendaDTO tienda)
 			throws CasaCentralException {
 		casaCentral.ingresarPredido(pedido, tienda);
 	}
@@ -90,6 +90,10 @@ public class CasaCentralDelegator implements CasaCentral{
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro)
 			throws CasaCentralException {
 		casaCentral.nuevoCentroDeDistribucion(centro);
+	}
+
+	public void nuevaTienda(TiendaDTO t) throws CasaCentralException {
+		casaCentral.nuevaTienda(t);
 	}
 
 }

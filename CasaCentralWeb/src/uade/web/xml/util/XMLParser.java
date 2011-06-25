@@ -15,11 +15,11 @@ import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.EnvioDTO;
 import uade.server.beans.dto.PedidoDTO;
-import uade.web.xml.NuevoartHogar;
-import uade.web.xml.NuevoartRopa;
-import uade.web.xml.Ofad;
-import uade.web.xml.Palc;
-import uade.web.xml.Soldist;
+import uade.server.beans.dto.xml.NuevoartHogar;
+import uade.server.beans.dto.xml.NuevoartRopa;
+import uade.server.beans.dto.xml.Ofad;
+import uade.server.beans.dto.xml.Palc;
+import uade.server.beans.dto.xml.Soldist;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -45,7 +45,8 @@ public class XMLParser {
 		//PALC Aliases
 		xs.alias("palc", Palc.class);
 		xs.alias("pedido", PedidoDTO.class);
-		xs.aliasField("id-tienda", Palc.class, "idTienda");
+		xs.aliasField("ref", Palc.class, "idTienda");
+		
 		
 		//OFAD Aliases
 		xs.alias("ofad", Ofad.class);
