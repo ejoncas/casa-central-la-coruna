@@ -1,5 +1,7 @@
 package uade.server.beans;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import uade.server.beans.dto.ArticuloDTO;
@@ -31,6 +33,7 @@ public class ArticuloRopa extends Articulo{
 		setDescripcion(a.getDescripcion());
 		this.origen = a.getOrigen();
 		this.talle = a.getTalle();
+		setFechaAlta(new Date());
 	}
 	public String getTalle() {
 		return talle;

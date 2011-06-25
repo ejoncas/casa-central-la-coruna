@@ -10,15 +10,13 @@ import uade.server.beans.Tienda;
 
 public class CentroDeDistribucionLocator {
 
-	private List<CentroDistribucion> centrosDeDistribucion;
 
 	public CentroDeDistribucionLocator() {
-		this.centrosDeDistribucion = new ArrayList<CentroDistribucion>();
 	}
 	
 	public CentroDistribucion obtenerCentroMasCercano(Tienda t, List<CentroDistribucion> centros) {
 		Map<Double, CentroDistribucion> mapa = new TreeMap<Double, CentroDistribucion>();
-		for (CentroDistribucion cd : this.centrosDeDistribucion) {
+		for (CentroDistribucion cd : centros) {
 			mapa.put(
 					Math.sqrt(Math.pow(cd.getLatitud() - t.getLatitud(),2)+ Math.pow(cd.getLongitud()- t.getLongitud(),2)),
 					cd

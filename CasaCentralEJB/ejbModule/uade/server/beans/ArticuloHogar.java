@@ -1,6 +1,8 @@
 package uade.server.beans;
 
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import uade.server.beans.dto.ArticuloDTO;
@@ -41,6 +43,7 @@ public class ArticuloHogar extends Articulo{
 		setPrecio(a.getPrecio());
 		setLinea(a.getLinea());
 		setDescripcion(a.getDescripcion());
+		setFechaAlta(new Date());
 	}
 
 	public String getNombre() {

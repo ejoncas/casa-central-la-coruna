@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uade.server.beans.CentroDistribucion;
+import uade.server.beans.ItemPedido;
 import uade.server.beans.Pedido;
 import uade.server.beans.Tienda;
 import uade.server.beans.logic.CentroDeDistribucionLocator;
@@ -21,6 +23,7 @@ public class PalcAdministratorBean implements PalcAdministrator{
 	private CentroDeDistribucionLocator locator;
 
 	public PalcAdministratorBean(){
+		locator = new CentroDeDistribucionLocator();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -34,7 +37,10 @@ public class PalcAdministratorBean implements PalcAdministrator{
 		CentroDistribucion cdMasCercano = locator.obtenerCentroMasCercano(tienda, getCentrosDistribucion());
 		
 		p.setCentroDeDistribucion(cdMasCercano);
-		//Persist pedido
+		//persistimos los items pedidos
+		for(ItemPedido ip : p.getItems())
+			em.persist(ip);
+		//luego el pedido
 		em.persist(p);
 	}
 	

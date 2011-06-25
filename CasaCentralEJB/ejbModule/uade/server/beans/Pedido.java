@@ -9,12 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Pedido{
 	
 	@Id @GeneratedValue
 	private Long id;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaPedido;
 	private Boolean procesado;
 	@OneToMany
@@ -28,6 +31,7 @@ public class Pedido{
 		super();
 		this.centroDeDistribucion = new CentroDistribucion();
 		this.items = new ArrayList<ItemPedido>();
+		this.procesado = false;
 	}
 	
 	public Long getId() {

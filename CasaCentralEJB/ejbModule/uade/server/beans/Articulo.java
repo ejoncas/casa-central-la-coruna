@@ -42,12 +42,14 @@ public abstract class Articulo {
 		this.precio = precio;
 		this.referencia = referencia;
 		this.seccion = seccion;
+		this.fechaAlta = new Date();
 		centros = new ArrayList<CentroDistribucion>();
 	}
 	
 	public Articulo() {
 		super();
 		centros = new ArrayList<CentroDistribucion>();
+		fechaAlta = new Date();
 	}
 
 	public Long getReferencia() {
