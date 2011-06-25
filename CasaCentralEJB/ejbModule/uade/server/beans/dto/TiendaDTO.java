@@ -8,14 +8,14 @@ public class TiendaDTO  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4826670371298380655L;
-	private int id;
+	private Long id;
     private float latitud;
     private float longitud;
     
-    public int getId() {
+    public Long getId() {
             return id;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
             this.id = id;
     }
     public float getLatitud() {

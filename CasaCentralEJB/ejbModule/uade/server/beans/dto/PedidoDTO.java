@@ -12,7 +12,7 @@ public class PedidoDTO  implements Serializable{
 	 */
 	private static final long serialVersionUID = -501843228471240121L;
 	private List<ItemPedido> items;
-	private Tienda tienda;
+	private TiendaDTO tienda;
 	
 	public List<ItemPedido> getItems() {
 		return items;
@@ -20,14 +20,11 @@ public class PedidoDTO  implements Serializable{
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
-	public Tienda getTienda() {
+	public TiendaDTO getTienda() {
 		return tienda;
 	}
-	public void setTienda(Tienda tienda) {
+	public void setTienda(TiendaDTO tienda) {
 		this.tienda = tienda;
 	}
-	
-	
-	
 	
 }
