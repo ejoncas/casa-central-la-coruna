@@ -18,6 +18,12 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import uade.server.beans.dto.ItemPedidoDTO;
+import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.TiendaDTO;
+import uade.server.exception.CasaCentralException;
+import uade.web.bussiness.CasaCentralDelegator;
+import uade.web.exception.WebApplicationException;
 import uade.web.xml.Palc;
 import uade.web.xml.util.XMLParser;
 
@@ -68,13 +74,34 @@ public class PedidoUploader extends javax.servlet.http.HttpServlet implements
 
 	private void doProcess(HttpServletRequest request,
 			HttpServletResponse response)  throws ServletException, IOException {
-		File f = parseAndSaveUploadedFile(request);
-		
-		Palc pedido = (Palc) XMLParser.parseObject(f);
-		
-		
-		
-		System.out.println(f.toString());
+		try {
+			File f = parseAndSaveUploadedFile(request);
+			
+			Palc pedido = (Palc) XMLParser.parseObject(f);
+			
+			
+			CasaCentralDelegator casaCentralDelegator = CasaCentralDelegator.getInstance();
+			
+			PedidoDTO p  = new PedidoDTO();
+			
+			
+			TiendaDTO t = new TiendaDTO();
+			{
+				t.setId(Long.valueOf(pedido.getIdTienda()));
+			}
+			
+			p.setTienda(t);
+			//TODO - ver si matchea el xml defnitivo con mis objetos, si no es asi realizarlo
+			//for(ItemPedidoDTO item : pedido.getPedidos())
+			casaCentralDelegator.ingresarPredido(p, t);
+			
+			System.out.println(f.toString());
+		} catch (WebApplicationException e) {
+			throw new ServletException("Error al intentar obtener la instancia del servidor", e);
+		} catch (CasaCentralException e) {
+			throw new ServletException("Error del servidor al ingresar el pedido", e);
+		}
+
 	}
 
 	private File parseAndSaveUploadedFile(HttpServletRequest request) throws FileNotFoundException {

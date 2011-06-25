@@ -44,6 +44,7 @@
  			 		 <td><input type="file" value="Buscar" name="pedido"/></td>
 					 <td width="250px"><input type="submit" value="Ingresar Pedidos"/></td>
 			 </tr>
+			 
 </tbody>
 </table>
 </form>
