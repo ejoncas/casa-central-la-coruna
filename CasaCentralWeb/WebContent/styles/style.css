@@ -143,3 +143,8 @@ table tbody tr:nth-child(even) {background: #F2F2F2 }
 	color: #fff;
 	padding-bottom: 8px;
 }
+.detalle-pedido{
+	width: 100%;
+	background: #ffffff;
+	border: 1px solid #efefef;	
+}

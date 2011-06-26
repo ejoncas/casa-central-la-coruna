@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="uade.server.beans.dto.xml.Palc"%>
-<%@page import="uade.server.beans.dto.ItemPedidoDTO"%>
+<%@page import="uade.server.beans.dto.ItemPedidoXmlDTO"%>
 <html>
 <head>
 <title>Zara</title>
@@ -50,7 +50,7 @@
 </thead>
 <tbody>
 	<%
-		for(ItemPedidoDTO p : palc.getPedidos()){
+		for(ItemPedidoXmlDTO p : palc.getPedidos()){
 	%>
 			 <tr>
 			 	<td><%=p.getRef()%></td><td><%=p.getCantidad()%></td>

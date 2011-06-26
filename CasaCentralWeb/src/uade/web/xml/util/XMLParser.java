@@ -15,6 +15,7 @@ import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.EnvioDTO;
 import uade.server.beans.dto.ItemPedidoDTO;
+import uade.server.beans.dto.ItemPedidoXmlDTO;
 import uade.server.beans.dto.xml.NuevoartHogar;
 import uade.server.beans.dto.xml.NuevoartRopa;
 import uade.server.beans.dto.xml.Ofad;
@@ -44,7 +45,7 @@ public class XMLParser {
 		
 		//PALC Aliases
 		xs.alias("palc", Palc.class);
-		xs.alias("pedido", ItemPedidoDTO.class);
+		xs.alias("pedido", ItemPedidoXmlDTO.class);
 		xs.aliasField("ref", Palc.class, "idTienda");
 		
 		
@@ -58,7 +59,6 @@ public class XMLParser {
 		xs.alias("soldist", Soldist.class);
 		xs.alias("envio", EnvioDTO.class);
 		xs.addImplicitCollection(Soldist.class, "envios");
-		xs.aliasField("id-tienda", EnvioDTO.class, "idTienda");
 		
 		//NUEVOART Aliases
 		xs.alias("nuevoart", NuevoartHogar.class);

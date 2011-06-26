@@ -36,9 +36,9 @@ import uade.web.exception.WebApplicationException;
 		try {
 			CasaCentralDelegator casaCentralDelegator = CasaCentralDelegator.getInstance();
 			
-			List<SolDistDTO> a = casaCentralDelegator.generarSolicitudDistribucion();
+			List<SolDistDTO> solicitudes = casaCentralDelegator.generarSolicitudDistribucion();
 			
-			//TODO - Do something with a
+			request.setAttribute("solicitudes", solicitudes);
 		} catch (WebApplicationException e) {
 			e.printStackTrace();
 		} catch (CasaCentralException e) {

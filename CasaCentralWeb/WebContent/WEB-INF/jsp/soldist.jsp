@@ -3,6 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="uade.server.beans.dto.xml.Palc"%>
 <%@page import="uade.server.beans.dto.ItemPedidoDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="uade.server.beans.dto.SolDistDTO"%>
+<%@page import="uade.server.beans.dto.PedidoDTO"%>
 <html>
 <head>
 <title>Zara</title>
@@ -41,6 +44,56 @@
 		<form action="solicitud" method="post">	
 			<input type="submit" value="Generar Solicitudes para Todos los CDs"/>
 		</form>
+		
+		<%
+			if(request.getAttribute("solicitudes")!=null){
+				%>
+				<br/>
+				<br/>
+				<h3>Solicitud de Distribucion Generada</h3>
+				<%
+				List<SolDistDTO> solicitudes =  (List<SolDistDTO>)request.getAttribute("solicitudes");
+				for(SolDistDTO sd : solicitudes){
+		%>
+				<br/>
+				<table class="center" style="width: 80%;">
+					<thead>
+						<tr>
+							<th colspan="100">Centro de Distribucion: <%=sd.getCentroDistribucion().getNombre() %></th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+							for(PedidoDTO p : sd.getPedidosAEntregar()){
+						%>
+						<tr>
+							<td>Tienda: <%=p.getTienda().getNombre() %></td>
+							<td>
+							<table class="detalle-pedido">
+								<%
+									for(ItemPedidoDTO ip : p.getItems()){
+								%>							
+									<tr>
+										<td><%=ip.getArticulo().getReferencia()+" - "+ip.getArticulo().getDescripcion() %></td>
+										<td><%=ip.getCantidad()%></td>
+									</tr>
+								<%
+									}
+								%>	
+							</table>
+							</td>
+						</tr>
+						<%
+							} 
+						%>
+					</tbody>
+				</table>			
+		
+		<%						
+				}
+			}
+		%>
+		
 		<br/>
 		<br/>
 		<br/>
