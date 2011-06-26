@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="uade.server.beans.dto.xml.Palc"%>
+<%@page import="uade.server.beans.dto.ItemPedidoDTO"%>
 <html>
 <head>
 <title>Zara</title>
@@ -13,7 +18,7 @@
 		$("input:button").button();
 		$("input:submit").button();
 	});
-	</script>
+</script>
 </head>
 <body>
 <!-- DIV MAIN CONTENT -->
@@ -21,17 +26,24 @@
 	<div class="header center">
 		<img alt="zara logo" src="img/logo.png">
 		<div class="header-menu center">
-			<ul id="menu"> 
+							<ul id="menu"> 
 				<li><a href="ofad.html" title="OFAD">Preparar Oferta</a></li> 
 				<li><a href="pedido" title="PALC">Ingresar Pedido</a></li> 
 				<li><a href="solicitud" title="SOLDIST">Solicitud de Distribuci&oacute;n</a></li> 
 				<li><a href="articulos" title="NUEVOART">Administrar Articulos</a></li> 
-			</ul> 
+			</ul>  
 		</div>
 	</div>
 	<div class="content center">
+	
 		<!-- Content goes here -->
-		<h2>Seleccione una opci&oacute;n del men&uacute;</h2>
+		<h2>Generar Solicitud de Distribucion</h2>
+		<form action="solicitud" method="post">	
+			<input type="submit" value="Generar Solicitudes para Todos los CDs"/>
+		</form>
+		<br/>
+		<br/>
+		<br/>
 	</div>
 </div>
 </body>

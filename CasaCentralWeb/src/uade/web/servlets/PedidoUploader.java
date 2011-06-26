@@ -19,7 +19,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import uade.server.beans.dto.ItemPedidoDTO;
-import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.ItemPedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
