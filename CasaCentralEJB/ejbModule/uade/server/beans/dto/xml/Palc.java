@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.ItemPedidoDTO;
 
 public class Palc implements Serializable{
 	
@@ -12,7 +12,7 @@ public class Palc implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -7207004559456515219L;
-	private List<PedidoDTO> pedidos;
+	private List<ItemPedidoDTO> pedidos;
 	private Integer idTienda;
 	
 
@@ -20,11 +20,11 @@ public class Palc implements Serializable{
 	 * Public constructors
 	 */
 	public Palc(){
-		this.pedidos = new ArrayList<PedidoDTO>();
+		this.pedidos = new ArrayList<ItemPedidoDTO>();
 	}
 	public Palc(Integer idTienda){
 		this.idTienda = idTienda;
-		this.pedidos = new ArrayList<PedidoDTO>();
+		this.pedidos = new ArrayList<ItemPedidoDTO>();
 	}
 	
 	
@@ -33,10 +33,10 @@ public class Palc implements Serializable{
 	 * Getters and Setters
 	 * @return
 	 */
-	public List<PedidoDTO> getPedidos() {
+	public List<ItemPedidoDTO> getPedidos() {
 		return pedidos;
 	}
-	public void setPedidos(List<PedidoDTO> pedidos) {
+	public void setPedidos(List<ItemPedidoDTO> pedidos) {
 		this.pedidos = pedidos;
 	}
 	public Integer getIdTienda() {

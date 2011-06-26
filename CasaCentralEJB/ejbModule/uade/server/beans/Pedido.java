@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.ItemPedidoDTO;
 
 @Entity
 public class Pedido{

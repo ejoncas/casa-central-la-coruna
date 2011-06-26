@@ -15,12 +15,14 @@ import uade.server.beans.ArticuloRopa;
 import uade.server.beans.CentroDistribucion;
 import uade.server.beans.ItemPedido;
 import uade.server.beans.Pedido;
+import uade.server.beans.SolDist;
 import uade.server.beans.Tienda;
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
-import uade.server.beans.dto.PedidoDTO;
+import uade.server.beans.dto.ItemPedidoDTO;
+import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.mapper.DTOMapper;
 import uade.server.beans.dto.xml.Palc;
@@ -93,7 +95,7 @@ public class CasaCentralBean implements CasaCentral{
 		{
 			p.setFechaPedido(new Date());
 			//seteamos todos los items
-			for(PedidoDTO item : pedido.getPedidos()){
+			for(ItemPedidoDTO item : pedido.getPedidos()){
 				ItemPedido ip = new ItemPedido();
 				ip.setCantidad(item.getCantidad());
 				//busco el articulo por referencia --> Debe ser unico
@@ -150,6 +152,15 @@ public class CasaCentralBean implements CasaCentral{
 		Tienda tienda = new Tienda(t);
 		palcAdministrator.nuevaTienda(tienda);
 		logger.info("Tienda Creada. ID: #"+tienda.getId());
+	}
+
+	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException {
+		List<SolDist> solicitudes = solDistAdministrator.generarSolicitudDistribucion();
+		List<SolDistDTO> r = new ArrayList<SolDistDTO>();
+		for(SolDist sd : solicitudes){
+			r.add((SolDistDTO) DTOMapper.map(sd, SolDistDTO.class));
+		}
+		return r;
 	}
 
 }

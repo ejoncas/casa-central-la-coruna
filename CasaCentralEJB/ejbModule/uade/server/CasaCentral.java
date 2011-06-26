@@ -8,6 +8,7 @@ import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
+import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
@@ -46,5 +47,6 @@ public interface CasaCentral {
 	 */
 	public List<CentroDistribucionDTO> obtenerCentrosDeDistribucion() throws CasaCentralException;
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
+	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException;
 
 }

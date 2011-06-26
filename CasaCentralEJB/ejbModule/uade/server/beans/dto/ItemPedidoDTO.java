@@ -1,37 +1,31 @@
 package uade.server.beans.dto;
 
+import java.io.Serializable;
+import java.util.List;
 
-public class ItemPedidoDTO {
+import uade.server.beans.ItemPedido;
+import uade.server.beans.Tienda;
 
-	private Long id;
-	private Long referencia;
+public class ItemPedidoDTO  implements Serializable{
+	/**
+	 * 
+	 */
+	private transient static final long serialVersionUID = -501843228471240121L;
+	private String ref;
 	private Integer cantidad;
 	
-	
-	public ItemPedidoDTO() {
-		super();
+	public String getRef() {
+		return ref;
 	}
-	public ItemPedidoDTO(Long referencia, Integer cantidad) {
-		super();
-		this.referencia = referencia;
-		this.cantidad = cantidad;
+	public void setRef(String ref) {
+		this.ref = ref;
 	}
-	
 	public Integer getCantidad() {
 		return cantidad;
 	}
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
-	public Long getReferencia() {
-		return referencia;
-	}
-	public void setReferencia(Long referencia) {
-		this.referencia = referencia;
-	}
-	public Long getId() {
-		return id;
-	}
-
+	
 	
 }
