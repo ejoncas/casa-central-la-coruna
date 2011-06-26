@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -12,7 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import uade.server.beans.dto.ItemPedidoDTO;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Pedido{
@@ -22,7 +25,7 @@ public class Pedido{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaPedido;
 	private Boolean procesado;
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<ItemPedido> items;
 	@OneToOne
 	private Tienda tienda;//Tienda que lo genero

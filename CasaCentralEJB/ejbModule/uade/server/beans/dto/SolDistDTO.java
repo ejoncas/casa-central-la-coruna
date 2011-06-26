@@ -6,7 +6,7 @@ public class SolDistDTO {
 	
 	private Long id;
 	private CentroDistribucionDTO centroDistribucion;
-	private List<ItemPedidoDTO> pedidosAEntregar;
+	private List<PedidoDTO> pedidosAEntregar;
 	public Long getId() {
 		return id;
 	}
@@ -19,10 +19,11 @@ public class SolDistDTO {
 	public void setCentroDistribucion(CentroDistribucionDTO centroDistribucion) {
 		this.centroDistribucion = centroDistribucion;
 	}
-	public List<ItemPedidoDTO> getPedidosAEntregar() {
+	public List<PedidoDTO> getPedidosAEntregar() {
 		return pedidosAEntregar;
 	}
-	public void setPedidosAEntregar(List<ItemPedidoDTO> pedidosAEntregar) {
+	public void setPedidosAEntregar(List<PedidoDTO> pedidosAEntregar) {
 		this.pedidosAEntregar = pedidosAEntregar;
 	}
+	
 }

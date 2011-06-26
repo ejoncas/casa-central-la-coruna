@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import uade.server.beans.dto.ItemPedidoDTO;
+import uade.server.beans.dto.PedidoDTO;
+
 @Entity
 public class ItemPedido {
 
@@ -50,5 +53,13 @@ public class ItemPedido {
 		this.precioVenta = precioVenta;
 	}
 
+	public ItemPedidoDTO getDTO(){
+		ItemPedidoDTO dto = new ItemPedidoDTO();
+		dto.setArticulo(articulo.getDTO());
+		dto.setCantidad(cantidad);
+		dto.setPrecioVenta(precioVenta);
+		dto.setId(id);
+		return dto;
+	}
 	
 }

@@ -8,7 +8,6 @@ public class DTOMapper {
 	private static Mapper mapper = new DozerBeanMapper();
 	
 	public DTOMapper(){
-		
 	}
 	
 	public static Object map(Object input, Class<?> dto){
