@@ -31,6 +31,7 @@ public class XMLParser {
 	private static PropertiesConfiguration config;
 	
 	static{
+		new XMLParser();
 		try {
 			config = new PropertiesConfiguration("config.properties");
 		} 
@@ -66,49 +67,41 @@ public class XMLParser {
 		
 		
 		//NUEVOART Aliases
-		xs.alias("nuevoart", NuevoartHogar.class);
-		xs.alias("nuevoart", NuevoartRopa.class);
+		xs.alias("nuevoArt", NuevoartHogar.class);
+		xs.alias("nuevoArt", NuevoartRopa.class);
 		xs.aliasField("ref", ArticuloDTO.class, "referencia");
-		
-		
+
 		//Ignores
+		xs.omitField(ArticuloDTO.class, "mesRebaja");
 		xs.omitField(ArticuloDTO.class, "centros");
 		
 		
 	}
 	
 	public static synchronized String parse(Object o){
-		if(xs == null)
-			new XMLParser();
-		try {
-			generateXmlAndSave(o);
-		} 
-		catch (FileNotFoundException e) {e.printStackTrace();}
+		generateXmlAndSave(o);
 		return xs.toXML(o);
 	}
 	
 	public static synchronized Object parseObject(File f) throws FileNotFoundException{
-		if(xs==null)
-			new XMLParser();
 		return xs.fromXML(new FileInputStream(f));
 	}
 	
 	public static synchronized Object parseObject(String f){
-		if(xs==null)
-			new XMLParser();
 		return xs.fromXML(f);
 	}
 	
 	public static synchronized void parseAndSave(Object o , File f) throws FileNotFoundException{
-		if(xs==null)
-			new XMLParser();
 		xs.toXML(o,new FileOutputStream(f));
 	}
 
-	public static void generateXmlAndSave(Object xmlObject) throws FileNotFoundException {
+	public static void generateXmlAndSave(Object xmlObject){
 		String dirFile = config.getString("xml.dir");
-		dirFile += xmlObject.getClass().getSimpleName()+"-"+new SimpleDateFormat("yyyyMMdd-hhss").format(new Date());
-		parseAndSave(xmlObject, new File(dirFile));
+		dirFile += xmlObject.getClass().getSimpleName()+"-"+new SimpleDateFormat("yyyyMMdd-hhss").format(new Date())+".xml";
+		try {
+			parseAndSave(xmlObject, new File(dirFile));
+		}
+		catch (FileNotFoundException e) {e.printStackTrace();}
 	}
 
 }

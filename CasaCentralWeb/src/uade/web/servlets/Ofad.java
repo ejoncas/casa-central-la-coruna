@@ -1,9 +1,16 @@
-package uade.web.servlets;
+package uade.web.servlets; 
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import uade.server.beans.dto.ArticuloDTO;
+import uade.server.exception.CasaCentralException;
+import uade.web.bussiness.CasaCentralDelegator;
+import uade.web.exception.WebApplicationException;
 
 /**
  * Servlet implementation class for Servlet: Ofad
@@ -18,6 +25,21 @@ import javax.servlet.http.HttpServletResponse;
 	}   	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			//Required Content to render view
+			CasaCentralDelegator casaCentralDelegator = CasaCentralDelegator.getInstance();
+			
+			
+			uade.server.beans.dto.xml.Ofad ofertas =  casaCentralDelegator.obtenerOfad();
+			
+			List<ArticuloDTO> articulo = casaCentralDelegator.obtenerArticulos();
+			
+			request.setAttribute("articulos", articulo);
+			request.setAttribute("ofertas", ofertas);
+			
+		} 
+		catch (WebApplicationException e) {e.printStackTrace();} 
+		catch (CasaCentralException e) {e.printStackTrace();}
 		//FORWARD
 		getServletContext().getRequestDispatcher(OFAD_PAGE).forward(request, response);
 	}  	
