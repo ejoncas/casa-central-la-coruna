@@ -22,11 +22,11 @@ import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.ItemPedidoDTO;
-import uade.server.beans.dto.ItemPedidoXmlDTO;
 import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.mapper.DTOMapper;
+import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
@@ -157,6 +157,7 @@ public class CasaCentralBean implements CasaCentral{
 	}
 
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException {
+		logger.info("Generando solicitudes de Distribucion");
 		List<SolDist> solicitudes = solDistAdministrator.generarSolicitudDistribucion();
 		List<SolDistDTO> r = mapearDto(solicitudes);
 		return r;
@@ -165,33 +166,43 @@ public class CasaCentralBean implements CasaCentral{
 	private List<SolDistDTO> mapearDto(List<SolDist> solicitudes) {
 		List<SolDistDTO> r = new ArrayList<SolDistDTO>();
 		for(SolDist sd : solicitudes){
-			SolDistDTO dto = new SolDistDTO();
-			
-			dto.setCentroDistribucion(
-					(CentroDistribucionDTO) DTOMapper.map(sd.getCentroDistribucion(), 
-							CentroDistribucionDTO.class));
-			
-			dto.setId(sd.getId());
-			List<PedidoDTO> pedidosDto = new ArrayList<PedidoDTO>();
-			for(Pedido pa : sd.getPedidosAEntregar()){
-				PedidoDTO pdto = new PedidoDTO();
-				pdto.setCentroDeDistribucion((CentroDistribucionDTO) DTOMapper.map(pa.getCentroDeDistribucion(), 
-						CentroDistribucionDTO.class));
-				pdto.setFechaPedido(pa.getFechaPedido());
-				pdto.setProcesado(pa.getProcesado());
-				pdto.setTienda((TiendaDTO) DTOMapper.map(pa.getTienda(), TiendaDTO.class));
-				List<ItemPedidoDTO> items = new ArrayList<ItemPedidoDTO>();
-				for(ItemPedido ip: pa.getItems()){
-					items.add(ip.getDTO());
-				}
-				pdto.setItems(items);
-				pedidosDto.add(pdto);
-			}
-			dto.setPedidosAEntregar(pedidosDto);
-			
+			SolDistDTO dto = mapearDto(sd);
 			r.add(dto);
 		}
 		return r;
+	}
+
+	private SolDistDTO mapearDto(SolDist sd) {
+		SolDistDTO dto = new SolDistDTO();
+		
+		dto.setCentroDistribucion(
+				(CentroDistribucionDTO) DTOMapper.map(sd.getCentroDistribucion(), 
+						CentroDistribucionDTO.class));
+		
+		dto.setId(sd.getId());
+		List<PedidoDTO> pedidosDto = new ArrayList<PedidoDTO>();
+		for(Pedido pa : sd.getPedidosAEntregar()){
+			PedidoDTO pdto = new PedidoDTO();
+			pdto.setCentroDeDistribucion((CentroDistribucionDTO) DTOMapper.map(pa.getCentroDeDistribucion(), 
+					CentroDistribucionDTO.class));
+			pdto.setFechaPedido(pa.getFechaPedido());
+			pdto.setProcesado(pa.getProcesado());
+			pdto.setTienda((TiendaDTO) DTOMapper.map(pa.getTienda(), TiendaDTO.class));
+			List<ItemPedidoDTO> items = new ArrayList<ItemPedidoDTO>();
+			for(ItemPedido ip: pa.getItems()){
+				items.add(ip.getDTO());
+			}
+			pdto.setItems(items);
+			pedidosDto.add(pdto);
+		}
+		dto.setPedidosAEntregar(pedidosDto);
+		return dto;
+	}
+
+	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException {
+		logger.info("Obteniendo Solicitud de Distribucio. ID #"+idSoldist);
+		SolDist soldist = solDistAdministrator.obtenerSolicitudDistribucion(idSoldist);
+		return mapearDto(soldist);
 	}
 
 }

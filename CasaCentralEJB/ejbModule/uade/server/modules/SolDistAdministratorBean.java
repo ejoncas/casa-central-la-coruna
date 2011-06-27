@@ -40,6 +40,7 @@ public class SolDistAdministratorBean implements SolDistAdministrator {
 			sd.setPedidosAEntregar(q.getResultList());
 			if (sd.getPedidosAEntregar().size() > 0) {// Si tiene articulos por entregar
 				solicitudes.add(sd);
+				em.persist(sd);
 			}
 			em.createQuery(
 							"UPDATE Pedido p set p.procesado=? WHERE p.centroDeDistribucion.id=?")
@@ -47,6 +48,10 @@ public class SolDistAdministratorBean implements SolDistAdministrator {
 					.executeUpdate();
 		}
 		return solicitudes;
+	}
+
+	public SolDist obtenerSolicitudDistribucion(Long idSoldist) {
+		return em.find(SolDist.class, idSoldist);
 	}
 
 }

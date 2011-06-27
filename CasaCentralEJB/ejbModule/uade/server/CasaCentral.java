@@ -48,5 +48,6 @@ public interface CasaCentral {
 	public List<CentroDistribucionDTO> obtenerCentrosDeDistribucion() throws CasaCentralException;
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException;
+	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException;
 
 }

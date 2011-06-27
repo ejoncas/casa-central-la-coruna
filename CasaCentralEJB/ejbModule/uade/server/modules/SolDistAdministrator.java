@@ -16,4 +16,6 @@ public interface SolDistAdministrator {
 
 	List<SolDist> generarSolicitudDistribucion();
 
+	SolDist obtenerSolicitudDistribucion(Long idSoldist);
+
 }

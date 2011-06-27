@@ -10,6 +10,7 @@ public class ItemPedidoDTO  implements Serializable{
 	private Long id;
 	private ArticuloDTO articulo;
 	private Integer cantidad;
+	//ommited field
 	private Float precioVenta;
 	public Long getId() {
 		return id;

@@ -1,6 +1,10 @@
 package uade.server.beans.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
+import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
 
 public class EnvioDTO  implements Serializable{
 	
@@ -8,41 +12,22 @@ public class EnvioDTO  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -129090101480079914L;
-	private Integer idTienda;
-	private String referencia;
-	//private String categoria;
-	private Integer cantidad;
+	private Long idTienda;
+	//IMPLICIT Collection
+	private List<ItemPedidoXml2DTO> pedidos;
 	
-	
-	
-	public EnvioDTO() {
-		super();
-	}
-	public EnvioDTO(Integer cantidad, Integer idTienda, String referencia) {
-		super();
-		this.cantidad = cantidad;
-		this.idTienda = idTienda;
-		this.referencia = referencia;
-	}
-	public Integer getIdTienda() {
+	public Long getIdTienda() {
 		return idTienda;
 	}
-	public void setIdTienda(Integer idTienda) {
+	public void setIdTienda(Long idTienda) {
 		this.idTienda = idTienda;
 	}
-	public String getReferencia() {
-		return referencia;
+	public List<ItemPedidoXml2DTO> getPedidos() {
+		return pedidos;
 	}
-	public void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
-	public Integer getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
+	public void setPedidos(List<ItemPedidoXml2DTO> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 	
-
 }

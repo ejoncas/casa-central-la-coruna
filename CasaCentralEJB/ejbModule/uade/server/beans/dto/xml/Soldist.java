@@ -7,6 +7,7 @@ import uade.server.beans.dto.EnvioDTO;
 
 public class Soldist {
 	
+	private Long numSolDist;
 	public List<EnvioDTO> envios;
 	
 	public Soldist(){
@@ -24,7 +25,12 @@ public class Soldist {
 	public void addEnvio(EnvioDTO e){
 		this.envios.add(e);
 	}
-	
-	
 
+	public Long getNumSolDist() {
+		return numSolDist;
+	}
+
+	public void setNumSolDist(Long numSolDist) {
+		this.numSolDist = numSolDist;
+	}
 }
