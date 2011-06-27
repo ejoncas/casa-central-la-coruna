@@ -101,4 +101,8 @@ public class CasaCentralDelegator implements CasaCentral{
 		return casaCentral.generarSolicitudDistribucion();
 	}
 
+	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException {
+		return casaCentral.obtenerSolicitudDistribucion(idSoldist);
+	}
+
 }

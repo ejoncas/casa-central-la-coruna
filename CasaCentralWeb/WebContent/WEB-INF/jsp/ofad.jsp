@@ -1,8 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="uade.server.beans.dto.xml.Palc"%>
-<%@page import="uade.server.beans.dto.xml.ItemPedidoXmlDTO"%>
 <html>
 <head>
 <title>Zara</title>
@@ -13,6 +8,7 @@
 <script language="javascript" src="js/util.js"></script>
 <!-- JS INITIALIZATION CODE -->
 <script language="javascript">
+
 	$(document).ready(function (){
 	
 		$("input:button").button();
@@ -26,7 +22,7 @@
 	<div class="header center">
 		<img alt="zara logo" src="img/logo.png">
 		<div class="header-menu center">
-							<ul id="menu"> 
+			<ul id="menu"> 
 				<li><a href="ofad" title="OFAD">Preparar Oferta</a></li> 
 				<li><a href="pedido" title="PALC">Ingresar Pedido</a></li> 
 				<li><a href="solicitud" title="SOLDIST">Solicitud de Distribuci&oacute;n</a></li> 
@@ -36,34 +32,42 @@
 	</div>
 	<div class="content center">
 		<!-- Content goes here -->
-<%
-	Palc palc = (Palc)request.getAttribute("pedido");
-%>
-<h2>Pedido Importado. Tienda: <%=palc.getIdTienda()%></h2>
-
-<table  class="center">
+		
+			<h2>Preparar Oferta</h2>
+			<h3>Seleccione una o mas tiendas</h3>
+<table  class="tienda-table center">
 <thead>
-	<tr>
-		<th>Articulo (ref)</th>
-		<th>Cantida Pedida</th>
-	</tr>
+<tr>
+		<th>Identificador</th>
+		<th>Ubicacion</th>
+		<th>Genrar OFAD</th>
+</tr>
 </thead>
 <tbody>
-	<%
-		for(ItemPedidoXmlDTO p : palc.getPedidos()){
-	%>
 			 <tr>
-			 	<td><%=p.getRef()%></td><td><%=p.getCantidad()%></td>
+			 		 <td>1</td>
+ 			 		 <td>Argentina</td>
+					<td><input type="checkbox"/></td>
 			 </tr>
-	<%
-		} 
-	%>
-	<tr>
-		<td colspan="100" style="color: red;font-weight: bold;">TODO: Agregar el Centro de Distribucion </td>
-	</tr>
+			 <tr>
+			 		 <td>2</td>
+ 			 		 <td>Uruguay</td>
+ 			 		 <td><input type="checkbox"/></td>
+			 </tr>
+			 <tr>
+			 		 <td>3</td>
+ 			 		 <td>Chile</td>
+ 			 		 <td><input type="checkbox"/></td>
+			 </tr>
 </tbody>
+<tfoot>
+	<tr>
+					<td colspan="2"></td>
+					 <td><input type="button" value="Generar" href="generar-ofad.html"/></td>
+	</tr>
+</tfoot>
 </table>
-<br/>		
+	</div>
 </div>
 </body>
 </html>

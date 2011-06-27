@@ -15,7 +15,8 @@ import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.EnvioDTO;
 import uade.server.beans.dto.ItemPedidoDTO;
-import uade.server.beans.dto.ItemPedidoXmlDTO;
+import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
+import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
 import uade.server.beans.dto.xml.NuevoartHogar;
 import uade.server.beans.dto.xml.NuevoartRopa;
 import uade.server.beans.dto.xml.Ofad;
@@ -56,9 +57,13 @@ public class XMLParser {
 		xs.aliasField("accesorios-hogar", Ofad.class, "accesoriosHogar");
 		
 		//SOLDIST Aliases
-		xs.alias("soldist", Soldist.class);
+		xs.alias("solDist", Soldist.class);
 		xs.alias("envio", EnvioDTO.class);
+		xs.alias("articulos", ItemPedidoXml2DTO.class);
 		xs.addImplicitCollection(Soldist.class, "envios");
+		xs.addImplicitCollection(EnvioDTO.class, "pedidos");
+		
+		
 		
 		//NUEVOART Aliases
 		xs.alias("nuevoart", NuevoartHogar.class);
@@ -75,6 +80,10 @@ public class XMLParser {
 	public static synchronized String parse(Object o){
 		if(xs == null)
 			new XMLParser();
+		try {
+			generateXmlAndSave(o);
+		} 
+		catch (FileNotFoundException e) {e.printStackTrace();}
 		return xs.toXML(o);
 	}
 	

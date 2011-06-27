@@ -160,7 +160,7 @@
 		<img alt="zara logo" src="img/logo.png">
 		<div class="header-menu center">
 			<ul id="menu"> 
-				<li><a href="ofad.html" title="OFAD">Preparar Oferta</a></li> 
+				<li><a href="ofad" title="OFAD">Preparar Oferta</a></li> 
 				<li><a href="pedido" title="PALC">Ingresar Pedido</a></li> 
 				<li><a href="solicitud" title="SOLDIST">Solicitud de Distribuci&oacute;n</a></li> 
 				<li><a href="articulos" title="NUEVOART">Administrar Articulos</a></li> 

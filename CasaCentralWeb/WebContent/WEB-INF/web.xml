@@ -72,4 +72,24 @@
     <servlet-name>SolicitudDistribucion</servlet-name>
     <url-pattern>/solicitud</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ofad</display-name>
+    <servlet-name>Ofad</servlet-name>
+    <servlet-class>uade.web.servlets.Ofad</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ofad</servlet-name>
+    <url-pattern>/ofad</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadXml</display-name>
+    <servlet-name>DownloadXml</servlet-name>
+    <servlet-class>uade.web.servlets.DownloadXml</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadXml</servlet-name>
+    <url-pattern>/download-xml</url-pattern>
+  </servlet-mapping>
 </web-app>
