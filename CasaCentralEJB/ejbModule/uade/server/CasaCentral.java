@@ -10,6 +10,7 @@ import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
+import uade.server.beans.dto.xml.Ofad;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
 
@@ -32,7 +33,7 @@ public interface CasaCentral {
 	/**
 	 * Ofad Functionality Methods
 	 */
-	
+	public Ofad obtenerOfad() throws CasaCentralException;
 	
 	
 	/**
@@ -49,5 +50,6 @@ public interface CasaCentral {
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException;
 	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException;
+	
 
 }

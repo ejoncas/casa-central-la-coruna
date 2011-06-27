@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import uade.server.beans.dto.ItemPedidoDTO;
-import uade.server.beans.dto.PedidoDTO;
 
 @Entity
 public class ItemPedido {

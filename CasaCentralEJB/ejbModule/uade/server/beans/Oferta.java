@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Ofad {
+public class Oferta {
 
 	
 	@Id @GeneratedValue

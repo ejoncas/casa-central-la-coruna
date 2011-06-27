@@ -14,6 +14,7 @@ import uade.server.beans.ArticuloHogar;
 import uade.server.beans.ArticuloRopa;
 import uade.server.beans.CentroDistribucion;
 import uade.server.beans.ItemPedido;
+import uade.server.beans.Oferta;
 import uade.server.beans.Pedido;
 import uade.server.beans.SolDist;
 import uade.server.beans.Tienda;
@@ -27,6 +28,7 @@ import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.mapper.DTOMapper;
 import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
+import uade.server.beans.dto.xml.Ofad;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
@@ -203,6 +205,16 @@ public class CasaCentralBean implements CasaCentral{
 		logger.info("Obteniendo Solicitud de Distribucio. ID #"+idSoldist);
 		SolDist soldist = solDistAdministrator.obtenerSolicitudDistribucion(idSoldist);
 		return mapearDto(soldist);
+	}
+
+	public Ofad obtenerOfad() throws CasaCentralException {
+		Oferta oferta = ofadAdministrator.obtenerOfad();
+		Ofad ofads = mapearOfertasToDto(oferta);
+		return ofads;
+	}
+
+	private Ofad mapearOfertasToDto(Oferta ofertas) {
+		return (Ofad) DTOMapper.map(ofertas, Ofad.class);
 	}
 
 }
