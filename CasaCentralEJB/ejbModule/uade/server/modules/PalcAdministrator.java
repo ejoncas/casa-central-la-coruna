@@ -13,4 +13,6 @@ public interface PalcAdministrator {
 
 	void nuevaTienda(Tienda tienda);
 
+	Tienda getTienda(Long id);
+
 }

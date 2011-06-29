@@ -93,7 +93,7 @@ public class CasaCentralBean implements CasaCentral{
 		return a;
 	}
 
-	public void ingresarPredido(Palc pedido, TiendaDTO tienda)
+	public PedidoDTO ingresarPredido(Palc pedido, TiendaDTO tienda)
 			throws CasaCentralException {
 		logger.info("Ingresando Pedido");
 
@@ -111,9 +111,11 @@ public class CasaCentralBean implements CasaCentral{
 				p.addItemPedido(ip);
 			}
 			p.setProcesado(false);
-			p.setTienda(new Tienda(tienda.getId()));
+			p.setTienda(palcAdministrator.getTienda(tienda.getId()));
 		}
 		palcAdministrator.ingresarPedido(p);
+		
+		return new PedidoDTO(p);
 	}
 
 	public List<ArticuloDTO> obtenerArticulos() throws CasaCentralException {

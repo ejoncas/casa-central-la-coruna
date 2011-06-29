@@ -1,7 +1,12 @@
 package uade.server.beans.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import uade.server.beans.ItemPedido;
+import uade.server.beans.Pedido;
+import uade.server.beans.dto.mapper.DTOMapper;
 
 public class PedidoDTO {
 
@@ -11,6 +16,20 @@ public class PedidoDTO {
 	private List<ItemPedidoDTO> items;
 	private TiendaDTO tienda;//Tienda que lo genero
 	private CentroDistribucionDTO centroDeDistribucion;//Centro de distribucion que lo va a repartir finalmente
+	
+	public PedidoDTO() {}
+	
+	public PedidoDTO(Pedido p) {
+		setCentroDeDistribucion((CentroDistribucionDTO) DTOMapper.map(p.getCentroDeDistribucion(), 
+				CentroDistribucionDTO.class));
+		setFechaPedido(p.getFechaPedido());
+		setProcesado(p.getProcesado());
+		setTienda((TiendaDTO) DTOMapper.map(p.getTienda(), TiendaDTO.class));
+		this.items = new ArrayList<ItemPedidoDTO>();
+		for(ItemPedido ip: p.getItems()){
+			this.items.add(ip.getDTO());
+		}
+	}
 	public Long getId() {
 		return id;
 	}

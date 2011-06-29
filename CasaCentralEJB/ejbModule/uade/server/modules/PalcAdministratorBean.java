@@ -54,4 +54,8 @@ public class PalcAdministratorBean implements PalcAdministrator{
 	public void nuevaTienda(Tienda tienda) {
 		em.persist(tienda);
 	}
+
+	public Tienda getTienda(Long id) {
+		return em.find(Tienda.class, id);
+	}
 }

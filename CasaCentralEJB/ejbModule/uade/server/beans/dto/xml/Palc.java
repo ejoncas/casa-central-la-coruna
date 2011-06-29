@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import uade.server.beans.dto.CentroDistribucionDTO;
+
 public class Palc implements Serializable{
 	
 	/**
@@ -12,6 +14,7 @@ public class Palc implements Serializable{
 	private static final long serialVersionUID = -7207004559456515219L;
 	private List<ItemPedidoXmlDTO> pedidos;
 	private Integer idTienda;
+	private CentroDistribucionDTO centroDistribucion;
 	
 
 	/**
@@ -43,4 +46,11 @@ public class Palc implements Serializable{
 	public void setPedidos(List<ItemPedidoXmlDTO> pedidos) {
 		this.pedidos = pedidos;
 	}
+	public CentroDistribucionDTO getCentroDistribucion() {
+		return centroDistribucion;
+	}
+	public void setCentroDistribucion(CentroDistribucionDTO centroDistribucion) {
+		this.centroDistribucion = centroDistribucion;
+	}
+	
 }
