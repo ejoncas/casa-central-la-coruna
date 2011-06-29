@@ -61,16 +61,22 @@ public class TestUtils {
 
 	public static List<TiendaDTO> obtenerTiendas() {
 		List<TiendaDTO> tiendas = new ArrayList<TiendaDTO>();
-		tiendas.add(new TiendaDTO("Tortuguitas",34.50981 ,58.525372));
-		tiendas.add(new TiendaDTO("Unicenter",34.433036,58.750935));
+		//ARGENTINA
+		tiendas.add(new TiendaDTO("Tortuguitas",34.50981 ,58.573980));
+		tiendas.add(new TiendaDTO("Unicenter",34.433036,58.520935));
 		tiendas.add(new TiendaDTO("Santa Fé",34.551811,58.417225));
 		tiendas.add(new TiendaDTO("Abasto",34.611807,58.417311));
 		tiendas.add(new TiendaDTO("Florida",34.61163,58.38418));
 		tiendas.add(new TiendaDTO("Paseo Alcorta",34.575154,58.404243));
+		
+		//URUGUAY
 		tiendas.add(new TiendaDTO("Punta Carretas",34.919086,56.163054));
 		tiendas.add(new TiendaDTO("Montevideo Shopping",34.88931,56.058576));
+		
+		//CHILE
 		tiendas.add(new TiendaDTO("Parque Arauco", 33.465924, 70.655909));
 		tiendas.add(new TiendaDTO("Marina Center",33.389026,70.714874));
+		
 		tiendas.add(new TiendaDTO("Alto Las Condes",33.46912,70.641997));
 		tiendas.add(new TiendaDTO("Florida Center",33.467535,70.689468));
 		tiendas.add(new TiendaDTO("La Dehesa",33.401638, 70.583382));

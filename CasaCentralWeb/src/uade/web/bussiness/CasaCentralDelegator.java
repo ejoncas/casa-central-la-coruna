@@ -110,4 +110,20 @@ public class CasaCentralDelegator implements CasaCentral{
 		return casaCentral.obtenerOfad();
 	}
 
+	public ArticuloDTO obtenerArticulo(Long ref) throws CasaCentralException{
+		return casaCentral.obtenerArticulo(ref);
+	}
+
+	public void actualizarOfad(Ofad ofadDto) throws CasaCentralException {
+		casaCentral.actualizarOfad(ofadDto);
+	}
+
+	public ArticuloDTO agregarOfad(Ofad oferta, Long artRef) throws CasaCentralException {
+		return casaCentral.agregarOfad(oferta,artRef);
+	}
+
+	public ArticuloDTO eliminarArtOfad(Ofad oferta, String idArticulo) throws CasaCentralException {
+		return casaCentral.eliminarArtOfad(oferta,idArticulo);
+	}
+
 }

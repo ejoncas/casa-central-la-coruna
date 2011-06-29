@@ -2,6 +2,10 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="uade.server.beans.dto.ArticuloDTO"%>
+<%@page import="uade.server.beans.dto.xml.Ofad"%>
+<%@page import="uade.server.beans.dto.ArticuloRopaDTO"%>
+<%@page import="uade.server.beans.dto.ArticuloHogarDTO"%>
+<%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
 <html>
 <head>
@@ -19,10 +23,20 @@
 	
 		$("input:button").button();
 		$("input:submit").button();
+		
+		$(".delete-ofad").click(function(){
+			var ref = $(this).attr("item-id");
+			$("#art-id").val(ref);
+			$("#deleteForm").submit();
+		});
 	});
 	</script>
 </head>
 <body>
+<form id="deleteForm" action="ofad" method="POST">
+	<input type="hidden" name="action" value="<%=uade.web.servlets.Ofad.ACTION_DEL %>"/>
+	<input type="hidden" id="art-id" name="art-id" value="<%=uade.web.servlets.Ofad.ACTION_DEL %>"/>
+</form>
 <!-- DIV MAIN CONTENT -->
 <div class="main">
 <div class="header center"><img alt="zara logo" src="img/logo.png">
@@ -40,33 +54,97 @@
 <h2>OFAD Para Tienda: Uruguay</h2>
 <h3>Oferta de Articulos recomendada</h3>
 
+	<%
+		if(request.getSession().getAttribute("ofertas")!=null){
+%>
 <table id="listado-artículos" class="admin-table center">
-	<tr>
-		<th>Articulo</th>
-		<th>Tipo</th>
-		<th>Cantidad</th>
-		<th>Eliminar</th>
-	</tr>
-	<tr>
-		<td>1234567891234</td>
-		<td>Ropa</td>
-		<td>2</td>
-		<td><img src="img/del.png" /></td>
-	</tr>
-
-	<tr>
-		<td>1234567891235</td>
-		<td>Hogar</td>
-		<td>4</td>
-		<td><img src="img/del.png" /></td>
-	</tr>
-	<tr>
-		<td colspan="100" class="center"><input type="button"
-			value="Generar!" /></td>
-	</tr>
+<%			
+			
+			Ofad ofad = (Ofad) request.getSession().getAttribute("ofertas");
+			if(ofad.getAccesoriosHogar()!=null && !ofad.getAccesoriosHogar().isEmpty()){
+				%>
+				<tr>
+					<th colspan="100" style="text-align: center;">Articulos de Hogar</th>
+				</tr>
+				<tr>
+					<th> Referencia </th>
+					<th> Descripcion </th>
+					<th> Linea </th>
+					<th> Seccion </th>
+					<th> Color </th>
+					<th> Nombe </th>
+					<th> Composicion </th>
+					<th> Medidas </th>
+					<th> Categoria </th>
+					<th> Precio </th>
+					<th> </th>
+				</tr>
+				<%
+				for(ArticuloHogarDTO r : ofad.getAccesoriosHogar()){
+					%>
+						<tr>
+							<td><%=r.getReferencia() %></td>
+							<td><%=r.getDescripcion() %></td>
+							<td><%=r.getLinea() %></td>
+							<td><%=r.getSeccion() %></td>
+							<td><%=r.getColor() %></td>
+							<td><%=r.getNombre() %></td>
+							<td><%=r.getComposicion() %></td>
+							<td><%=r.getMedidas() %></td>
+							<td><%=r.getCategoria() %></td>
+							<td>$ <%=r.getPrecio() %></td>
+							<td><img class="clickable delete-ofad" src="img/del.png" item-id="<%=r.getReferencia() %>"></td>
+						</tr>
+					<%
+				}
+%>
 </table>
+<%
+			}
+			if(ofad.getRopa()!=null && !ofad.getRopa().isEmpty()){
+%>
+			<table id="listado-artículos2" class="admin-table center">
+				<tr>
+					<th colspan="100" style="text-align: center;">Articulos de Indumentaria</th>
+				</tr>
+				<tr>
+					<th> Referencia </th>
+					<th> Descripcion </th>
+					<th> Linea </th>
+					<th> Seccion </th>
+					<th> Color </th>
+					<th> Talle </th>
+					<th> Origen </th>
+					<th> Precio </th>
+					<th> </th>
+				</tr>
+				<%
+				for(ArticuloRopaDTO r : ofad.getRopa()){
+					%>
+						<tr>
+							<td><%=r.getReferencia() %></td>
+							<td><%=r.getDescripcion() %></td>
+							<td><%=r.getLinea() %></td>
+							<td><%=r.getSeccion() %></td>
+							<td><%=r.getColor() %></td>
+							<td><%=r.getTalle() %></td>
+							<td><%=r.getOrigen() %></td>
+							<td>$ <%=r.getPrecio() %></td>
+							<td><img class="clickable delete-ofad" src="img/del.png" item-id="<%=r.getReferencia() %>"></td>
+						</tr>
+					<%
+				}
+			}
+			%>
+			</table>
+			<%
+		}
+	%>
+	
 <br />
 <div>
+<form action="ofad" method="POST">
+<input type="hidden" name="action" value="<%=uade.web.servlets.Ofad.ACTION_ADD %>">
 <table class="center">
 	<thead>
 		<tr>
@@ -80,7 +158,7 @@
 			<td>
 			<select name="art-id" id="art-id">
 				<%
-					List<ArticuloDTO> articulos = (List<ArticuloDTO>) request.getAttribute("articulos");
+					List<ArticuloDTO> articulos = (List<ArticuloDTO>) request.getSession().getAttribute("articulos");
 					if(articulos!=null){
 						for(ArticuloDTO a : articulos){
 							%>
@@ -93,16 +171,23 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Cantidad</td>
-			<td><input type="text" value="" /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" value="Agregar!" /></td>
+			<td colspan="2"><input type="submit" value="Agregar Articulo!" /></td>
 		</tr>
 	</tbody>
 </table>
+</form>
 </div>
+<br/>
+<div class="center" style="width: 70%;border: 1px solid #efefef">
+<span>
+	<input type="button" value="Obtener XML!" /><input type="button" value="Descartar OFAD" />
+</span>
 </div>
+
+<br/>
+<br/>
+</div>
+
 </div>
 </body>
 </html>
