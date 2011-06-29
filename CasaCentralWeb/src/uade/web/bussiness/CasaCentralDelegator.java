@@ -126,4 +126,8 @@ public class CasaCentralDelegator implements CasaCentral{
 		return casaCentral.eliminarArtOfad(oferta,idArticulo);
 	}
 
+	public void eliminarOfad(Ofad oferta) throws CasaCentralException{
+		casaCentral.eliminarOfad(oferta);
+	}
+
 }

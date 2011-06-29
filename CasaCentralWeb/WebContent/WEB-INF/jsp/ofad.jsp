@@ -35,7 +35,7 @@
 <body>
 <form id="deleteForm" action="ofad" method="POST">
 	<input type="hidden" name="action" value="<%=uade.web.servlets.Ofad.ACTION_DEL %>"/>
-	<input type="hidden" id="art-id" name="art-id" value="<%=uade.web.servlets.Ofad.ACTION_DEL %>"/>
+	<input type="hidden" id="art-id" name="art-id" value=""/>
 </form>
 <!-- DIV MAIN CONTENT -->
 <div class="main">
@@ -179,9 +179,14 @@
 </div>
 <br/>
 <div class="center" style="width: 70%;border: 1px solid #efefef">
-<span>
-	<input type="button" value="Obtener XML!" /><input type="button" value="Descartar OFAD" />
-</span>
+<form id="generateForm" action="ofad" method="POST">
+	<input type="hidden" name="action" value="<%=uade.web.servlets.Ofad.ACTION_GENERATE %>"/>
+	<input type="submit" value="Obtener XML!" />
+</form>
+<form id="discardForm" action="ofad" method="POST">
+	<input type="hidden" name="action" value="<%=uade.web.servlets.Ofad.ACTION_DISCARD %>"/>
+	<input type="submit" value="Descartar OFAD" />
+</form>
 </div>
 
 <br/>

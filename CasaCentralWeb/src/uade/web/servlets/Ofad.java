@@ -13,6 +13,7 @@ import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
+import uade.web.xml.util.XMLParser;
 
 /**
  * Servlet implementation class for Servlet: Ofad
@@ -21,9 +22,12 @@ import uade.web.exception.WebApplicationException;
  public class Ofad extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
    static final long serialVersionUID = 1L;
    private static final String OFAD_PAGE = "/WEB-INF/jsp/ofad.jsp";
+   private static final String INDEX_PAGE = "/index.jsp";
    
    public static String ACTION_ADD = "ADD";
    public static String ACTION_DEL = "DEL";
+   public static String ACTION_GENERATE = "GEN";
+   public static String ACTION_DISCARD = "DIS";
    
 	public Ofad() {
 		super();
@@ -94,6 +98,27 @@ import uade.web.exception.WebApplicationException;
 				
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
+			} catch (CasaCentralException e) {
+				e.printStackTrace();
+			} catch (WebApplicationException e) {
+				e.printStackTrace();
+			}
+		}else if(ACTION_GENERATE.equalsIgnoreCase(request.getParameter("action"))){
+			uade.server.beans.dto.xml.Ofad oferta = (uade.server.beans.dto.xml.Ofad) request.getSession().getAttribute("ofertas");
+			//TODO - Generate XML (it is supposed that its already saved)
+			
+			String xml = XMLParser.parse(oferta);
+			
+			response.getWriter().write(xml);
+		}else if(ACTION_DISCARD.equalsIgnoreCase(request.getParameter("action"))){
+			try {
+				uade.server.beans.dto.xml.Ofad oferta = (uade.server.beans.dto.xml.Ofad) request.getSession().getAttribute("ofertas");
+	
+				//TODO - Delete offer from database
+				CasaCentralDelegator.getInstance().eliminarOfad(oferta);
+				
+				//FORWARD
+				getServletContext().getRequestDispatcher(INDEX_PAGE).forward(request, response);
 			} catch (CasaCentralException e) {
 				e.printStackTrace();
 			} catch (WebApplicationException e) {
