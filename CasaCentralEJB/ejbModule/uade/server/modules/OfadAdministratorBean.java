@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -51,8 +53,8 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		return o;
 	}
 
-	private List<Articulo> obtenerArticulosOfad() {
-		List<Articulo> articulos = new ArrayList<Articulo>();
+	private Set<Articulo> obtenerArticulosOfad() {
+		Set<Articulo> articulos = new HashSet<Articulo>();
 		//-Los artículos que fueron solicitados por al menos 2 tiendas en las últimas 2 semanas
 		articulos.addAll(obtenerArticulosPedidosPor2TiendasUltimas2Semanas());
 		//Los artículos nuevos, que no fueron incluidos en alguna OfAD previa
@@ -80,6 +82,35 @@ public class OfadAdministratorBean implements OfadAdministrator{
 			}
 		}
 		return articulos;
+	}
+
+	public Articulo obtenerArticulo(Long ref) {
+		return em.find(Articulo.class, ref);
+	}
+
+	public void actualizarOferta(Oferta oferta) {
+		Oferta persistedEntity = em.find(Oferta.class, oferta.getId());
+		persistedEntity.setArticulos(oferta.getArticulos());
+		em.persist(persistedEntity);
+	}
+
+	public Articulo agregarOfad(Oferta ofer, Articulo art) {
+		Oferta persistedOffer = em.find(Oferta.class, ofer.getId());
+		Articulo persistedArt = em.find(Articulo.class, art.getReferencia());
+		persistedOffer.addArticulo(persistedArt);
+		em.persist(persistedOffer);
+		return persistedArt;
+	}
+
+	public Articulo eliminarArtOfad(Oferta ofer, Articulo art) {
+		Oferta persistedOffer = em.find(Oferta.class, ofer.getId());
+		Articulo artToRemove = em.find(Articulo.class, art.getReferencia());
+		persistedOffer.addArticulo(artToRemove);
+		if(persistedOffer.getArticulos()!=null){
+			persistedOffer.getArticulos().remove(artToRemove);
+		}
+		em.persist(persistedOffer);
+		return artToRemove;
 	}
 
 }

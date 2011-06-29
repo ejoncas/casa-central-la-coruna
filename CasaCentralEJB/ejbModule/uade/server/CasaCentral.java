@@ -34,13 +34,16 @@ public interface CasaCentral {
 	 * Ofad Functionality Methods
 	 */
 	public Ofad obtenerOfad() throws CasaCentralException;
-	
+	public ArticuloDTO obtenerArticulo(Long ref)throws CasaCentralException;
+	public void actualizarOfad(Ofad ofadDto) throws CasaCentralException;
+	public ArticuloDTO agregarOfad(Ofad oferta, Long artRef)throws CasaCentralException;
+	public ArticuloDTO eliminarArtOfad(Ofad oferta, String idArticulo) throws CasaCentralException;
 	
 	/**
 	 * Palc Functionality Methods
 	 */
 	public void ingresarPredido(Palc pedido, TiendaDTO tienda) throws CasaCentralException;
-	public void nuevaTienda(TiendaDTO t) throws CasaCentralException;;	
+	public void nuevaTienda(TiendaDTO t) throws CasaCentralException;;
 	
 	
 	/**
@@ -50,6 +53,5 @@ public interface CasaCentral {
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException;
 	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException;
-	
 
 }

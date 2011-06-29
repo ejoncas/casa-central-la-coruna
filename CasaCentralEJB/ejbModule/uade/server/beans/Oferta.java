@@ -1,7 +1,8 @@
 package uade.server.beans;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,19 +17,13 @@ public class Oferta {
 	private Long id;
 	private Date fechaOferta;
 	@ManyToMany
-	private List<Articulo> articulos;
+	private Set<Articulo> articulos;
 	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public List<Articulo> getArticulos() {
-		return articulos;
-	}
-	public void setArticulos(List<Articulo> articulos) {
-		this.articulos = articulos;
 	}
 	public Date getFechaOferta() {
 		return fechaOferta;
@@ -37,7 +32,17 @@ public class Oferta {
 		this.fechaOferta = fechaOferta;
 	}
 	
-	
+	public void addArticulo(Articulo a){
+		if(this.articulos==null)
+			this.articulos = new HashSet<Articulo>();
+		this.articulos.add(a);
+	}
+	public Set<Articulo> getArticulos() {
+		return articulos;
+	}
+	public void setArticulos(Set<Articulo> articulos) {
+		this.articulos = articulos;
+	}
 	
 	
 

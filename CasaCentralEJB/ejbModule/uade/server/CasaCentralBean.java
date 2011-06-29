@@ -2,7 +2,9 @@ package uade.server;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -214,7 +216,61 @@ public class CasaCentralBean implements CasaCentral{
 	}
 
 	private Ofad mapearOfertasToDto(Oferta ofertas) {
-		return (Ofad) DTOMapper.map(ofertas, Ofad.class);
+		Ofad ofad =  new Ofad();
+		
+		Set<ArticuloRopaDTO> ropa = new HashSet<ArticuloRopaDTO>();
+		Set<ArticuloHogarDTO> hogar = new HashSet<ArticuloHogarDTO>();
+		for(Articulo a : ofertas.getArticulos()){
+			if(a instanceof ArticuloHogar)
+				hogar.add((ArticuloHogarDTO) a.getDTO());
+			else if (a instanceof ArticuloRopa)
+				ropa.add((ArticuloRopaDTO) a.getDTO());
+		}
+		
+		ofad.setAccesoriosHogar(hogar);
+		ofad.setRopa(ropa);
+		ofad.setId(ofertas.getId());
+		return ofad;
+	}
+
+	public ArticuloDTO obtenerArticulo(Long ref) {
+		logger.info("Obteniendo articulo con id #"+ref);
+		Articulo articulo = ofadAdministrator.obtenerArticulo(ref);
+		return articulo.getDTO();
+	}
+
+	public void actualizarOfad(Ofad ofadDto) throws CasaCentralException {
+		Oferta oferta = mapearDtoToOferta(ofadDto);
+		ofadAdministrator.actualizarOferta(oferta);
+	}
+
+	private Oferta mapearDtoToOferta(Ofad ofadDto) {
+		Oferta ofad =  new Oferta();
+		for(ArticuloHogarDTO art : ofadDto.getAccesoriosHogar()){
+			ofad.addArticulo(new ArticuloHogar(art));
+		}
+		for(ArticuloRopaDTO ropa : ofadDto.getRopa()){
+			ofad.addArticulo(new ArticuloRopa(ropa));
+		}
+		ofad.setId(ofadDto.getId());
+		
+		return ofad;
+	}
+
+	public ArticuloDTO agregarOfad(Ofad oferta, Long artRef)
+			throws CasaCentralException {
+		Oferta ofer = mapearDtoToOferta(oferta);
+		Articulo art = ofadAdministrator.obtenerArticulo(artRef);
+		Articulo artAdded = ofadAdministrator.agregarOfad(ofer, art);
+		return artAdded.getDTO();
+	}
+
+	public ArticuloDTO eliminarArtOfad(Ofad oferta, String idArticulo)
+			throws CasaCentralException {
+		Oferta ofer = mapearDtoToOferta(oferta);
+		Articulo art = ofadAdministrator.obtenerArticulo(Long.valueOf(idArticulo));
+		Articulo artDeleted = ofadAdministrator.eliminarArtOfad(ofer, art);
+		return artDeleted.getDTO();
 	}
 
 }
