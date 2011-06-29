@@ -2,7 +2,6 @@ package uade.server.beans.dto.xml;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import uade.server.beans.dto.ArticuloHogarDTO;

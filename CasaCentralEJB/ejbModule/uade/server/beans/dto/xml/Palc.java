@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import uade.server.beans.dto.ItemPedidoDTO;
-
 public class Palc implements Serializable{
 	
 	/**

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
-import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
 
 public class EnvioDTO  implements Serializable{
 	
