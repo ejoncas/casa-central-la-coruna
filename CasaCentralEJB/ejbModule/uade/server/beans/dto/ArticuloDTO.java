@@ -16,6 +16,7 @@ public abstract class ArticuloDTO implements Serializable{
 	private String descripcion;
 	private String type;
 	private List<CentroDistribucionDTO> centros;
+	private String descuento;
 	
 	/* TYPES */
 	public static String TYPE_ROPA = "Ropa";
@@ -126,6 +127,12 @@ public abstract class ArticuloDTO implements Serializable{
 		return true;
 	}
 
-	
+	public String getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(String descuento) {
+		this.descuento = descuento;
+	}
 	
 }
