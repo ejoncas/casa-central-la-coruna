@@ -273,4 +273,9 @@ public class CasaCentralBean implements CasaCentral{
 		return artDeleted.getDTO();
 	}
 
+	public void eliminarOfad(Ofad oferta) throws CasaCentralException {
+		Oferta o = mapearDtoToOferta(oferta);
+		ofadAdministrator.eliminarOfad(o);
+	}
+
 }

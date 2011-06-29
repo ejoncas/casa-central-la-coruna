@@ -38,6 +38,7 @@ public interface CasaCentral {
 	public void actualizarOfad(Ofad ofadDto) throws CasaCentralException;
 	public ArticuloDTO agregarOfad(Ofad oferta, Long artRef)throws CasaCentralException;
 	public ArticuloDTO eliminarArtOfad(Ofad oferta, String idArticulo) throws CasaCentralException;
+	public void eliminarOfad(Ofad oferta) throws CasaCentralException;
 	
 	/**
 	 * Palc Functionality Methods
@@ -53,5 +54,6 @@ public interface CasaCentral {
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException;
 	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException;
+	
 
 }

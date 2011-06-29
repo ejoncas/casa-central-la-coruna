@@ -53,6 +53,11 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		return o;
 	}
 
+	/**
+	 * TODO - Falta agregar los productos que estan en su mes de descuento y mostrar el
+	 * % de descuento por pantalla
+	 * @return
+	 */
 	private Set<Articulo> obtenerArticulosOfad() {
 		Set<Articulo> articulos = new HashSet<Articulo>();
 		//-Los artículos que fueron solicitados por al menos 2 tiendas en las últimas 2 semanas
@@ -111,6 +116,11 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		}
 		em.persist(persistedOffer);
 		return artToRemove;
+	}
+
+	public void eliminarOfad(Oferta o) {
+		Oferta oferta = em.find(Oferta.class, o.getId());
+		em.remove(oferta);
 	}
 
 }

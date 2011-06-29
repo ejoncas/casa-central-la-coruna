@@ -18,4 +18,6 @@ public interface OfadAdministrator {
 
 	Articulo eliminarArtOfad(Oferta ofer, Articulo art);
 
+	void eliminarOfad(Oferta o);
+
 }
