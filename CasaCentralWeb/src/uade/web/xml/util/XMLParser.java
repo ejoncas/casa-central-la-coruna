@@ -14,7 +14,6 @@ import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.EnvioDTO;
-import uade.server.beans.dto.ItemPedidoDTO;
 import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
 import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
 import uade.server.beans.dto.xml.NuevoartHogar;
@@ -74,7 +73,7 @@ public class XMLParser {
 		//Ignores
 		xs.omitField(ArticuloDTO.class, "mesRebaja");
 		xs.omitField(ArticuloDTO.class, "centros");
-		
+		xs.omitField(Ofad.class, "id");
 		
 	}
 	

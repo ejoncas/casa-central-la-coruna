@@ -13,7 +13,6 @@ import uade.server.beans.dto.ItemPedidoDTO;
 import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
-import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
 import uade.server.beans.dto.xml.Soldist;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;

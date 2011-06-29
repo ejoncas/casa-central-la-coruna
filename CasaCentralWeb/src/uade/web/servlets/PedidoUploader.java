@@ -18,8 +18,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import uade.server.beans.dto.ItemPedidoDTO;
-import uade.server.beans.dto.ItemPedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
@@ -102,6 +100,7 @@ public class PedidoUploader extends javax.servlet.http.HttpServlet implements
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private File parseAndSaveUploadedFile(HttpServletRequest request) throws FileNotFoundException {
 		DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
 		fileItemFactory.setSizeThreshold(1 * 1024 * 1024); // 1 MB
