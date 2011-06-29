@@ -83,4 +83,79 @@ public class TestUtils {
 		return tiendas;
 	}
 	
+	
+	public static List<ArticuloRopaDTO> getMockRopaListOriginal(){
+		List<ArticuloRopaDTO> articulos = new ArrayList<ArticuloRopaDTO>();
+		
+		ArticuloRopaDTO m = new ArticuloRopaDTO();
+		{
+			m.setColor("Blanco");
+			m.setDescripcion("Camiseta Algodon");
+			m.setLinea("Basic");
+			m.setPrecio(new Float(59.00));
+			m.setSeccion("Mujer");
+			m.setOrigen("Argentina");
+			m.setSeccion("Pantalones");
+			m.setTalle("L");
+		}
+		articulos.add(m);
+		
+		ArticuloRopaDTO m2 = new ArticuloRopaDTO();
+		{
+			m2.setColor("Negro");
+			m2.setDescripcion("Vestido Corto C/Atado");
+			m2.setLinea("Basic");
+			m2.setPrecio(new Float(119.00));
+			m2.setSeccion("Mujer");
+			m2.setOrigen("Asia");
+			m2.setSeccion("Pantalones");
+			m2.setTalle("L");
+		}
+		articulos.add(m2);
+		
+		return articulos;
+	}
+
+	public static List<ArticuloHogarDTO> getMockHogarListOriginal() {
+		List<ArticuloHogarDTO> articulos = new ArrayList<ArticuloHogarDTO>();
+		
+		/**
+		 * 47071029					.	$ 399.00			
+		 * 43239029					.				
+		 */
+		
+		ArticuloHogarDTO  m2 = new ArticuloHogarDTO();
+		{
+			m2.setCategoria("Cama");
+			m2.setColor("Unico");
+			m2.setComposicion("100% Piel Bovina");
+			m2.setDescripcion("Alfombra de piel de vaca con estampado de cebra");
+			m2.setLinea("Unica");
+			m2.setMedidas("150x200cm");
+			m2.setNombre("Alfombra Cebra");
+			m2.setPrecio(new Float(349));
+			//m.setReferencia();
+			m2.setSeccion("Alfombra");
+		}
+		articulos.add(m2);
+		ArticuloHogarDTO m = new ArticuloHogarDTO();
+		{
+			m.setCategoria("Cama");
+			m.setColor("Unico");
+			m.setComposicion("100% Piel Bovina");
+			m.setDescripcion("Alfombra de piel de vaca con patchwork");
+			m.setLinea("Unica");
+			m.setMedidas("150x200cm");
+			m.setNombre("Alfrombra Habana");
+			m.setPrecio(new Float(399.00));
+			//m.setReferencia();
+			m.setSeccion("Alfombra");
+		}
+		articulos.add(m);
+		
+
+		
+		return articulos;
+	}
+	
 }

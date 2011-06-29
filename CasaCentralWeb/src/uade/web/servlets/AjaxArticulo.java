@@ -127,7 +127,7 @@ import uade.web.xml.util.XMLParser;
 			}else if(ACTION_DEL.equalsIgnoreCase(action)){
 				Long ref = Long.valueOf(request.getParameter("referencia"));
 				bussinesDelegator.eliminarArticulo(ref);
-				msg = "Usuario "+ ref+ " eliminado correctamente"; 
+				msg = "Articulo #"+ ref+ " eliminado correctamente"; 
 			}else if(ACTION_EDIT.equalsIgnoreCase(action)){
 				//TODO - Create and Edit User in the server			
 				//NOT REQUIRED IN THIS VERSION

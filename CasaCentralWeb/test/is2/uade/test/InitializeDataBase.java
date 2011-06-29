@@ -5,6 +5,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.exception.CasaCentralException;
@@ -22,8 +24,17 @@ public class InitializeDataBase {
 	@Test
 	public void testConnection() {
 		try {
-			bussinessDelegator.nuevoArtCasa(TestUtils.getMockHogar());
-			bussinessDelegator.nuevoArtRopa(TestUtils.getMockRopa());
+			/*bussinessDelegator.nuevoArtCasa(TestUtils.getMockHogar());
+			bussinessDelegator.nuevoArtRopa(TestUtils.getMockRopa());*/
+			
+			for(ArticuloRopaDTO art : TestUtils.getMockRopaListOriginal()){
+				bussinessDelegator.nuevoArtRopa(art);
+			}
+			
+			for(ArticuloHogarDTO art : TestUtils.getMockHogarListOriginal()){
+				bussinessDelegator.nuevoArtCasa(art);
+			}
+			
 		} catch (CasaCentralException e) {
 			e.printStackTrace();
 		}
