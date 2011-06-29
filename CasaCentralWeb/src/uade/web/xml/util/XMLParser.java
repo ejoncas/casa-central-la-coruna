@@ -74,6 +74,9 @@ public class XMLParser {
 		xs.omitField(ArticuloDTO.class, "mesRebaja");
 		xs.omitField(ArticuloDTO.class, "centros");
 		xs.omitField(Ofad.class, "id");
+		xs.omitField(ArticuloDTO.class, "type");
+		xs.omitField(Palc.class, "centroDistribucion");
+		
 		
 	}
 	

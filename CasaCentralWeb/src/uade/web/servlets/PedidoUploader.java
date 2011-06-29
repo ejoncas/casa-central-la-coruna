@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
@@ -88,9 +89,10 @@ public class PedidoUploader extends javax.servlet.http.HttpServlet implements
 				t.setId(Long.valueOf(pedido.getIdTienda()));
 			}
 			
-			casaCentralDelegator.ingresarPredido(pedido, t);
+			PedidoDTO pedidoDto = casaCentralDelegator.ingresarPredido(pedido, t);
 			
 			request.setAttribute("pedido", pedido);
+			request.setAttribute("dto", pedidoDto);
 			//FORWARD
 			getServletContext().getRequestDispatcher(PEDIDO_RESULT_PAGE).forward(request, response);
 		} catch (WebApplicationException e) {
