@@ -32,7 +32,8 @@ public class PalcAdministratorBean implements PalcAdministrator{
 	}
 
 	public void ingresarPedido(Pedido p) {
-		Tienda tienda  = getTiendaById(p.getTienda().getId()); 
+		Tienda tienda  = getTiendaById(p.getTienda().getId());
+		p.getFechaPedido().setMonth(3);
 		CentroDistribucion cdMasCercano = locator.obtenerCentroMasCercano(tienda, getCentrosDistribucion());
 		
 		p.setCentroDeDistribucion(cdMasCercano);

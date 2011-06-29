@@ -43,7 +43,6 @@ import uade.server.modules.SolDistAdministrator;
 public class CasaCentralBean implements CasaCentral{
 
 	private static final Logger logger = Logger.getLogger(CasaCentralBean.class);
-	
 	/**
 	 * EJB Modules
 	 */

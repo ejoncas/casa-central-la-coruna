@@ -15,6 +15,7 @@ public class Oferta {
 	
 	@Id @GeneratedValue
 	private Long id;
+	//con este campo podria calcular el precio que se le oferto
 	private Date fechaOferta;
 	@ManyToMany
 	private Set<Articulo> articulos;

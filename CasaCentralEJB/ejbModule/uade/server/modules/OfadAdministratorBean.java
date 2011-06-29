@@ -77,7 +77,7 @@ public class OfadAdministratorBean implements OfadAdministrator{
 	@SuppressWarnings("unchecked")
 	private List<Articulo> obtenerArticulosPedidosPor2TiendasUltimas2Semanas() {
 		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.set(Calendar.WEEK_OF_YEAR, -2);
+		calendar.add(Calendar.DATE, -15);
 		List<Pedido> pedidos = em.createQuery("SELECT p FROM Pedido p WHERE p.fechaPedido > :hace2Semanas")
 								.setParameter("hace2Semanas", calendar.getTime()).getResultList();
 		List<Articulo> articulos = new ArrayList<Articulo>();
