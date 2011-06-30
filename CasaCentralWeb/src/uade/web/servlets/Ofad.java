@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloHogarOfadDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloRopaOfadDTO;
 import uade.server.exception.CasaCentralException;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
@@ -65,9 +67,9 @@ import uade.web.xml.util.XMLParser;
 				//la actualizamos con el nuevo item agregado
 				ArticuloDTO art = CasaCentralDelegator.getInstance().agregarOfad(oferta, Long.valueOf(idArticulo));
 				if(art instanceof ArticuloRopaDTO){
-					oferta.addArticuloRopa((ArticuloRopaDTO) art);
+					oferta.addArticuloRopa(new ArticuloRopaOfadDTO((ArticuloRopaDTO) art));
 				}else if(art instanceof ArticuloHogarDTO){
-					oferta.addArticuloHogar((ArticuloHogarDTO) art);
+					oferta.addArticuloHogar(new ArticuloHogarOfadDTO((ArticuloHogarDTO) art));
 				}
 				request.getSession().setAttribute("ofertas", oferta);
 				
@@ -88,8 +90,12 @@ import uade.web.xml.util.XMLParser;
 				
 				ArticuloDTO artEliminado = CasaCentralDelegator.getInstance().eliminarArtOfad(oferta, idArticulo);
 				
-				oferta.getAccesoriosHogar().remove(artEliminado);
-				oferta.getRopa().remove(artEliminado);
+				if(artEliminado instanceof ArticuloHogarDTO){
+					oferta.getAccesoriosHogar().remove(new ArticuloHogarOfadDTO((ArticuloHogarDTO) artEliminado));
+				}
+				if(artEliminado instanceof ArticuloRopaDTO){
+					oferta.getRopa().remove(new ArticuloRopaOfadDTO((ArticuloRopaDTO)artEliminado));
+				}
 
 				request.getSession().setAttribute("ofertas", oferta);
 				
@@ -105,7 +111,6 @@ import uade.web.xml.util.XMLParser;
 			}
 		}else if(ACTION_GENERATE.equalsIgnoreCase(request.getParameter("action"))){
 			uade.server.beans.dto.xml.Ofad oferta = (uade.server.beans.dto.xml.Ofad) request.getSession().getAttribute("ofertas");
-			//TODO - Generate XML (it is supposed that its already saved)
 			
 			String xml = XMLParser.parse(oferta);
 			
@@ -113,8 +118,6 @@ import uade.web.xml.util.XMLParser;
 		}else if(ACTION_DISCARD.equalsIgnoreCase(request.getParameter("action"))){
 			try {
 				uade.server.beans.dto.xml.Ofad oferta = (uade.server.beans.dto.xml.Ofad) request.getSession().getAttribute("ofertas");
-	
-				//TODO - Delete offer from database
 				CasaCentralDelegator.getInstance().eliminarOfad(oferta);
 				
 				//FORWARD

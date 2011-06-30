@@ -43,6 +43,22 @@
 			});
 		});
 		
+		
+		$(".show-complete-art").click(function(){
+			var ref = $(this).attr("art-id")
+			 $.ajax({
+			      url: "AjaxArticulo",
+			   	  type: "POST",
+			      data: {
+			      	action: "<%= AjaxArticulo.ACTION_SHOW_COMPLETE%>",
+			      	referencia: ref 
+			      },
+			      success: function(msg){
+						jqAlert(msg,"Articulo Completo");
+				  }
+			});
+		});
+		
 		$("#button-alta").click(function(){
 			$("#ropa-mes").datepicker(
 			{ 
@@ -199,7 +215,8 @@
 				<td><%=art.getPrecio() %></td>
 				<td><%=art.getType() %></td>
 				<td>
-					<img class="clickable delete-art" src="img/del.png" art-id="<%=art.getReferencia() %>">
+					<img class="clickable delete-art" src="img/del.png"  title="Eliminar Articulo" art-id="<%=art.getReferencia() %>">
+					<img class="clickable show-complete-art" src="img/look.gif" title="Mostrar Completo" art-id="<%=art.getReferencia() %>">
 				</td>
 			</tr>
 			<%
@@ -328,3 +345,4 @@
 
 </body>
 </html>
+

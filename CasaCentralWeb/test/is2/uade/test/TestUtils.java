@@ -1,6 +1,7 @@
 package is2.uade.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import uade.server.beans.dto.ArticuloHogarDTO;
@@ -21,6 +22,7 @@ public class TestUtils {
 		m.setMedidas("12x12x12");
 		m.setNombre("Mesa Robinson Raton");
 		m.setPrecio(new Float(12));
+		m.setMesRebaja(new Date());
 		//m.setReferencia();
 		m.setSeccion("Casa");
 		return m;
@@ -37,6 +39,7 @@ public class TestUtils {
 		m.setOrigen("Francia");
 		m.setSeccion("Pantalones");
 		m.setTalle("L");
+		m.setMesRebaja(new Date());
 		return m;
 	}
 	
@@ -97,6 +100,7 @@ public class TestUtils {
 			m.setOrigen("Argentina");
 			m.setSeccion("Pantalones");
 			m.setTalle("L");
+			m.setMesRebaja(new Date());
 		}
 		articulos.add(m);
 		
@@ -110,6 +114,7 @@ public class TestUtils {
 			m2.setOrigen("Asia");
 			m2.setSeccion("Pantalones");
 			m2.setTalle("L");
+			m2.setMesRebaja(new Date());
 		}
 		articulos.add(m2);
 		
@@ -134,6 +139,7 @@ public class TestUtils {
 			m2.setMedidas("150x200cm");
 			m2.setNombre("Alfombra Cebra");
 			m2.setPrecio(new Float(349));
+			m2.setMesRebaja(new Date());
 			//m.setReferencia();
 			m2.setSeccion("Alfombra");
 		}
@@ -150,6 +156,7 @@ public class TestUtils {
 			m.setPrecio(new Float(399.00));
 			//m.setReferencia();
 			m.setSeccion("Alfombra");
+			m.setMesRebaja(new Date());
 		}
 		articulos.add(m);
 		

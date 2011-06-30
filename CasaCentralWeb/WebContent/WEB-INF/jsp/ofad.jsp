@@ -3,10 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="uade.server.beans.dto.ArticuloDTO"%>
 <%@page import="uade.server.beans.dto.xml.Ofad"%>
-<%@page import="uade.server.beans.dto.ArticuloRopaDTO"%>
-<%@page import="uade.server.beans.dto.ArticuloHogarDTO"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
+<%@page import="uade.server.beans.dto.ArticuloHogarOfadDTO"%>
+<%@page import="uade.server.beans.dto.ArticuloRopaOfadDTO"%>
 <html>
 <head>
 <title>Zara</title>
@@ -80,7 +80,7 @@
 					<th> </th>
 				</tr>
 				<%
-				for(ArticuloHogarDTO r : ofad.getAccesoriosHogar()){
+				for(ArticuloHogarOfadDTO r : ofad.getAccesoriosHogar()){
 					%>
 						<tr>
 							<td><%=r.getReferencia() %></td>
@@ -119,7 +119,7 @@
 					<th> </th>
 				</tr>
 				<%
-				for(ArticuloRopaDTO r : ofad.getRopa()){
+				for(ArticuloRopaOfadDTO r : ofad.getRopa()){
 					%>
 						<tr>
 							<td><%=r.getReferencia() %></td>

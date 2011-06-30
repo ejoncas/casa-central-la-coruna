@@ -15,7 +15,10 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloHogarOfadDTO;
+import uade.server.beans.dto.ArticuloOfadDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloRopaOfadDTO;
 import uade.server.beans.dto.EnvioDTO;
 import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
 import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
@@ -26,6 +29,7 @@ import uade.server.beans.dto.xml.Palc;
 import uade.server.beans.dto.xml.Soldist;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.basic.FloatConverter;
 
 public class XMLParser {
 	
@@ -55,8 +59,6 @@ public class XMLParser {
 		
 		//OFAD Aliases
 		xs.alias("ofad", Ofad.class);
-		xs.alias("articulo", ArticuloRopaDTO.class);
-		xs.alias("accesorio", ArticuloHogarDTO.class);
 		xs.aliasField("accesorios-hogar", Ofad.class, "accesoriosHogar");
 		
 		//SOLDIST Aliases
@@ -71,13 +73,26 @@ public class XMLParser {
 		//NUEVOART Aliases
 		xs.alias("nuevoArt", NuevoartHogar.class);
 		xs.alias("nuevoArt", NuevoartRopa.class);
-		xs.aliasField("ref", ArticuloDTO.class, "referencia");
 		
-		//Ignores
+		
+
 		xs.omitField(ArticuloDTO.class, "mesRebaja");
 		xs.omitField(ArticuloDTO.class, "centros");
-		xs.omitField(Ofad.class, "id");
 		xs.omitField(ArticuloDTO.class, "type");
+		xs.omitField(ArticuloDTO.class, "descuento");
+		xs.aliasField("ref", ArticuloDTO.class, "referencia");
+		
+		xs.omitField(ArticuloOfadDTO.class, "centros");
+		xs.omitField(ArticuloOfadDTO.class, "type");
+		xs.omitField(ArticuloOfadDTO.class, "mesRebaja");
+		xs.aliasField("ref", ArticuloOfadDTO.class, "referencia");
+		
+		xs.alias("articulo", ArticuloRopaDTO.class);
+		xs.alias("accesorio", ArticuloHogarDTO.class);
+		xs.alias("articulo", ArticuloRopaOfadDTO.class);
+		xs.alias("accesorio", ArticuloHogarOfadDTO.class);
+		
+		xs.omitField(Ofad.class, "id");
 		xs.omitField(Palc.class, "centroDistribucion");
 		
 		

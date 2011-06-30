@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
+import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
@@ -32,6 +33,7 @@ import uade.web.xml.util.XMLParser;
    public static String ACTION_EDIT = "EDIT";
    public static String ACTION_DEL = "DELETE";
    public static String ACTION_NEW = "NEW";
+   public static String ACTION_SHOW_COMPLETE = "SHOW_COMPLETE";
    
 	public AjaxArticulo() {
 		super();
@@ -131,6 +133,17 @@ import uade.web.xml.util.XMLParser;
 			}else if(ACTION_EDIT.equalsIgnoreCase(action)){
 				//TODO - Create and Edit User in the server			
 				//NOT REQUIRED IN THIS VERSION
+			}else if(ACTION_SHOW_COMPLETE.equalsIgnoreCase(action)){
+				Long ref = Long.valueOf(request.getParameter("referencia"));
+				ArticuloDTO articuloDto =bussinesDelegator.obtenerArticulo(ref);
+				
+				if(articuloDto instanceof ArticuloRopaDTO){
+					NuevoartRopa nuevo = new NuevoartRopa((ArticuloRopaDTO) articuloDto);
+					msg = nuevo.toString();
+				}else if (articuloDto instanceof ArticuloHogarDTO){
+					NuevoartHogar nuevo = new NuevoartHogar((ArticuloHogarDTO) articuloDto);
+					msg = nuevo.toString();
+				}
 			}else{
 				msg =  "Accion desconocida";
 			}
