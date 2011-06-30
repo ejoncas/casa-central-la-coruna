@@ -3,13 +3,7 @@ package uade.server.beans.dto;
 import java.io.Serializable;
 
 
-public class ArticuloHogarDTO extends ArticuloDTO  implements Serializable{
-	
-	
-	@Override
-	public String toString() {
-		return super.toString()+" - Nombre: "+this.nombre+" - Composicion: "+this.composicion+" - Medidas: "+this.medidas+" - Categoria: "+this.categoria;
-	}
+public class ArticuloHogarOfadDTO extends ArticuloOfadDTO  implements Serializable{
 	
 	/**
 	 * 
@@ -22,7 +16,7 @@ public class ArticuloHogarDTO extends ArticuloDTO  implements Serializable{
 	
 	
 	
-	public ArticuloHogarDTO(String color, String descripcion, String linea,
+	public ArticuloHogarOfadDTO(String color, String descripcion, String linea,
 			Float precio, Long referencia, String seccion, String categoria,
 			String composicion, String medidas, String nombre) {
 		super(color, descripcion, linea, precio, referencia, seccion);
@@ -32,7 +26,15 @@ public class ArticuloHogarDTO extends ArticuloDTO  implements Serializable{
 		this.nombre = nombre;
 	}
 	
-	public ArticuloHogarDTO() {
+	public ArticuloHogarOfadDTO(ArticuloHogarDTO dto){
+			super(dto);
+			this.nombre = dto.getNombre();
+			this.composicion = dto.getComposicion();
+			this.medidas = dto.getMedidas();
+			this.categoria = dto.getCategoria();
+	}
+	
+	public ArticuloHogarOfadDTO() {
 		super();
 	}
 

@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import uade.server.beans.dto.ArticuloHogarDTO;
-import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloHogarOfadDTO;
+import uade.server.beans.dto.ArticuloRopaOfadDTO;
 
 public class Ofad implements Serializable{
 	
@@ -14,37 +14,44 @@ public class Ofad implements Serializable{
 	 */
 	private static final long serialVersionUID = 6470058182955672580L;
 	private Long id;
-	private Set<ArticuloHogarDTO> accesoriosHogar;
-	private Set<ArticuloRopaDTO> ropa;
+	
+	private Set<ArticuloRopaOfadDTO> ropa;
+	private Set<ArticuloHogarOfadDTO> accesoriosHogar;
 	
 	public Ofad(){
-		accesoriosHogar = new HashSet<ArticuloHogarDTO>();
-		ropa = new HashSet<ArticuloRopaDTO>();
+		accesoriosHogar = new HashSet<ArticuloHogarOfadDTO>();
+		ropa = new HashSet<ArticuloRopaOfadDTO>();
 	}
 	
-	public Set<ArticuloHogarDTO> getAccesoriosHogar() {
+
+	public Set<ArticuloHogarOfadDTO> getAccesoriosHogar() {
 		return accesoriosHogar;
 	}
 
-	public void setAccesoriosHogar(Set<ArticuloHogarDTO> accesoriosHogar) {
+
+	public void setAccesoriosHogar(Set<ArticuloHogarOfadDTO> accesoriosHogar) {
 		this.accesoriosHogar = accesoriosHogar;
 	}
 
-	public void setRopa(Set<ArticuloRopaDTO> ropa) {
-		this.ropa = ropa;
-	}
-	public Set<ArticuloRopaDTO> getRopa() {
+
+	public Set<ArticuloRopaOfadDTO> getRopa() {
 		return ropa;
 	}
 
-	public void addArticuloRopa(ArticuloRopaDTO r){
+
+	public void setRopa(Set<ArticuloRopaOfadDTO> ropa) {
+		this.ropa = ropa;
+	}
+
+
+	public void addArticuloRopa(ArticuloRopaOfadDTO r){
 		if(this.ropa == null)
-			this.ropa = new HashSet<ArticuloRopaDTO>();
+			this.ropa = new HashSet<ArticuloRopaOfadDTO>();
 		this.ropa.add(r);
 	}
-	public void addArticuloHogar(ArticuloHogarDTO h){
+	public void addArticuloHogar(ArticuloHogarOfadDTO h){
 		if(this.accesoriosHogar ==null)
-			this.accesoriosHogar = new HashSet<ArticuloHogarDTO>();
+			this.accesoriosHogar = new HashSet<ArticuloHogarOfadDTO>();
 		this.accesoriosHogar.add(h);
 	}
 	public Long getId() {
@@ -53,6 +60,4 @@ public class Ofad implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-
 }

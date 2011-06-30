@@ -3,13 +3,8 @@ package uade.server.beans.dto;
 import java.io.Serializable;
 
 
-public class ArticuloRopaDTO extends ArticuloDTO  implements Serializable{
+public class ArticuloRopaOfadDTO extends ArticuloOfadDTO  implements Serializable{
 	
-	
-	@Override
-	public String toString() {
-		return super.toString()+" - Talle: "+this.talle+" - Origen: "+this.origen;
-	}
 	/**
 	 * 
 	 */
@@ -20,16 +15,23 @@ public class ArticuloRopaDTO extends ArticuloDTO  implements Serializable{
 	
 	
 	
-	public ArticuloRopaDTO(String color, String descripcion, String linea,
+	public ArticuloRopaOfadDTO(String color, String descripcion, String linea,
 			Float precio, Long referencia, String seccion, String origen,
 			String talle) {
 		super(color, descripcion, linea, precio, referencia, seccion);
 		this.origen = origen;
 		this.talle = talle;
 	}
-	public ArticuloRopaDTO() {
+	public ArticuloRopaOfadDTO() {
 		super();
 	}
+	
+	public ArticuloRopaOfadDTO(ArticuloRopaDTO dto){
+		super(dto);
+		this.talle = dto.getTalle();
+		this.origen = dto.getOrigen();
+	}
+	
 	public String getTalle() {
 		return talle;
 	}

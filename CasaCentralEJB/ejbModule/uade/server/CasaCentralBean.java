@@ -22,7 +22,9 @@ import uade.server.beans.SolDist;
 import uade.server.beans.Tienda;
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloHogarOfadDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloRopaOfadDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.ItemPedidoDTO;
 import uade.server.beans.dto.PedidoDTO;
@@ -219,13 +221,13 @@ public class CasaCentralBean implements CasaCentral{
 	private Ofad mapearOfertasToDto(Oferta ofertas) {
 		Ofad ofad =  new Ofad();
 		
-		Set<ArticuloRopaDTO> ropa = new HashSet<ArticuloRopaDTO>();
-		Set<ArticuloHogarDTO> hogar = new HashSet<ArticuloHogarDTO>();
+		Set<ArticuloRopaOfadDTO> ropa = new HashSet<ArticuloRopaOfadDTO>();
+		Set<ArticuloHogarOfadDTO> hogar = new HashSet<ArticuloHogarOfadDTO>();
 		for(Articulo a : ofertas.getArticulos()){
 			if(a instanceof ArticuloHogar)
-				hogar.add((ArticuloHogarDTO) a.getDTO());
+				hogar.add((ArticuloHogarOfadDTO) a.getOfadDTO());
 			else if (a instanceof ArticuloRopa)
-				ropa.add((ArticuloRopaDTO) a.getDTO());
+				ropa.add((ArticuloRopaOfadDTO) a.getOfadDTO());
 		}
 		
 		ofad.setAccesoriosHogar(hogar);
@@ -247,10 +249,10 @@ public class CasaCentralBean implements CasaCentral{
 
 	private Oferta mapearDtoToOferta(Ofad ofadDto) {
 		Oferta ofad =  new Oferta();
-		for(ArticuloHogarDTO art : ofadDto.getAccesoriosHogar()){
+		for(ArticuloHogarOfadDTO art : ofadDto.getAccesoriosHogar()){
 			ofad.addArticulo(new ArticuloHogar(art));
 		}
-		for(ArticuloRopaDTO ropa : ofadDto.getRopa()){
+		for(ArticuloRopaOfadDTO ropa : ofadDto.getRopa()){
 			ofad.addArticulo(new ArticuloRopa(ropa));
 		}
 		ofad.setId(ofadDto.getId());

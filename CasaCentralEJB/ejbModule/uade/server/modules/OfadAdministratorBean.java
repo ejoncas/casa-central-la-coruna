@@ -1,5 +1,6 @@
 package uade.server.modules;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,6 +23,14 @@ public class OfadAdministratorBean implements OfadAdministrator{
 	
 	@PersistenceContext 
     private EntityManager em;
+	
+	
+	private static float DESC_1_PEDIDO = .1f;
+	private static float DESC_2_PEDIDO = .1f;
+	private static float NO_DISCOUNT = 0.0f;
+	
+	public OfadAdministratorBean(){
+	}
 
 	/**
 	 * Descripción: consiste en la generación del listado de artículos que pueden ser 
@@ -64,6 +73,12 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		articulos.addAll(obtenerArticulosPedidosPor2TiendasUltimas2Semanas());
 		//Los artículos nuevos, que no fueron incluidos en alguna OfAD previa
 		articulos.addAll(obtenerArticulosNoIncluidosEnOfadsPrevias());
+		
+		//Aplicar descuentos
+		for(Articulo a : articulos){
+			a.setDescuento(getDescuentoParaArticulo(a));
+		}
+		
 		return articulos;
 	}
 
@@ -74,6 +89,42 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		return articulosEnOfad;
 	}
 
+	@SuppressWarnings("unchecked")
+	private Float getDescuentoParaArticulo(Articulo a) {
+		if (isEnMesDeRebaja(a)) {// si esta en mes de rebaja
+
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.add(Calendar.DATE, -15);
+			List<Articulo> articulos = em.createQuery(
+					"SELECT ip.articulo FROM Pedido p "
+							+ "INNER JOIN p.items as ip "
+							+ "WHERE p.fechaPedido > :hace2Semanas")
+					.setParameter("hace2Semanas", calendar.getTime())
+					.getResultList();
+			if (articulos != null) {
+				Integer cantidadDePedidos = articulos.size();
+				if (cantidadDePedidos == 0)
+					return DESC_2_PEDIDO;
+				else if (cantidadDePedidos >= 1)
+					return DESC_1_PEDIDO;
+			}
+		}
+		return NO_DISCOUNT;
+
+	}
+
+	private boolean isEnMesDeRebaja(Articulo art) {
+		if (art != null && art.getMesRebaja() != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("MM");
+			Integer mesRebaja = Integer
+					.parseInt(sdf.format(art.getMesRebaja()));
+			Integer mesActual = Integer.parseInt(sdf.format(new Date()));
+			return mesActual == mesRebaja;
+		}
+		return false;
+	}
+	
+	//FIXME - debe tener al menos 2 tiendas
 	@SuppressWarnings("unchecked")
 	private List<Articulo> obtenerArticulosPedidosPor2TiendasUltimas2Semanas() {
 		Calendar calendar = GregorianCalendar.getInstance();

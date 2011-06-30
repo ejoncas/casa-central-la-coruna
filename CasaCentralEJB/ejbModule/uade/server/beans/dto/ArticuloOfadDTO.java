@@ -1,42 +1,29 @@
-package uade.server.beans;
+package uade.server.beans.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import uade.server.beans.dto.ArticuloDTO;
-import uade.server.beans.dto.ArticuloOfadDTO;
-
-@Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Articulo {
+public abstract class ArticuloOfadDTO implements Serializable{
 	
-	@Id @GeneratedValue
 	private Long referencia;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaAlta;
 	private String seccion;
 	private Float precio;
-	@Transient
-	private Float descuento;
-	private Date mesRebaja;
 	private String color;
 	private String linea;
+	private Date mesRebaja;
 	private String descripcion;
-	@ManyToMany
-	private List<CentroDistribucion> centros;
+	private String type;
+	private List<CentroDistribucionDTO> centros;
+	private Integer descuento;
 	
-	public Articulo(String color, String descripcion, String linea,
+	/* TYPES */
+	public static String TYPE_ROPA = "Ropa";
+	public static String TYPE_HOGAR = "Hogar";
+	
+	
+	public ArticuloOfadDTO(String color, String descripcion, String linea,
 			Float precio, Long referencia, String seccion) {
 		super();
 		this.color = color;
@@ -45,14 +32,30 @@ public abstract class Articulo {
 		this.precio = precio;
 		this.referencia = referencia;
 		this.seccion = seccion;
-		this.fechaAlta = new Date();
-		centros = new ArrayList<CentroDistribucion>();
+		this.descuento = 0;
+		centros = new ArrayList<CentroDistribucionDTO>();
 	}
 	
-	public Articulo() {
+	public ArticuloOfadDTO(ArticuloDTO dto){
 		super();
-		centros = new ArrayList<CentroDistribucion>();
-		fechaAlta = new Date();
+		this.referencia = dto.getReferencia();
+		this.color = dto.getColor();
+		this.descripcion = dto.getDescripcion();
+		this.linea = dto.getLinea();
+		this.seccion = dto.getSeccion();
+		if(dto.getDescuento()!=null)
+			this.descuento = dto.getDescuento().intValue();
+		this.centros = dto.getCentros();
+	}
+	
+	public ArticuloOfadDTO() {
+		super();
+		this.color = "";
+		this.descripcion = "";
+		this.linea = "";
+		this.seccion = "";
+		this.descuento = 0;
+		centros = new ArrayList<CentroDistribucionDTO>();
 	}
 
 	public Long getReferencia() {
@@ -90,25 +93,22 @@ public abstract class Articulo {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}	
-	
-	public abstract ArticuloDTO getDTO();
-	public abstract ArticuloOfadDTO getOfadDTO();
+	}
 
-	public List<CentroDistribucion> getCentros() {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<CentroDistribucionDTO> getCentros() {
 		return centros;
 	}
 
-	public void setCentros(List<CentroDistribucion> centros) {
+	public void setCentros(List<CentroDistribucionDTO> centros) {
 		this.centros = centros;
-	}
-
-	public Date getFechaAlta() {
-		return fechaAlta;
-	}
-
-	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
 	}
 
 	public Date getMesRebaja() {
@@ -118,6 +118,8 @@ public abstract class Articulo {
 	public void setMesRebaja(Date mesRebaja) {
 		this.mesRebaja = mesRebaja;
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -136,7 +138,7 @@ public abstract class Articulo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final Articulo other = (Articulo) obj;
+		final ArticuloOfadDTO other = (ArticuloOfadDTO) obj;
 		if (referencia == null) {
 			if (other.referencia != null)
 				return false;
@@ -145,13 +147,12 @@ public abstract class Articulo {
 		return true;
 	}
 
-	public Float getDescuento() {
+	public Integer getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(Float descuento) {
+	public void setDescuento(Integer descuento) {
 		this.descuento = descuento;
 	}
-	
 
 }

@@ -20,4 +20,9 @@ public class NuevoartHogar {
 	public void setAccesorio(ArticuloHogarDTO accesorio) {
 		this.accesorio = accesorio;
 	}
+	
+	@Override
+	public String toString() {
+		return accesorio.toString();
+	}
 }

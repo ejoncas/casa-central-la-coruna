@@ -19,6 +19,12 @@ public class NuevoartRopa {
 	public void setRopa(ArticuloRopaDTO ropa) {
 		this.ropa = ropa;
 	}
+	@Override
+	public String toString() {
+		return ropa.toString();
+	}
+	
+	
 	
 	
 	

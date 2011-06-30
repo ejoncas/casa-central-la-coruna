@@ -20,7 +20,8 @@ public class PalcAdministratorBean implements PalcAdministrator{
     private EntityManager em;
 	
 	private CentroDeDistribucionLocator locator;
-
+	
+	
 	public PalcAdministratorBean(){
 		locator = new CentroDeDistribucionLocator();
 	}
@@ -33,7 +34,6 @@ public class PalcAdministratorBean implements PalcAdministrator{
 
 	public void ingresarPedido(Pedido p) {
 		Tienda tienda  = getTiendaById(p.getTienda().getId());
-		p.getFechaPedido().setMonth(3);
 		CentroDistribucion cdMasCercano = locator.obtenerCentroMasCercano(tienda, getCentrosDistribucion());
 		
 		p.setCentroDeDistribucion(cdMasCercano);

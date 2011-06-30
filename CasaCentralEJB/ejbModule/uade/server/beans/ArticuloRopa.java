@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloOfadDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
+import uade.server.beans.dto.ArticuloRopaOfadDTO;
 
 @Entity
 public class ArticuloRopa extends Articulo{
@@ -25,6 +27,18 @@ public class ArticuloRopa extends Articulo{
 		super();
 	}
 	public ArticuloRopa(ArticuloRopaDTO a) {
+		super();
+		setColor(a.getColor());
+		setSeccion(a.getSeccion());
+		setPrecio(a.getPrecio());
+		setLinea(a.getLinea());
+		setDescripcion(a.getDescripcion());
+		this.origen = a.getOrigen();
+		this.talle = a.getTalle();
+		setMesRebaja(a.getMesRebaja());
+		setFechaAlta(new Date());
+	}
+	public ArticuloRopa(ArticuloRopaOfadDTO a) {
 		super();
 		setColor(a.getColor());
 		setSeccion(a.getSeccion());
@@ -55,6 +69,7 @@ public class ArticuloRopa extends Articulo{
 		dto.setDescripcion(getDescripcion());
 		dto.setLinea(getLinea());
 		dto.setOrigen(getOrigen());
+		dto.setDescuento(getDescuento());
 		dto.setPrecio(getPrecio());
 		dto.setReferencia(getReferencia());
 		dto.setSeccion(getSeccion());
@@ -63,6 +78,22 @@ public class ArticuloRopa extends Articulo{
 		dto.setMesRebaja(getMesRebaja());
 		return dto;
 	}
-	
+	@Override
+	public ArticuloOfadDTO getOfadDTO() {
+		ArticuloRopaOfadDTO dto = new ArticuloRopaOfadDTO();
+		dto.setColor(getColor());
+		dto.setDescripcion(getDescripcion());
+		dto.setLinea(getLinea());
+		dto.setOrigen(getOrigen());
+		dto.setPrecio(getPrecio());
+		if(getDescuento()!=null)
+			dto.setDescuento((int)(getDescuento()*100));
+		dto.setReferencia(getReferencia());
+		dto.setSeccion(getSeccion());
+		dto.setTalle(getTalle());
+		dto.setType(ArticuloHogarDTO.TYPE_ROPA);
+		dto.setMesRebaja(getMesRebaja());
+		return dto;
+	}
 
 }

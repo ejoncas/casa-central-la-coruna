@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 
 import uade.server.beans.dto.ArticuloDTO;
 import uade.server.beans.dto.ArticuloHogarDTO;
+import uade.server.beans.dto.ArticuloHogarOfadDTO;
+import uade.server.beans.dto.ArticuloOfadDTO;
 
 @Entity
 public class ArticuloHogar extends Articulo{
@@ -33,6 +35,21 @@ public class ArticuloHogar extends Articulo{
 	}
 
 	public ArticuloHogar(ArticuloHogarDTO a) {
+		super();
+		this.categoria = a.getCategoria();
+		this.composicion = a.getComposicion();
+		this.medidas = a.getMedidas();
+		this.nombre = a.getNombre();
+		setColor(a.getColor());
+		setSeccion(a.getSeccion());
+		setPrecio(a.getPrecio());
+		setLinea(a.getLinea());
+		setDescripcion(a.getDescripcion());
+		setMesRebaja(a.getMesRebaja());
+		setFechaAlta(new Date());
+	}
+
+	public ArticuloHogar(ArticuloHogarOfadDTO a) {
 		super();
 		this.categoria = a.getCategoria();
 		this.composicion = a.getComposicion();
@@ -85,6 +102,27 @@ public class ArticuloHogar extends Articulo{
 		dto.setPrecio(getPrecio());
 		dto.setReferencia(getReferencia());
 		dto.setSeccion(getSeccion());
+		dto.setType(ArticuloHogarDTO.TYPE_HOGAR);
+		dto.setDescuento(getDescuento());
+		dto.setMesRebaja(getMesRebaja());
+		return dto;
+	}
+
+	@Override
+	public ArticuloOfadDTO getOfadDTO() {
+		ArticuloHogarOfadDTO dto = new ArticuloHogarOfadDTO();
+		dto.setCategoria(getCategoria());
+		dto.setColor(getColor());
+		dto.setComposicion(getComposicion());
+		dto.setDescripcion(getDescripcion());
+		dto.setLinea(getLinea());
+		dto.setMedidas(getMedidas());
+		dto.setNombre(getNombre());
+		dto.setPrecio(getPrecio());
+		dto.setReferencia(getReferencia());
+		dto.setSeccion(getSeccion());
+		if(getDescuento()!=null)
+			dto.setDescuento((int) (getDescuento()*100));
 		dto.setType(ArticuloHogarDTO.TYPE_HOGAR);
 		dto.setMesRebaja(getMesRebaja());
 		return dto;

@@ -7,6 +7,11 @@ import java.util.List;
 
 public abstract class ArticuloDTO implements Serializable{
 	
+	@Override
+	public String toString() {
+		return "ID: "+referencia+" - Seccion: "+seccion+" - Precio: "+precio+" - Color: "+this.color+" - Linea: "+this.linea+
+		" - Descripcion: "+this.descripcion;
+	}	
 	private Long referencia;
 	private String seccion;
 	private Float precio;
@@ -16,7 +21,7 @@ public abstract class ArticuloDTO implements Serializable{
 	private String descripcion;
 	private String type;
 	private List<CentroDistribucionDTO> centros;
-	private String descuento;
+	private Float descuento;
 	
 	/* TYPES */
 	public static String TYPE_ROPA = "Ropa";
@@ -37,6 +42,11 @@ public abstract class ArticuloDTO implements Serializable{
 	
 	public ArticuloDTO() {
 		super();
+		this.color = "";
+		this.descripcion = "";
+		this.linea = "";
+		this.seccion = "";
+		this.descuento = 0.0f;
 		centros = new ArrayList<CentroDistribucionDTO>();
 	}
 
@@ -127,12 +137,13 @@ public abstract class ArticuloDTO implements Serializable{
 		return true;
 	}
 
-	public String getDescuento() {
+	public Float getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(String descuento) {
+	public void setDescuento(Float descuento) {
 		this.descuento = descuento;
 	}
+
 	
 }
