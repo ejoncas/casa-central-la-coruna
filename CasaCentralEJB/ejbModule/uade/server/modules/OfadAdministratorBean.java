@@ -95,10 +95,13 @@ public class OfadAdministratorBean implements OfadAdministrator{
 
 			Calendar calendar = GregorianCalendar.getInstance();
 			calendar.add(Calendar.DATE, -15);
+			//-Los artículos que fueron solicitados por al menos 2 tiendas en las últimas 2 semanas
 			List<Articulo> articulos = em.createQuery(
 					"SELECT ip.articulo FROM Pedido p "
 							+ "INNER JOIN p.items as ip "
-							+ "WHERE p.fechaPedido > :hace2Semanas")
+							+ "WHERE p.fechaPedido > :hace2Semanas " +
+									"GROUP BY p.tienda " +
+									"HAVING COUNT(p.tienda) > 2")
 					.setParameter("hace2Semanas", calendar.getTime())
 					.getResultList();
 			if (articulos != null) {
@@ -124,12 +127,14 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		return false;
 	}
 	
-	//FIXME - debe tener al menos 2 tiendas
 	@SuppressWarnings("unchecked")
 	private List<Articulo> obtenerArticulosPedidosPor2TiendasUltimas2Semanas() {
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.add(Calendar.DATE, -15);
-		List<Pedido> pedidos = em.createQuery("SELECT p FROM Pedido p WHERE p.fechaPedido > :hace2Semanas")
+		List<Pedido> pedidos = em.createQuery("SELECT p FROM Pedido p " +
+				"WHERE p.fechaPedido > :hace2Semanas "+
+				"GROUP BY p.tienda " +
+				"HAVING COUNT(p.tienda) > 2")
 								.setParameter("hace2Semanas", calendar.getTime()).getResultList();
 		List<Articulo> articulos = new ArrayList<Articulo>();
 		for(Pedido p: pedidos){
