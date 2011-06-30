@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -69,7 +72,7 @@ public class XMLParser {
 		xs.alias("nuevoArt", NuevoartHogar.class);
 		xs.alias("nuevoArt", NuevoartRopa.class);
 		xs.aliasField("ref", ArticuloDTO.class, "referencia");
-
+		
 		//Ignores
 		xs.omitField(ArticuloDTO.class, "mesRebaja");
 		xs.omitField(ArticuloDTO.class, "centros");
@@ -93,8 +96,11 @@ public class XMLParser {
 		return xs.fromXML(f);
 	}
 	
-	public static synchronized void parseAndSave(Object o , File f) throws FileNotFoundException{
-		xs.toXML(o,new FileOutputStream(f));
+	public static synchronized void parseAndSave(Object o , File f) throws IOException{
+		FileOutputStream outputStream = new FileOutputStream(f);
+		Writer writer = new OutputStreamWriter(outputStream, "UTF-8");
+		writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+		xs.toXML(o,writer);	
 	}
 
 	public static void generateXmlAndSave(Object xmlObject){
@@ -103,7 +109,8 @@ public class XMLParser {
 		try {
 			parseAndSave(xmlObject, new File(dirFile));
 		}
-		catch (FileNotFoundException e) {e.printStackTrace();}
+		catch (FileNotFoundException e) {e.printStackTrace();} 
+		catch (IOException e) {e.printStackTrace();}
 	}
 
 }
