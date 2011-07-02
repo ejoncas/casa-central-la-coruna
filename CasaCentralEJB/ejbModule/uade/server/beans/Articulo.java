@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -21,7 +20,7 @@ import uade.server.beans.dto.ArticuloOfadDTO;
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Articulo {
 	
-	@Id @GeneratedValue
+	@Id
 	private Long referencia;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAlta;
