@@ -84,6 +84,7 @@
 								      data: ({
 								      		//Ropa Fields
 								      		action: "<%= AjaxArticulo.ACTION_NEW%>",
+								      		referencia: $("#ropa-referencia").val(),
 								      		type: "R",
 								      		linea: $("#ropa-linea").val(),
 								      		desc: $("#ropa-desc").val(),
@@ -138,6 +139,7 @@
 									      		//Hogar Fields
 									      		action: "<%= AjaxArticulo.ACTION_NEW%>",
 									      		type: "H",
+									      		referencia: $("#hog-referencia").val(),
 									      		nombre: $("#hog-nombre").val(),
 									      		desc: $("#hog-desc").val(),
 									      		linea: $("#hog-linea").val(),
@@ -266,6 +268,9 @@
 				<td><label for="origen">Mes de Descuento</label></td><td><input type="text" name="ropa-mes" id="ropa-mes" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
+				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="ropa-referencia" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
 				<td colspan="4">Centros de Distribucion Asociados</td>
 			</tr>	
 				<%
@@ -320,6 +325,9 @@
 					</select>
 				</td>
 								<td><label for="origen">Mes de Descuento</label></td><td><input type="text" name="hog-mes" id="hog-mes" value="" class="text ui-widget-content ui-corner-all" /></td>
+			</tr>
+						<tr>
+				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="hog-referencia" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
 				<td colspan="4">Centros de Distribucion Asociados</td>

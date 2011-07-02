@@ -54,6 +54,7 @@ import uade.web.xml.util.XMLParser;
 					//Type Ropa
 					ArticuloRopaDTO a = new ArticuloRopaDTO();
 					
+					a.setReferencia(Long.valueOf(request.getParameter("referencia")));
 					a.setColor(request.getParameter("color"));
 					a.setDescripcion(request.getParameter("desc"));
 					a.setLinea(request.getParameter("linea"));
@@ -89,6 +90,7 @@ import uade.web.xml.util.XMLParser;
 					//Type Hogar
 					ArticuloHogarDTO a = new ArticuloHogarDTO();
 					
+					a.setReferencia(Long.valueOf(request.getParameter("referencia")));
 					a.setColor(request.getParameter("color"));
 					a.setDescripcion(request.getParameter("desc"));
 					a.setLinea(request.getParameter("linea"));
