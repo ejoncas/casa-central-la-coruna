@@ -2,9 +2,9 @@
 <persistence>
 	<persistence-unit name="CasaCentral">
 		<!-- Mysql Local -->
-		<!-- <jta-data-source>java:/MYSQLLOCAL</jta-data-source> --> 
+		<jta-data-source>java:/MYSQLLOCAL</jta-data-source> 
 		<!-- MSSQL Laboratorio piso 702 -->
-		<jta-data-source>java:/MSSQLDS</jta-data-source>
+		<!-- <jta-data-source>java:/MSSQLDS</jta-data-source> -->
 		<properties>
 			<!--<property name="hibernate.hbm2ddl.auto" value="update" /> --> 
 			 <property name="hibernate.hbm2ddl.auto" value="create" />  
