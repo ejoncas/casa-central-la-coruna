@@ -1,4 +1,4 @@
-package uade.web.xml.util;
+package uade.server.service.xml.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,7 +29,6 @@ import uade.server.beans.dto.xml.Palc;
 import uade.server.beans.dto.xml.Soldist;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.basic.FloatConverter;
 
 public class XMLParser {
 	

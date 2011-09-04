@@ -15,9 +15,9 @@ import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.xml.ItemPedidoXml2DTO;
 import uade.server.beans.dto.xml.Soldist;
 import uade.server.exception.CasaCentralException;
+import uade.server.service.xml.util.XMLParser;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
-import uade.web.xml.util.XMLParser;
 
 /**
  * Servlet implementation class for Servlet: DownloadXml

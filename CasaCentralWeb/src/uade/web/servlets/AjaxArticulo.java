@@ -19,9 +19,9 @@ import uade.server.beans.dto.CentroDistribucionDTO;
 import uade.server.beans.dto.xml.NuevoartHogar;
 import uade.server.beans.dto.xml.NuevoartRopa;
 import uade.server.exception.CasaCentralException;
+import uade.server.service.xml.util.XMLParser;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
-import uade.web.xml.util.XMLParser;
 
 /**
  * Servlet implementation class for Servlet: AjaxArticulo

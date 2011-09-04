@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import uade.server.beans.dto.xml.Palc;
-import uade.web.xml.util.XMLParser;
+import uade.server.service.xml.util.XMLParser;
 
 public class XMLParserTest {
 

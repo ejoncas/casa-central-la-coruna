@@ -22,9 +22,9 @@ import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.xml.Palc;
 import uade.server.exception.CasaCentralException;
+import uade.server.service.xml.util.XMLParser;
 import uade.web.bussiness.CasaCentralDelegator;
 import uade.web.exception.WebApplicationException;
-import uade.web.xml.util.XMLParser;
 
 /**
  * Servlet implementation class for Servlet: Pedido
