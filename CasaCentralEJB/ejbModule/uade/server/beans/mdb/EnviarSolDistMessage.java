@@ -24,7 +24,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 //Especifico tipo y nombre logico de la cola de destino
 @MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/queueLC1") })
+		@ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/queueTienda1") })
 public class EnviarSolDistMessage implements MessageListener {
 
 	public void onMessage(Message arg0) {
@@ -39,7 +39,7 @@ public class EnviarSolDistMessage implements MessageListener {
 			InitialContext ctx = new InitialContext(props);
 			
 			// lookup the queue object
-			Queue queue = (Queue) ctx.lookup("queue/queueLC1");
+			Queue queue = (Queue) ctx.lookup("queue/queueTienda1");
 			// lookup the queue connection factory
 			QueueConnectionFactory connFactory = (QueueConnectionFactory) ctx.lookup("queue/connectionFactory");
 			
@@ -52,7 +52,7 @@ public class EnviarSolDistMessage implements MessageListener {
 			queueSender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 			
 			// create a simple message to say "Hello"
-			TextMessage message = queueSession.createTextMessage("Hello");
+			TextMessage message = queueSession.createTextMessage("Hello Tienda1");
 			// send the message
 			queueSender.send(message);
 			// print what we did
