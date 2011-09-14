@@ -12,6 +12,8 @@ public class CentroDistribucionDTO  implements Serializable{
     private double latitud;
     private double longitud;
     private String nombre;
+    private String ip;
+    private String queueName;
     
     
     
@@ -53,5 +55,17 @@ public class CentroDistribucionDTO  implements Serializable{
     public void setLongitud(double longitud) {
             this.longitud = longitud;
     }
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getQueueName() {
+		return queueName;
+	}
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
     
 }

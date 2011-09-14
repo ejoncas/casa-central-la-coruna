@@ -14,6 +14,8 @@ public class Tienda {
     private double latitud;
     private double longitud;
     private String nombre;
+    private String ip;
+    private String queueName;
     
     public Tienda(){}
     public Tienda(Long id){
@@ -51,6 +53,20 @@ public class Tienda {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-    
-    
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getQueueName() {
+		return queueName;
+	}
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
+	
 }

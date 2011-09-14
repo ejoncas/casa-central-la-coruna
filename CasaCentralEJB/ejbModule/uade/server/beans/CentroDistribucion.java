@@ -13,6 +13,8 @@ public class CentroDistribucion {
     private double latitud;
     private double longitud;
     private String nombre;
+    private String ip;
+    private String queueName;
     
     
     
@@ -50,10 +52,23 @@ public class CentroDistribucion {
     public void setLongitud(double longitud) {
             this.longitud = longitud;
     }
-    
-    @Override
+    public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getQueueName() {
+		return queueName;
+	}
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
+
+	@Override
     public String toString(){
     	return this.nombre;
     }
+    
     
 }
