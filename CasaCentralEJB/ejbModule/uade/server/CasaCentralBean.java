@@ -2,12 +2,12 @@ package uade.server;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
@@ -26,25 +26,32 @@ import uade.server.beans.dto.ArticuloHogarOfadDTO;
 import uade.server.beans.dto.ArticuloRopaDTO;
 import uade.server.beans.dto.ArticuloRopaOfadDTO;
 import uade.server.beans.dto.CentroDistribucionDTO;
-import uade.server.beans.dto.ItemPedidoDTO;
 import uade.server.beans.dto.PedidoDTO;
 import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.mapper.DTOMapper;
 import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
+import uade.server.beans.dto.xml.NuevoartHogar;
+import uade.server.beans.dto.xml.NuevoartRopa;
 import uade.server.beans.dto.xml.Ofad;
 import uade.server.beans.dto.xml.Palc;
+import uade.server.beans.dto.xml.Soldist;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
 import uade.server.modules.OfadAdministrator;
 import uade.server.modules.PalcAdministrator;
 import uade.server.modules.SolDistAdministrator;
+import uade.server.service.client.JMSClient;
+import uade.server.service.xml.util.XMLParser;
+import uade.server.service.xml.util.XmlMapper;
 
 
 @Stateless
 public class CasaCentralBean implements CasaCentral{
 
 	private static final Logger logger = Logger.getLogger(CasaCentralBean.class);
+	
+	private static final boolean JMS_ENABLED = true;
 	/**
 	 * EJB Modules
 	 */
@@ -62,6 +69,7 @@ public class CasaCentralBean implements CasaCentral{
 	public ArticuloHogarDTO nuevoArtCasa(ArticuloHogarDTO a) throws CasaCentralException {
 		logger.info("Creando nuevo articulo de Hogar");
 		
+		
 		ArticuloHogar ah = new ArticuloHogar(a);
 		
 		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
@@ -71,14 +79,30 @@ public class CasaCentralBean implements CasaCentral{
 		}
 		ah.setCentros(centros);
 		articuloAdministrator.nuevoArtCasa(ah);
-		
 		a.setReferencia(ah.getReferencia());
+		
+		//JMS call - Thread? 
+		enviarNuevoArtHogarJMS(a);
+		
 		logger.info("Articulo Hogar Creado. REF: #"+ah.getReferencia());
 		return a;
 	}
 
+	private void enviarNuevoArtHogarJMS(ArticuloHogarDTO a) {
+		if (JMS_ENABLED) {
+			JMSClient client = JMSClient.getInstance();
+			try {
+				client.sendMessageToFabrica(XMLParser.parse(new NuevoartHogar(a)));
+				client.stop();
+			} 
+			catch (JMSException e) {e.printStackTrace();} 
+			catch (NamingException e) {e.printStackTrace();}
+		}
+	}
+
 	public ArticuloRopaDTO nuevoArtRopa(ArticuloRopaDTO a) throws CasaCentralException {
 		logger.info("Creando nuevo articulo de Ropa");
+		
 		
 		ArticuloRopa ar = new ArticuloRopa(a);
 		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
@@ -88,12 +112,26 @@ public class CasaCentralBean implements CasaCentral{
 		}
 		ar.setCentros(centros);
 		articuloAdministrator.nuevoArtRopa(ar);
-		
 		a.setReferencia(ar.getReferencia());
+		
+		enviarNuevoArtRopaJMS(a);
 		logger.info("Articulo Ropa Creado. REF: #"+ar.getReferencia());
 		return a;
 	}
 
+	private void enviarNuevoArtRopaJMS(ArticuloRopaDTO a) {
+		if (JMS_ENABLED) {
+			JMSClient client = JMSClient.getInstance();
+			try {
+				client.sendMessageToFabrica(XMLParser.parse(new NuevoartRopa(a)));
+				client.stop();
+			} 
+			catch (JMSException e) {e.printStackTrace();} 
+			catch (NamingException e) {e.printStackTrace();}
+		}
+	}
+
+	/** Called by WS **/
 	public PedidoDTO ingresarPredido(Palc pedido, TiendaDTO tienda)
 			throws CasaCentralException {
 		logger.info("Ingresando Pedido");
@@ -115,7 +153,6 @@ public class CasaCentralBean implements CasaCentral{
 			p.setTienda(palcAdministrator.getTienda(tienda.getId()));
 		}
 		palcAdministrator.ingresarPedido(p);
-		
 		return new PedidoDTO(p);
 	}
 
@@ -166,75 +203,40 @@ public class CasaCentralBean implements CasaCentral{
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException {
 		logger.info("Generando solicitudes de Distribucion");
 		List<SolDist> solicitudes = solDistAdministrator.generarSolicitudDistribucion();
-		List<SolDistDTO> r = mapearDto(solicitudes);
+		List<SolDistDTO> r = XmlMapper.mapearDto(solicitudes);
+		
+		enviarSolicitudesDistribucionJMS(r);
+		
 		return r;
 	}
 
-	private List<SolDistDTO> mapearDto(List<SolDist> solicitudes) {
-		List<SolDistDTO> r = new ArrayList<SolDistDTO>();
-		for(SolDist sd : solicitudes){
-			SolDistDTO dto = mapearDto(sd);
-			r.add(dto);
+	private void enviarSolicitudesDistribucionJMS(List<SolDistDTO> r) {
+		if (JMS_ENABLED) {
+			try {
+				JMSClient client = JMSClient.getInstance();
+				for (SolDistDTO sd : r) {
+					Soldist xmlDto = XmlMapper.mapSolDistXml(sd);
+					CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(sd.getCentroDistribucion(), CentroDistribucion.class);
+					client.enviarSolDist(XMLParser.parse(xmlDto), cd);
+				}
+			} 
+			catch (JMSException e) { e.printStackTrace(); } 
+			catch (NamingException e) { e.printStackTrace(); }
 		}
-		return r;
-	}
-
-	private SolDistDTO mapearDto(SolDist sd) {
-		SolDistDTO dto = new SolDistDTO();
-		
-		dto.setCentroDistribucion(
-				(CentroDistribucionDTO) DTOMapper.map(sd.getCentroDistribucion(), 
-						CentroDistribucionDTO.class));
-		
-		dto.setId(sd.getId());
-		List<PedidoDTO> pedidosDto = new ArrayList<PedidoDTO>();
-		for(Pedido pa : sd.getPedidosAEntregar()){
-			PedidoDTO pdto = new PedidoDTO();
-			pdto.setCentroDeDistribucion((CentroDistribucionDTO) DTOMapper.map(pa.getCentroDeDistribucion(), 
-					CentroDistribucionDTO.class));
-			pdto.setFechaPedido(pa.getFechaPedido());
-			pdto.setProcesado(pa.getProcesado());
-			pdto.setTienda((TiendaDTO) DTOMapper.map(pa.getTienda(), TiendaDTO.class));
-			List<ItemPedidoDTO> items = new ArrayList<ItemPedidoDTO>();
-			for(ItemPedido ip: pa.getItems()){
-				items.add(ip.getDTO());
-			}
-			pdto.setItems(items);
-			pedidosDto.add(pdto);
-		}
-		dto.setPedidosAEntregar(pedidosDto);
-		return dto;
 	}
 
 	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException {
 		logger.info("Obteniendo Solicitud de Distribucio. ID #"+idSoldist);
 		SolDist soldist = solDistAdministrator.obtenerSolicitudDistribucion(idSoldist);
-		return mapearDto(soldist);
+		return XmlMapper.mapearDto(soldist);
 	}
 
 	public Ofad obtenerOfad() throws CasaCentralException {
 		Oferta oferta = ofadAdministrator.obtenerOfad();
-		Ofad ofads = mapearOfertasToDto(oferta);
+		Ofad ofads = XmlMapper.mapearOfertasToDto(oferta);
 		return ofads;
 	}
 
-	private Ofad mapearOfertasToDto(Oferta ofertas) {
-		Ofad ofad =  new Ofad();
-		
-		Set<ArticuloRopaOfadDTO> ropa = new HashSet<ArticuloRopaOfadDTO>();
-		Set<ArticuloHogarOfadDTO> hogar = new HashSet<ArticuloHogarOfadDTO>();
-		for(Articulo a : ofertas.getArticulos()){
-			if(a instanceof ArticuloHogar)
-				hogar.add((ArticuloHogarOfadDTO) a.getOfadDTO());
-			else if (a instanceof ArticuloRopa)
-				ropa.add((ArticuloRopaOfadDTO) a.getOfadDTO());
-		}
-		
-		ofad.setAccesoriosHogar(hogar);
-		ofad.setRopa(ropa);
-		ofad.setId(ofertas.getId());
-		return ofad;
-	}
 
 	public ArticuloDTO obtenerArticulo(Long ref) {
 		logger.info("Obteniendo articulo con id #"+ref);
@@ -279,6 +281,28 @@ public class CasaCentralBean implements CasaCentral{
 	public void eliminarOfad(Ofad oferta) throws CasaCentralException {
 		Oferta o = mapearDtoToOferta(oferta);
 		ofadAdministrator.eliminarOfad(o);
+	}
+
+	public void enviarOfad(Ofad oferta) throws CasaCentralException {
+		String xml = XMLParser.parse(oferta);
+		
+		List<Tienda> tiendas = ofadAdministrator.obtenerTiendas();
+		
+		for(Tienda tienda : tiendas) { 
+			enviarOfadJMS(xml, tienda);
+		}
+	}
+
+	private void enviarOfadJMS(String xml, Tienda tienda) {
+		if (JMS_ENABLED) { 
+			JMSClient client = JMSClient.getInstance();
+			try {
+				client.enviarOfad(xml, tienda);
+				client.stop();
+			} 
+			catch (JMSException e) {e.printStackTrace();} 
+			catch (NamingException e) {e.printStackTrace();}
+		}
 	}
 
 }

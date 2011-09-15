@@ -1,9 +1,12 @@
 package uade.server.modules;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import uade.server.beans.Articulo;
 import uade.server.beans.Oferta;
+import uade.server.beans.Tienda;
 
 @Local
 public interface OfadAdministrator {
@@ -19,5 +22,7 @@ public interface OfadAdministrator {
 	Articulo eliminarArtOfad(Oferta ofer, Articulo art);
 
 	void eliminarOfad(Oferta o);
+
+	List<Tienda> obtenerTiendas();
 
 }

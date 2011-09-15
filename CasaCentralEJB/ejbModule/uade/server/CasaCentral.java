@@ -55,6 +55,7 @@ public interface CasaCentral {
 	public void nuevoCentroDeDistribucion(CentroDistribucionDTO centro) throws CasaCentralException;
 	public List<SolDistDTO> generarSolicitudDistribucion() throws CasaCentralException;
 	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException;
+	public void enviarOfad(Ofad oferta) throws CasaCentralException;
 	
 
 }

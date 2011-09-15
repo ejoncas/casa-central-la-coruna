@@ -17,6 +17,7 @@ import uade.server.beans.Articulo;
 import uade.server.beans.ItemPedido;
 import uade.server.beans.Oferta;
 import uade.server.beans.Pedido;
+import uade.server.beans.Tienda;
 
 @Stateless
 public class OfadAdministratorBean implements OfadAdministrator{
@@ -179,4 +180,10 @@ public class OfadAdministratorBean implements OfadAdministrator{
 		em.remove(oferta);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Tienda> obtenerTiendas() {
+		List<Tienda> tiendas = em.createQuery("SELECT t FROM Tienda t").getResultList();
+		return tiendas;
+	}
+	
 }

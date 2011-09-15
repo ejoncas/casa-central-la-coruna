@@ -115,6 +115,15 @@ import uade.web.exception.WebApplicationException;
 			String xml = XMLParser.parse(oferta);
 			
 			response.getWriter().write(xml);
+			
+			
+			try {
+				CasaCentralDelegator.getInstance().enviarOfad(oferta);
+			} catch (CasaCentralException e) {
+				e.printStackTrace();
+			} catch (WebApplicationException e) {
+				e.printStackTrace();
+			}
 		}else if(ACTION_DISCARD.equalsIgnoreCase(request.getParameter("action"))){
 			try {
 				uade.server.beans.dto.xml.Ofad oferta = (uade.server.beans.dto.xml.Ofad) request.getSession().getAttribute("ofertas");

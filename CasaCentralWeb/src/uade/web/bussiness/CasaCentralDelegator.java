@@ -131,4 +131,8 @@ public class CasaCentralDelegator implements CasaCentral{
 		casaCentral.eliminarOfad(oferta);
 	}
 
+	public void enviarOfad(Ofad oferta)  throws CasaCentralException {
+		casaCentral.enviarOfad(oferta);
+	}
+
 }
