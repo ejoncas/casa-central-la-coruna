@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import uade.server.beans.Articulo;
 import uade.server.beans.ArticuloHogar;
 import uade.server.beans.ArticuloRopa;
+import uade.server.beans.CentroDistribucion;
 
 @Stateless
 public class NuevoArtAdministratorBean implements NuevoArtAdministrator{
@@ -39,6 +40,10 @@ public class NuevoArtAdministratorBean implements NuevoArtAdministrator{
 	public Articulo getArticuloById(Long ref) {
 		 Query query = em.createQuery("SELECT a FROM Articulo a WHERE a.referencia=?").setParameter(1, ref);
 		 return (Articulo) query.getSingleResult();
+	}
+
+	public CentroDistribucion obtenerCentroDistribucion(Long ref) {
+		return em.find(CentroDistribucion.class, ref);
 	}
 
 }

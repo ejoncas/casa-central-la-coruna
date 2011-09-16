@@ -43,6 +43,7 @@ public abstract class ArticuloOfadDTO implements Serializable{
 		this.descripcion = dto.getDescripcion();
 		this.linea = dto.getLinea();
 		this.seccion = dto.getSeccion();
+		this.precio = dto.getPrecio();
 		if(dto.getDescuento()!=null)
 			this.descuento = dto.getDescuento().intValue();
 		this.centros = dto.getCentros();

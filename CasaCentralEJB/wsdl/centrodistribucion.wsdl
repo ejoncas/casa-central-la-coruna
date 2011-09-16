@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="RecibirSolDistWSService" targetNamespace="http://ws/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xs:schema targetNamespace="http://ws/" version="1.0" xmlns:tns="http://ws/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="recibirSolDist" type="tns:recibirSolDist"/>
+   <xs:element name="recibirSolDistResponse" type="tns:recibirSolDistResponse"/>
+   <xs:complexType name="recibirSolDist">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="xmlSolDist" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="recibirSolDistResponse">
+    <xs:sequence>
+     <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+  </types>
+  <message name="RecibirSolDistWS_recibirSolDistResponse">
+    <part name="recibirSolDistResponse" element="tns:recibirSolDistResponse">
+    </part>
+  </message>
+  <message name="RecibirSolDistWS_recibirSolDist">
+    <part name="recibirSolDist" element="tns:recibirSolDist">
+    </part>
+  </message>
+  <portType name="RecibirSolDistWS">
+    <operation name="recibirSolDist" parameterOrder="recibirSolDist">
+      <input message="tns:RecibirSolDistWS_recibirSolDist">
+    </input>
+      <output message="tns:RecibirSolDistWS_recibirSolDistResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="RecibirSolDistWSBinding" type="tns:RecibirSolDistWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="recibirSolDist">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="RecibirSolDistWSService">
+    <port name="RecibirSolDistWSPort" binding="tns:RecibirSolDistWSBinding">
+      <soap:address location="http://localhost:8080/TP_CuatrimestralEAR-TP_Cuatrimestral/RecibirSolDistWS"/>
+    </port>
+  </service>
+</definitions>

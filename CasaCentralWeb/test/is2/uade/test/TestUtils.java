@@ -46,18 +46,18 @@ public class TestUtils {
 	public static List<CentroDistribucionDTO> obtenerCentros(){
 		List<CentroDistribucionDTO> centros = new ArrayList<CentroDistribucionDTO>();
 		//TORTUGUITAS
-		centros.add(new CentroDistribucionDTO( 34.549549,58.573952,"TORTUGUITAS"));
+		centros.add(new CentroDistribucionDTO( 34.549549,58.573952,"TORTUGUITAS (GRUPO 11)"));
 		//UNICENTER
-		CentroDistribucionDTO unicenter = new CentroDistribucionDTO( 34.50203,58.52108,"UNICENTER");
+		CentroDistribucionDTO unicenter = new CentroDistribucionDTO( 34.50203,58.52108,"UNICENTER (GRUPO 6)");
 		centros.add(unicenter);
 		//PUNTA CARRETAS
-		centros.add(new CentroDistribucionDTO( 34.927601,56.160393,"PUNTA CARRETAS"));
+		centros.add(new CentroDistribucionDTO( 34.927601,56.160393,"PUNTA CARRETAS (GRUPO 5)"));
 		//MONTEVIDEO
-		centros.add(new CentroDistribucionDTO( 34.890578,56.155071,"MONTEVIDEO"));
+		centros.add(new CentroDistribucionDTO( 34.890578,56.155071,"MONTEVIDEO (GRUPO 10)"));
 		//PARQUE ARAUCO
-		centros.add(new CentroDistribucionDTO(33.46775,70.749872,"PARQUE ARAUCO"));
+		//centros.add(new CentroDistribucionDTO(33.46775,70.749872,"PARQUE ARAUCO"));
 		//MARINA CENTER
-		centros.add(new CentroDistribucionDTO(33.473836,70.601921,"MARINA CENTER"));
+		//centros.add(new CentroDistribucionDTO(33.473836,70.601921,"MARINA CENTER"));
 		
 		return centros;
 	}
@@ -65,24 +65,24 @@ public class TestUtils {
 	public static List<TiendaDTO> obtenerTiendas() {
 		List<TiendaDTO> tiendas = new ArrayList<TiendaDTO>();
 		//ARGENTINA
-		tiendas.add(new TiendaDTO("Tortuguitas",34.50981 ,58.573980));
-		tiendas.add(new TiendaDTO("Unicenter",34.433036,58.520935));
-		tiendas.add(new TiendaDTO("Santa Fé",34.551811,58.417225));
+		tiendas.add(new TiendaDTO("Tortuguitas (GRUPO 4)",34.50981 ,58.573980));
+		tiendas.add(new TiendaDTO("Unicenter (GRUPO 8)",34.433036,58.520935));
+	/*	tiendas.add(new TiendaDTO("Santa Fé",34.551811,58.417225));
 		tiendas.add(new TiendaDTO("Abasto",34.611807,58.417311));
 		tiendas.add(new TiendaDTO("Florida",34.61163,58.38418));
-		tiendas.add(new TiendaDTO("Paseo Alcorta",34.575154,58.404243));
+		tiendas.add(new TiendaDTO("Paseo Alcorta",34.575154,58.404243));*/
 		
 		//URUGUAY
-		tiendas.add(new TiendaDTO("Punta Carretas",34.919086,56.163054));
-		tiendas.add(new TiendaDTO("Montevideo Shopping",34.88931,56.058576));
+		tiendas.add(new TiendaDTO("Punta Carretas (GRUPO 3)",34.919086,56.163054));
+		//tiendas.add(new TiendaDTO("Montevideo Shopping",34.88931,56.058576));
 		
 		//CHILE
-		tiendas.add(new TiendaDTO("Parque Arauco", 33.465924, 70.655909));
-		tiendas.add(new TiendaDTO("Marina Center",33.389026,70.714874));
+		tiendas.add(new TiendaDTO("Parque Arauco (GRUPO 9)", 33.465924, 70.655909));
+		//tiendas.add(new TiendaDTO("Marina Center",33.389026,70.714874));
 		
-		tiendas.add(new TiendaDTO("Alto Las Condes",33.46912,70.641997));
+		/*tiendas.add(new TiendaDTO("Alto Las Condes",33.46912,70.641997));
 		tiendas.add(new TiendaDTO("Florida Center",33.467535,70.689468));
-		tiendas.add(new TiendaDTO("La Dehesa",33.401638, 70.583382));
+		tiendas.add(new TiendaDTO("La Dehesa",33.401638, 70.583382));*/
 		return tiendas;
 	}
 	

@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
@@ -41,7 +39,8 @@ import uade.server.modules.NuevoArtAdministrator;
 import uade.server.modules.OfadAdministrator;
 import uade.server.modules.PalcAdministrator;
 import uade.server.modules.SolDistAdministrator;
-import uade.server.service.client.JMSClient;
+import uade.server.service.client.JMSManager;
+import uade.server.service.client.SOAPManager;
 import uade.server.service.xml.util.XMLParser;
 import uade.server.service.xml.util.XmlMapper;
 
@@ -51,7 +50,7 @@ public class CasaCentralBean implements CasaCentral{
 
 	private static final Logger logger = Logger.getLogger(CasaCentralBean.class);
 	
-	private static final boolean JMS_ENABLED = true;
+	private static final boolean SERVICE_ENABLED = true;
 	/**
 	 * EJB Modules
 	 */
@@ -66,6 +65,23 @@ public class CasaCentralBean implements CasaCentral{
 	private SolDistAdministrator solDistAdministrator;
 	
 	
+	//FIXME Hacer un WebServiceManager que tenga tanto el JMS como el SOAP y extraer todas las llamadas de aca a ese servicio.
+	//Ese servicio tendria todos los flags para correr o no un cierto servicio y ademas correria todo en threads para evitar locks.
+	
+	//private WebServiceManager
+	
+	/**
+	 * JMS Manager
+	 */
+	@EJB
+	private JMSManager jmsManager;
+	
+	/**
+	 * WS Manager
+	 */
+	@EJB
+	private SOAPManager wsManager;
+	
 	public ArticuloHogarDTO nuevoArtCasa(ArticuloHogarDTO a) throws CasaCentralException {
 		logger.info("Creando nuevo articulo de Hogar");
 		
@@ -74,60 +90,55 @@ public class CasaCentralBean implements CasaCentral{
 		
 		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
 		for(CentroDistribucionDTO cdDto : a.getCentros()){
-			CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(cdDto, CentroDistribucion.class);
+			CentroDistribucion cd = this.articuloAdministrator.obtenerCentroDistribucion(cdDto.getId());
+			//CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(cdDto, CentroDistribucion.class);
 			centros.add(cd);
 		}
 		ah.setCentros(centros);
 		articuloAdministrator.nuevoArtCasa(ah);
 		a.setReferencia(ah.getReferencia());
 		
-		//JMS call - Thread? 
-		enviarNuevoArtHogarJMS(a);
+		enviarNuevoArtHogarJMS(a, centros);
 		
 		logger.info("Articulo Hogar Creado. REF: #"+ah.getReferencia());
 		return a;
 	}
 
-	private void enviarNuevoArtHogarJMS(ArticuloHogarDTO a) {
-		if (JMS_ENABLED) {
-			JMSClient client = JMSClient.getInstance();
-			try {
-				client.sendMessageToFabrica(XMLParser.parse(new NuevoartHogar(a)));
-				client.stop();
-			} 
-			catch (JMSException e) {e.printStackTrace();} 
-			catch (NamingException e) {e.printStackTrace();}
+	private void enviarNuevoArtHogarJMS(ArticuloHogarDTO a, List<CentroDistribucion> centros) {
+		if (SERVICE_ENABLED) {
+			String xml = XMLParser.parse(new NuevoartHogar(a));
+			jmsManager.enviarMensajeFabrica(xml);
+			for (CentroDistribucion centro : centros) {
+				jmsManager.enviarMensajeACentroDistribucion(xml, centro);
+			}
 		}
 	}
 
 	public ArticuloRopaDTO nuevoArtRopa(ArticuloRopaDTO a) throws CasaCentralException {
 		logger.info("Creando nuevo articulo de Ropa");
 		
-		
 		ArticuloRopa ar = new ArticuloRopa(a);
 		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
 		for(CentroDistribucionDTO cdDto : a.getCentros()){
-			CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(cdDto, CentroDistribucion.class);
+			CentroDistribucion cd = this.articuloAdministrator.obtenerCentroDistribucion(cdDto.getId());
 			centros.add(cd);
 		}
 		ar.setCentros(centros);
 		articuloAdministrator.nuevoArtRopa(ar);
 		a.setReferencia(ar.getReferencia());
 		
-		enviarNuevoArtRopaJMS(a);
+		enviarNuevoArtRopaJMS(a, centros);
 		logger.info("Articulo Ropa Creado. REF: #"+ar.getReferencia());
 		return a;
 	}
 
-	private void enviarNuevoArtRopaJMS(ArticuloRopaDTO a) {
-		if (JMS_ENABLED) {
-			JMSClient client = JMSClient.getInstance();
-			try {
-				client.sendMessageToFabrica(XMLParser.parse(new NuevoartRopa(a)));
-				client.stop();
-			} 
-			catch (JMSException e) {e.printStackTrace();} 
-			catch (NamingException e) {e.printStackTrace();}
+	private void enviarNuevoArtRopaJMS(ArticuloRopaDTO a, List<CentroDistribucion> centros) {
+		if (SERVICE_ENABLED) {
+			String xml = XMLParser.parse(new NuevoartRopa(a));
+			jmsManager.enviarMensajeFabrica(xml);
+			for (CentroDistribucion centro : centros) {
+				jmsManager.enviarMensajeACentroDistribucion(xml, centro);
+			}
 		}
 	}
 
@@ -205,23 +216,18 @@ public class CasaCentralBean implements CasaCentral{
 		List<SolDist> solicitudes = solDistAdministrator.generarSolicitudDistribucion();
 		List<SolDistDTO> r = XmlMapper.mapearDto(solicitudes);
 		
-		enviarSolicitudesDistribucionJMS(r);
+		enviarSolicitudesDistribucionWS(r);
 		
 		return r;
 	}
 
-	private void enviarSolicitudesDistribucionJMS(List<SolDistDTO> r) {
-		if (JMS_ENABLED) {
-			try {
-				JMSClient client = JMSClient.getInstance();
-				for (SolDistDTO sd : r) {
-					Soldist xmlDto = XmlMapper.mapSolDistXml(sd);
-					CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(sd.getCentroDistribucion(), CentroDistribucion.class);
-					client.enviarSolDist(XMLParser.parse(xmlDto), cd);
-				}
-			} 
-			catch (JMSException e) { e.printStackTrace(); } 
-			catch (NamingException e) { e.printStackTrace(); }
+	private void enviarSolicitudesDistribucionWS(List<SolDistDTO> r) {
+		if (SERVICE_ENABLED) {
+			for (SolDistDTO sd : r) {
+				Soldist xmlDto = XmlMapper.mapSolDistXml(sd);
+				CentroDistribucion cd = this.articuloAdministrator.obtenerCentroDistribucion(sd.getCentroDistribucion().getId());				
+				wsManager.enviarSolicitudDistribucion(XMLParser.parse(xmlDto), cd);
+			}
 		}
 	}
 
@@ -288,20 +294,16 @@ public class CasaCentralBean implements CasaCentral{
 		
 		List<Tienda> tiendas = ofadAdministrator.obtenerTiendas();
 		
-		for(Tienda tienda : tiendas) { 
-			enviarOfadJMS(xml, tienda);
-		}
+		enviarOfadJMS(xml, tiendas);
 	}
 
-	private void enviarOfadJMS(String xml, Tienda tienda) {
-		if (JMS_ENABLED) { 
-			JMSClient client = JMSClient.getInstance();
-			try {
-				client.enviarOfad(xml, tienda);
-				client.stop();
-			} 
-			catch (JMSException e) {e.printStackTrace();} 
-			catch (NamingException e) {e.printStackTrace();}
+	private void enviarOfadJMS(String xml, List<Tienda> tiendas) {
+		if (SERVICE_ENABLED) { 
+			for (Tienda t : tiendas) {
+				if (t.getJmsConnectionString() != null && !t.getJmsConnectionString().trim().equalsIgnoreCase("")) {
+					jmsManager.enviarOfadATienda(xml, t);
+				}
+			}
 		}
 	}
 
