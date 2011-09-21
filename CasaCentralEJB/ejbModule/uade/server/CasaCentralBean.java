@@ -29,18 +29,14 @@ import uade.server.beans.dto.SolDistDTO;
 import uade.server.beans.dto.TiendaDTO;
 import uade.server.beans.dto.mapper.DTOMapper;
 import uade.server.beans.dto.xml.ItemPedidoXmlDTO;
-import uade.server.beans.dto.xml.NuevoartHogar;
-import uade.server.beans.dto.xml.NuevoartRopa;
 import uade.server.beans.dto.xml.Ofad;
 import uade.server.beans.dto.xml.Palc;
-import uade.server.beans.dto.xml.Soldist;
 import uade.server.exception.CasaCentralException;
 import uade.server.modules.NuevoArtAdministrator;
 import uade.server.modules.OfadAdministrator;
 import uade.server.modules.PalcAdministrator;
 import uade.server.modules.SolDistAdministrator;
-import uade.server.service.client.JMSManager;
-import uade.server.service.client.SOAPManager;
+import uade.server.service.ServicesManager;
 import uade.server.service.xml.util.XMLParser;
 import uade.server.service.xml.util.XmlMapper;
 
@@ -49,8 +45,6 @@ import uade.server.service.xml.util.XmlMapper;
 public class CasaCentralBean implements CasaCentral{
 
 	private static final Logger logger = Logger.getLogger(CasaCentralBean.class);
-	
-	private static final boolean SERVICE_ENABLED = true;
 	/**
 	 * EJB Modules
 	 */
@@ -65,25 +59,13 @@ public class CasaCentralBean implements CasaCentral{
 	private SolDistAdministrator solDistAdministrator;
 	
 	
-	//FIXME Hacer un WebServiceManager que tenga tanto el JMS como el SOAP y extraer todas las llamadas de aca a ese servicio.
-	//Ese servicio tendria todos los flags para correr o no un cierto servicio y ademas correria todo en threads para evitar locks.
-	
-	//private WebServiceManager
-	
+
 	/**
-	 * JMS Manager
+	 * Web Service Facade
 	 */
-//	@EJB
-//	private JMSManager jmsManager;
-//	
-//	/**
-//	 * WS Manager
-//	 */
-//	@EJB
-//	private SOAPManager wsManager;
-//	
 	@EJB
 	private ServicesManager servicesManager;
+	
 	
 	public ArticuloHogarDTO nuevoArtCasa(ArticuloHogarDTO a) throws CasaCentralException {
 		logger.info("Creando nuevo articulo de Hogar");
@@ -94,7 +76,6 @@ public class CasaCentralBean implements CasaCentral{
 		List<CentroDistribucion> centros = new ArrayList<CentroDistribucion>();
 		for(CentroDistribucionDTO cdDto : a.getCentros()){
 			CentroDistribucion cd = this.articuloAdministrator.obtenerCentroDistribucion(cdDto.getId());
-			//CentroDistribucion cd = (CentroDistribucion) DTOMapper.map(cdDto, CentroDistribucion.class);
 			centros.add(cd);
 		}
 		ah.setCentros(centros);
@@ -106,16 +87,6 @@ public class CasaCentralBean implements CasaCentral{
 		logger.info("Articulo Hogar Creado. REF: #"+ah.getReferencia());
 		return a;
 	}
-
-//	private void enviarNuevoArtHogarJMS(ArticuloHogarDTO a, List<CentroDistribucion> centros) {
-//		if (SERVICE_ENABLED) {
-//			String xml = XMLParser.parse(new NuevoartHogar(a));
-//			jmsManager.enviarMensajeFabrica(xml);
-//			for (CentroDistribucion centro : centros) {
-//				jmsManager.enviarMensajeACentroDistribucion(xml, centro);
-//			}
-//		}
-//	}
 
 	public ArticuloRopaDTO nuevoArtRopa(ArticuloRopaDTO a) throws CasaCentralException {
 		logger.info("Creando nuevo articulo de Ropa");
@@ -131,19 +102,11 @@ public class CasaCentralBean implements CasaCentral{
 		a.setReferencia(ar.getReferencia());
 		
 		servicesManager.enviarNuevoArtRopaJMS(a, centros);
+		
 		logger.info("Articulo Ropa Creado. REF: #"+ar.getReferencia());
 		return a;
 	}
 
-//	private void enviarNuevoArtRopaJMS(ArticuloRopaDTO a, List<CentroDistribucion> centros) {
-//		if (SERVICE_ENABLED) {
-//			String xml = XMLParser.parse(new NuevoartRopa(a));
-//			jmsManager.enviarMensajeFabrica(xml);
-//			for (CentroDistribucion centro : centros) {
-//				jmsManager.enviarMensajeACentroDistribucion(xml, centro);
-//			}
-//		}
-//	}
 
 	/** Called by WS **/
 	public PedidoDTO ingresarPredido(Palc pedido, TiendaDTO tienda)
@@ -224,16 +187,6 @@ public class CasaCentralBean implements CasaCentral{
 		return r;
 	}
 
-//	private void enviarSolicitudesDistribucionWS(List<SolDistDTO> r) {
-//		if (SERVICE_ENABLED) {
-//			for (SolDistDTO sd : r) {
-//				Soldist xmlDto = XmlMapper.mapSolDistXml(sd);
-//				CentroDistribucion cd = this.articuloAdministrator.obtenerCentroDistribucion(sd.getCentroDistribucion().getId());				
-//				wsManager.enviarSolicitudDistribucion(XMLParser.parse(xmlDto), cd);
-//			}
-//		}
-//	}
-
 	public SolDistDTO obtenerSolicitudDistribucion(Long idSoldist) throws CasaCentralException {
 		logger.info("Obteniendo Solicitud de Distribucio. ID #"+idSoldist);
 		SolDist soldist = solDistAdministrator.obtenerSolicitudDistribucion(idSoldist);
@@ -299,15 +252,5 @@ public class CasaCentralBean implements CasaCentral{
 		
 		servicesManager.enviarOfadJMS(xml, tiendas);
 	}
-
-//	private void enviarOfadJMS(String xml, List<Tienda> tiendas) {
-//		if (SERVICE_ENABLED) { 
-//			for (Tienda t : tiendas) {
-//				if (t.getJmsConnectionString() != null && !t.getJmsConnectionString().trim().equalsIgnoreCase("")) {
-//					jmsManager.enviarOfadATienda(xml, t);
-//				}
-//			}
-//		}
-//	}
 
 }
