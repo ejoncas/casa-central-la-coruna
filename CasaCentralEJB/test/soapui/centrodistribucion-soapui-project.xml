@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="centrodistribucion" resourceRoot="" soapui-version="4.0.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="RecibirSolDistWSBinding" type="wsdl" bindingName="{http://ws/}RecibirSolDistWSBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/glomanto/Desktop/centrodistribucion.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/glomanto/Desktop/centrodistribucion.wsdl"><con:part><con:url>file:/C:/Users/glomanto/Desktop/centrodistribucion.wsdl</con:url><con:content><![CDATA[<definitions name="RecibirSolDistWSService" targetNamespace="http://ws/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xs:schema targetNamespace="http://ws/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="recibirSolDist" type="tns:recibirSolDist"/>
+      <xs:element name="recibirSolDistResponse" type="tns:recibirSolDistResponse"/>
+      <xs:complexType name="recibirSolDist">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="xmlSolDist" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="recibirSolDistResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="RecibirSolDistWS_recibirSolDistResponse">
+    <part name="recibirSolDistResponse" element="tns:recibirSolDistResponse"></part>
+  </message>
+  <message name="RecibirSolDistWS_recibirSolDist">
+    <part name="recibirSolDist" element="tns:recibirSolDist"></part>
+  </message>
+  <portType name="RecibirSolDistWS">
+    <operation name="recibirSolDist" parameterOrder="recibirSolDist">
+      <input message="tns:RecibirSolDistWS_recibirSolDist"></input>
+      <output message="tns:RecibirSolDistWS_recibirSolDistResponse"></output>
+    </operation>
+  </portType>
+  <binding name="RecibirSolDistWSBinding" type="tns:RecibirSolDistWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="recibirSolDist">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="RecibirSolDistWSService">
+    <port name="RecibirSolDistWSPort" binding="tns:RecibirSolDistWSBinding">
+      <soap:address location="http://localhost:8080/TP_CuatrimestralEAR-TP_Cuatrimestral/RecibirSolDistWS"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/TP_CuatrimestralEAR-TP_Cuatrimestral/RecibirSolDistWS</con:endpoint><con:endpoint>http://movistar40:8088/mockRecibirSolDistWSBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="recibirSolDist" bindingOperationName="recibirSolDist" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/TP_CuatrimestralEAR-TP_Cuatrimestral/RecibirSolDistWS</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ws:recibirSolDist>
+         <!--Optional:-->
+         <xmlSolDist>puto</xmlSolDist>
+      </ws:recibirSolDist>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws/RecibirSolDistWS/recibirSolDistRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService port="8088" path="/mockRecibirSolDistWSBinding" host="movistar40" name="RecibirSolDistWSBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="recibirSolDist" interface="RecibirSolDistWSBinding" operation="recibirSolDist"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ws:recibirSolDistResponse>
+         <return>?</return>
+      </ws:recibirSolDistResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws/RecibirSolDistWS/recibirSolDistResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/></con:soapui-project>
