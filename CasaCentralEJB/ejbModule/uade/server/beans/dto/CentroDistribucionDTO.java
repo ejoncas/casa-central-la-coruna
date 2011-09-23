@@ -32,6 +32,15 @@ public class CentroDistribucionDTO  implements Serializable{
 		this.longitud = longitud;
 		this.nombre = nombre;
 	}
+	
+	//lomantog - nuevo constructor para setear un id especifico a los centros de distribucion
+	public CentroDistribucionDTO(Long id, double latitud, double longitud, String nombre) {
+		super();
+		this.id = id;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.nombre = nombre;
+	}
     
     public CentroDistribucionDTO(){}
     public CentroDistribucionDTO(Long id){

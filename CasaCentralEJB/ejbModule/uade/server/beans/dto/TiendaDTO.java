@@ -20,6 +20,15 @@ public class TiendaDTO  implements Serializable{
     	this.latitud = d;
     	this.longitud = e;
 	}
+    
+    //lomantog - nuevo constructor para setear un id especifico a las tiendas
+    public TiendaDTO(Long id, String string, double d, double e) {
+    	this.id = id;
+    	this.nombre = string;
+    	this.latitud = d;
+    	this.longitud = e;
+	}
+    
 	public TiendaDTO() {}
 	public Long getId() {
             return id;
