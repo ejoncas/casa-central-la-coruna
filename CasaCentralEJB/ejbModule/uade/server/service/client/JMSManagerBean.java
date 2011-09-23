@@ -67,11 +67,10 @@ public class JMSManagerBean implements JMSManager {
 			e.printStackTrace();
 			logger.debug("JMS ERROR", e);
 		} finally {
-			try { send.close(); } catch (Throwable e) {}
-			try { conn.stop();} catch (Throwable e) {}
-			try { session.close();} catch (Throwable e) {}
+			coseSafely(conn, session, send);
 		}
 	}
+
 
 
 	public void enviarOfadATienda(String text, Tienda tienda) {
@@ -103,9 +102,7 @@ public class JMSManagerBean implements JMSManager {
 			e.printStackTrace();
 			logger.debug("JMS ERROR", e);
 		} finally {
-			try { send.close(); } catch (Throwable e) {}
-			try { conn.stop();} catch (Throwable e) {}
-			try { session.close();} catch (Throwable e) {}
+			coseSafely(conn, session, send);
 		}
 	}
 	
@@ -140,9 +137,7 @@ public class JMSManagerBean implements JMSManager {
 			e.printStackTrace();
 			logger.debug("JMS ERROR", e);
 		} finally {
-			try { send.close(); } catch (Throwable e) {}
-			try { conn.stop();} catch (Throwable e) {}
-			try { session.close();} catch (Throwable e) {}
+			coseSafely(conn, session, send);
 		}
 	}
 
@@ -153,5 +148,12 @@ public class JMSManagerBean implements JMSManager {
 		return props;
 	}
 	
+
+	private void coseSafely(QueueConnection conn, QueueSession session,
+			QueueSender send) {
+		try { send.close(); } catch (Throwable e) {}
+		try { conn.stop();} catch (Throwable e) {}
+		try { session.close();} catch (Throwable e) {}
+	}
 
 }
