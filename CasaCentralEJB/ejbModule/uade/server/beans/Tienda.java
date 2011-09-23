@@ -1,7 +1,6 @@
 package uade.server.beans;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import uade.server.beans.dto.TiendaDTO;
@@ -10,7 +9,6 @@ import uade.server.beans.dto.TiendaDTO;
 public class Tienda {
 
 	@Id
-	@GeneratedValue
 	private Long id;
 	private double latitud;
 	private double longitud;
@@ -35,6 +33,14 @@ public class Tienda {
 		this.nombre = nombre;
 		this.latitud = lat;
 		this.longitud = longi;
+	}
+	
+    //lomantog - nuevo constructor para setear un id especifico a las tiendas
+    public Tienda(Long id, String string, double d, double e) {
+    	this.id = id;
+    	this.nombre = string;
+    	this.latitud = d;
+    	this.longitud = e;
 	}
 
 	public Long getId() {

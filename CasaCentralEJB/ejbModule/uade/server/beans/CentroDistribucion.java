@@ -1,14 +1,12 @@
 package uade.server.beans;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class CentroDistribucion {
 
 	@Id
-	@GeneratedValue
 	private Long id;
 	private double latitud;
 	private double longitud;
@@ -27,6 +25,15 @@ public class CentroDistribucion {
 
 	public CentroDistribucion(double latitud, double longitud, String nombre) {
 		super();
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.nombre = nombre;
+	}
+	
+	//lomantog - nuevo constructor para setear un id especifico a los centros de distribucion
+	public CentroDistribucion(Long id, double latitud, double longitud, String nombre) {
+		super();
+		this.id = id;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.nombre = nombre;
