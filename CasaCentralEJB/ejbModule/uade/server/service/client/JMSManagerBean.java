@@ -39,26 +39,25 @@ public class JMSManagerBean implements JMSManager {
 
 	public void enviarMensajeFabrica(String text){
 		logger.debug("Enviando mensaje a la fabrica");
+		QueueConnection conn = null;
+		QueueSession session = null;
+		QueueSender send = null;
 		try {
 
 			// Setup the PTP connection, session
 			Context ctx = new InitialContext(getJmsPropiertiesForHost(config.getString("jms.connectionstring")));
 			QueueConnectionFactory qfactory = (QueueConnectionFactory) ctx.lookup(CONNECTION_FACTORY);
 			
-			QueueConnection conn = qfactory.createQueueConnection();
+			conn = qfactory.createQueueConnection();
 			Queue queue = (Queue) ctx.lookup(config.getString("jms.queue.lookup"));
-			QueueSession session = conn.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
+			session = conn.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
 			conn.start();
 			
 			//Send Message
-			QueueSender send = session.createSender(queue);
+			send = session.createSender(queue);
 			TextMessage tm = session.createTextMessage(text);
 			send.send(tm);
 			
-			//Close Resources
-			send.close();
-			conn.stop();
-			session.close();
 			logger.debug("Mensaje enviado a la fabrica satisfactoriamente. Mensaje [" + tm.getText() + "]");
 			
 		} catch (NamingException e) {
@@ -67,31 +66,34 @@ public class JMSManagerBean implements JMSManager {
 		} catch (JMSException e) {
 			e.printStackTrace();
 			logger.debug("JMS ERROR", e);
+		} finally {
+			try { send.close(); } catch (Throwable e) {}
+			try { conn.stop();} catch (Throwable e) {}
+			try { session.close();} catch (Throwable e) {}
 		}
 	}
 
 
 	public void enviarOfadATienda(String text, Tienda tienda) {
 		logger.debug("Comenzando el envio a la tienda con la IP nro: "+tienda.getJmsConnectionString()+" nombre: "+tienda.getNombre());
+		QueueConnection conn = null;
+		QueueSession session = null;
+		QueueSender send = null;
 		try{
 			//Config and get Connection
 			Context ctx = new InitialContext(getJmsPropiertiesForHost(tienda.getJmsConnectionString()));
 			QueueConnectionFactory qfactory = (QueueConnectionFactory) ctx.lookup(CONNECTION_FACTORY);
 			
-			QueueConnection conn = qfactory.createQueueConnection();
+			conn = qfactory.createQueueConnection();
 			Queue queue = (Queue) ctx.lookup(tienda.getQueueName());
-			QueueSession session = conn.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
+			session = conn.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
 			conn.start();
 			
 			//Send Message
-			QueueSender send = session.createSender(queue);
+			send = session.createSender(queue);
 			TextMessage tm = session.createTextMessage(text);
 			send.send(tm);
 			
-			//Close Resources
-			send.close();
-			conn.stop();
-			session.close();
 			logger.debug("Mensaje enviado a la tienda satisfactoriamente. Mensaje [ " + text +  "]. Tienda [" + tienda.getNombre() + "]");
 			
 		} catch (NamingException e) {
@@ -100,32 +102,35 @@ public class JMSManagerBean implements JMSManager {
 		} catch (JMSException e) {
 			e.printStackTrace();
 			logger.debug("JMS ERROR", e);
+		} finally {
+			try { send.close(); } catch (Throwable e) {}
+			try { conn.stop();} catch (Throwable e) {}
+			try { session.close();} catch (Throwable e) {}
 		}
 	}
 	
 	
 	public void enviarMensajeACentroDistribucion(String xml, CentroDistribucion cd) {
 		logger.debug("Comenzando el envio al CD con la IP nro: "+cd.getJmsConnectionString()+" nombre: "+cd.getNombre());
+		QueueConnection conn = null;
+		QueueSession session = null;
+		QueueSender send = null;
 		try {
 			//Config and get Connection
 			Context ctx = new InitialContext(getJmsPropiertiesForHost(cd.getJmsConnectionString()));
 			QueueConnectionFactory qfactory = (QueueConnectionFactory) ctx.lookup(CONNECTION_FACTORY);
 			
-			QueueConnection conn = qfactory.createQueueConnection();
+			conn = qfactory.createQueueConnection();
 			Queue queue = (Queue) ctx.lookup(cd.getQueueName());
-			QueueSession session = conn.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
+			session = conn.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
 			conn.start();
 			
 			
 			//Send Message
-			QueueSender send = session.createSender(queue);
+			send = session.createSender(queue);
 			TextMessage tm = session.createTextMessage(xml);
 			send.send(tm);
 			
-			//Close Resources
-			send.close();
-			conn.stop();
-			session.close();
 			logger.debug("Mensaje enviado al CD satisfactoriamente. Mensaje [ " + xml +  "]. CD [" + cd.getNombre() + "]");
 			
 		} catch (NamingException e) {
@@ -134,6 +139,10 @@ public class JMSManagerBean implements JMSManager {
 		} catch (JMSException e) {
 			e.printStackTrace();
 			logger.debug("JMS ERROR", e);
+		} finally {
+			try { send.close(); } catch (Throwable e) {}
+			try { conn.stop();} catch (Throwable e) {}
+			try { session.close();} catch (Throwable e) {}
 		}
 	}
 

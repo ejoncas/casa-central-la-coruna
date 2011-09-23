@@ -16,7 +16,7 @@ public abstract class ArticuloOfadDTO implements Serializable{
 	private String descripcion;
 	private String type;
 	private List<CentroDistribucionDTO> centros;
-	private Integer descuento;
+	private int descuento;
 	
 	/* TYPES */
 	public static String TYPE_ROPA = "Ropa";

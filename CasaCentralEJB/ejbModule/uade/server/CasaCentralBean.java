@@ -130,6 +130,7 @@ public class CasaCentralBean implements CasaCentral{
 			p.setTienda(palcAdministrator.getTienda(tienda.getId()));
 		}
 		palcAdministrator.ingresarPedido(p);
+		logger.info("Pedido ingresado correctamente : " + p);
 		return new PedidoDTO(p);
 	}
 

@@ -26,7 +26,19 @@ public class ServicesManagerBean implements ServicesManager{
 	 * FLAGS to enabled/disable ws by modules.
 	 */
 	private static final boolean FABRICA_ENABLED = true;
+	/*
+	 * Ofad Probada:
+	 * 		TIENDA - DIBELLO
+	 * 		TIENDA - MAJTAN (NOT YET)
+	 */
 	private static final boolean TIENDA_ENABLED = true;
+	/*
+	 * Nuevo articulo Probado:
+	 * 		CD - MATTAR
+	 * 		FABRICA - DOGHEL
+	 * 		
+	 * 		
+	 */
 	private static final boolean CENTRO_DISTRIBUCION_ENABLED = true;
 	
 	
