@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.apache.commons.lang.StringUtils;
+
 import uade.server.beans.CentroDistribucion;
 import uade.server.beans.Tienda;
 import uade.server.beans.dto.ArticuloHogarDTO;
@@ -29,14 +31,13 @@ public class ServicesManagerBean implements ServicesManager{
 	/*
 	 * Ofad Probada:
 	 * 		TIENDA - DIBELLO
-	 * 		TIENDA - MAJTAN (NOT YET)
+	 * 		TIENDA - MAJTAN
 	 */
 	private static final boolean TIENDA_ENABLED = true;
 	/*
 	 * Nuevo articulo Probado:
 	 * 		CD - MATTAR
 	 * 		FABRICA - DOGHEL
-	 * 		
 	 * 		
 	 */
 	private static final boolean CENTRO_DISTRIBUCION_ENABLED = true;
@@ -72,7 +73,8 @@ public class ServicesManagerBean implements ServicesManager{
 		}
 		if (CENTRO_DISTRIBUCION_ENABLED) { 
 			for (CentroDistribucion centro : centros) {
-				if (centro.getJmsConnectionString() != null && centro.getQueueName() !=null) {
+				if (StringUtils.isNotEmpty(centro.getJmsConnectionString()) && StringUtils.isNotEmpty(centro.getQueueName())) {
+//				if (centro.getJmsConnectionString() != null && centro.getQueueName() !=null) {
 					new Thread(new EnviarMensajeACentroDistribucionRunnable(xml, centro)).start();
 					//jmsManager.enviarMensajeACentroDistribucion(xml, centro);
 				}
@@ -97,7 +99,9 @@ public class ServicesManagerBean implements ServicesManager{
 	public void enviarOfadJMS(String xml, List<Tienda> tiendas) {
 		if (TIENDA_ENABLED) { 
 			for (Tienda t : tiendas) {
-				if (t.getJmsConnectionString()!= null && t.getQueueName()!=null) {
+				if (StringUtils.isNotEmpty(t.getJmsConnectionString()) 
+						&& StringUtils.isNotEmpty(t.getQueueName())) { 
+				//if (t.getJmsConnectionString()!= null && t.getQueueName()!=null) {
 					new Thread(new EnviarOfadATienda(xml, t)).start();
 					//jmsManager.enviarOfadATienda(xml, t);
 				}

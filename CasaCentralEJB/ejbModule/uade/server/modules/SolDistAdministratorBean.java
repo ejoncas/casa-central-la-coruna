@@ -33,9 +33,10 @@ public class SolDistAdministratorBean implements SolDistAdministrator {
 		List<CentroDistribucion> centros = obtenerCentrosDeDistribucion();
 		for (CentroDistribucion cd : centros) {
 			SolDist sd = new SolDist();
-			Query q = em.createQuery(
-							"SELECT p FROM Pedido p WHERE p.centroDeDistribucion.id=? AND p.procesado=?")
-					.setParameter(1, cd.getId()).setParameter(2, Boolean.FALSE);
+			final String query = "SELECT p FROM Pedido p WHERE p.centroDeDistribucion.id=? AND p.procesado=?";
+			Query q = em.createQuery(query)
+					.setParameter(1, cd.getId())
+					.setParameter(2, Boolean.FALSE);
 			sd.setCentroDistribucion(cd);
 			sd.setPedidosAEntregar(q.getResultList());
 			if (sd.getPedidosAEntregar().size() > 0) {// Si tiene articulos por entregar

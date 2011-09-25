@@ -68,12 +68,12 @@
 			$("#dialog-alta-articulo").dialog({
 						modal: true,
 						show: "blind",
-						width: 500,
+						width: 600,
 						buttons: {
 							Agregar: function() {
 								 var i = 0;
 								 var cds = new Array();
-								 $("#dialog-alta-articulo :checkbox[checked]").each(
+								 $("#dialog-alta-articulo :checkbox").each(
 								 	function(){
 								 		cds[i++] = $(this).val();
 								 	}
@@ -122,12 +122,12 @@
 			$("#dialog-alta-arthogar").dialog({
 							modal: true,
 							show: "blind",
-							width: 500,
+							width: 600,
 							buttons: {
 								Agregar: function() {
 								 var i = 0;
 								 var cds = new Array();
-								 $("#dialog-alta-arthogar :checkbox[checked]").each(
+								 $("#dialog-alta-arthogar :checkbox").each(
 								 	function(){
 								 		cds[i++] = $(this).val();
 								 	}
@@ -242,6 +242,9 @@
 		<fieldset>
 			<table>
 			<tr>
+				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="ropa-referencia" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
+			</tr>
+			<tr>
 				<td><label for="linea">Linea</label></td>
 				<td>
 					<select name="linea" id="ropa-linea" >
@@ -268,10 +271,7 @@
 				<td><label for="origen">Mes de Descuento</label></td><td><input type="text" name="ropa-mes" id="ropa-mes" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
-				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="ropa-referencia" value="" class="text ui-widget-content ui-corner-all" /></td>
-			</tr>
-			<tr>
-				<td colspan="4">Centros de Distribucion Asociados</td>
+				<td colspan="4" style="display: none;">Centros de Distribucion Asociados</td>
 			</tr>	
 				<%
 					List<CentroDistribucionDTO> centros = (List<CentroDistribucionDTO>)request.getAttribute("centros");
@@ -279,7 +279,7 @@
 					while(it.hasNext()){
 						CentroDistribucionDTO cd = it.next();
 				%>
-					<tr>
+					<tr style="display: none;">
 						<td><input type="checkbox" value="<%=cd.getId()%>" ></td><td><%=cd.getNombre() %></td>
 						<%if(it.hasNext()){ 
 							cd = it.next();%>
@@ -296,6 +296,9 @@
 <div style="display:none" id="dialog-alta-arthogar" title="Crear Nuevo Articulo de Hogar">
 		<form>
 		<table>
+			<tr>
+				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="hog-referencia" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
+			</tr>
 			<tr>
 				<td><label for="nombre">Nombre</label></td><td><input type="text" name="nombre" id="hog-nombre" value="" class="text ui-widget-content ui-corner-all" /></td>
 				<td><label for="desc">Descripcion</label></td><td><input type="text" name="desc" id="hog-desc" value="" class="text ui-widget-content ui-corner-all" /></td>
@@ -326,10 +329,7 @@
 				</td>
 								<td><label for="origen">Mes de Descuento</label></td><td><input type="text" name="hog-mes" id="hog-mes" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
-						<tr>
-				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="hog-referencia" value="" class="text ui-widget-content ui-corner-all" /></td>
-			</tr>
-			<tr>
+			<tr style="display: none;">
 				<td colspan="4">Centros de Distribucion Asociados</td>
 			</tr>	
 				<%
@@ -337,7 +337,7 @@
 					while(it.hasNext()){
 						CentroDistribucionDTO cd = it.next();
 				%>
-					<tr>
+					<tr style="display: none;">
 						<td><input type="checkbox" value="<%=cd.getId()%>" ></td><td><%=cd.getNombre() %></td>
 						<%if(it.hasNext()){ 
 							cd = it.next();%>
