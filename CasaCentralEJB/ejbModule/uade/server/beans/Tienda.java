@@ -1,6 +1,7 @@
 package uade.server.beans;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import uade.server.beans.dto.TiendaDTO;
@@ -9,6 +10,7 @@ import uade.server.beans.dto.TiendaDTO;
 public class Tienda {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	private double latitud;
 	private double longitud;

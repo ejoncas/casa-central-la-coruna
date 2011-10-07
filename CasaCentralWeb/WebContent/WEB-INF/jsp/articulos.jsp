@@ -242,7 +242,7 @@
 		<fieldset>
 			<table>
 			<tr>
-				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="ropa-referencia" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
+				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="ropa-referencia" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
 				<td><label for="linea">Linea</label></td>
@@ -297,7 +297,7 @@
 		<form>
 		<table>
 			<tr>
-				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="hog-referencia" value="" class="numeric text ui-widget-content ui-corner-all" /></td>
+				<td><label for="origen">REFERENCIA</label></td><td><input type="text" name="referencia" id="hog-referencia" value="" class="text ui-widget-content ui-corner-all" /></td>
 			</tr>
 			<tr>
 				<td><label for="nombre">Nombre</label></td><td><input type="text" name="nombre" id="hog-nombre" value="" class="text ui-widget-content ui-corner-all" /></td>
